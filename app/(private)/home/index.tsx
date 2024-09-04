@@ -1,10 +1,8 @@
-import { HistoricList } from '@/components/home/historic-list'
-import { TopMessage } from '@/components/home/top-message'
+import { HistoricList } from '@/components/routes/home/historic-list'
+import { TopMessage } from '@/components/routes/home/top-message'
 import { Box } from '@/components/ui/box'
-import { HStack } from '@/components/ui/hstack'
 import { Text } from '@/components/ui/text'
 import { VStack } from '@/components/ui/vstack'
-import { History } from 'lucide-react-native'
 import { useWindowDimensions } from 'react-native'
 
 export default function Home() {

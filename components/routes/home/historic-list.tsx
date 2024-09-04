@@ -1,7 +1,7 @@
 import { FlatList, useWindowDimensions, View } from 'react-native'
 import { HistoricCard } from './historic-card'
-import { Center } from '../ui/center'
-import { Text } from '../ui/text'
+import { Center } from '../../ui/center'
+import { Text } from '../../ui/text'
 
 export function HistoricList() {
   const data = [

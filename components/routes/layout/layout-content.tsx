@@ -15,9 +15,7 @@ import '@/global.css'
 import { AppProvider, UserProvider } from '@realm/react'
 import { VStack } from '@/components/ui/vstack'
 import { REALM_APP_ID } from '@env'
-import { Text } from '../ui/text'
-import { Slot, Stack } from 'expo-router'
-import { Signin } from '../signin/signin'
+import { Signin } from '../../signin/signin'
 
 interface LayoutContentProps {
   children: ReactNode

@@ -61,7 +61,8 @@
     "react-native-screens": "3.31.1",
     "react-native-svg": "^15.5.0",
     "realm": "^12.13.1",
-    "tailwindcss": "^3.4.10"
+    "tailwindcss": "^3.4.10",
+    "react-native-maps": "1.14.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
