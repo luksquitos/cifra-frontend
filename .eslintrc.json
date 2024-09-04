@@ -1,0 +1,10 @@
+{
+    "extends": [
+        "plugin:tailwindcss/recommended",
+        "@rocketseat/eslint-config/react"
+    ],
+    "rules": {
+        "tailwindcss/enforces-shorthand": "off",
+        "camelcase": "off"
+    }
+}
