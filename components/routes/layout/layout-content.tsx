@@ -4,7 +4,7 @@ import {
   Roboto_500Medium,
   Roboto_700Bold,
 } from '@expo-google-fonts/roboto'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 import * as SplashScreen from 'expo-splash-screen'
 import { useWindowDimensions } from 'react-native'
 import { type ReactNode, useEffect } from 'react'
@@ -45,10 +45,11 @@ export function LayoutContent({ children }: LayoutContentProps) {
   return (
     <AppProvider id={REALM_APP_ID}>
       <GluestackUIProvider mode="system">
-        <SafeAreaView />
-        <VStack className="bg-background-950" style={{ height }}>
-          <UserProvider fallback={Signin}>{children}</UserProvider>
-        </VStack>
+        <SafeAreaProvider>
+          <VStack className="flex-1 bg-background-950" style={{ height }}>
+            <UserProvider fallback={Signin}>{children}</UserProvider>
+          </VStack>
+        </SafeAreaProvider>
       </GluestackUIProvider>
     </AppProvider>
   )

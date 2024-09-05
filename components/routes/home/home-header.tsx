@@ -9,15 +9,19 @@ import { HStack } from '../../ui/hstack'
 import { Text, TouchableOpacity } from 'react-native'
 import { VStack } from '../../ui/vstack'
 import { useAuth, useUser } from '@realm/react'
-
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 export function HomeHeader() {
   const { logOut } = useAuth()
   const user = useUser()
 
-  console.log(user)
+  const insets = useSafeAreaInsets()
+  const paddingTop = insets.top + 32
 
   return (
-    <HStack className="h-[150] w-full items-center justify-between bg-background-800 p-8">
+    <HStack
+      className="h-[150] w-full items-center justify-between bg-background-800 px-8 pb-8"
+      style={{ paddingTop }}
+    >
       <HStack className="gap-4">
         <Avatar size="lg" className="rounded-md">
           <AvatarFallbackText>Jane Doe</AvatarFallbackText>
