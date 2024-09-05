@@ -5,6 +5,7 @@
     ],
     "rules": {
         "tailwindcss/enforces-shorthand": "off",
-        "camelcase": "off"
+        "camelcase": "off",
+        "no-use-before-define": "off"
     }
 }

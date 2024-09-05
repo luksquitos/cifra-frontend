@@ -1,17 +1,23 @@
-import { KeyRound } from 'lucide-react-native'
 import { Center } from '@/components/ui/center'
 import { Text } from '@/components/ui/text'
-import resolveConfig from 'tailwindcss/resolveConfig'
-import tailwindConfig from '../../../tailwind.config'
 import { useRouter } from 'expo-router'
 import { Pressable, PressableStateProps } from '@/components/ui/pressable'
 import { cn } from '@/utils/cn'
 import { HStack } from '@/components/ui/hstack'
+import { Car, KeyRound } from '@/utils/icons'
 
-const fullConfig = resolveConfig(tailwindConfig)
+interface CarStatusProps {
+  licensePlate?: string
+}
 
-export function TopMessage() {
+export function CarStatus({ licensePlate }: CarStatusProps) {
   const router = useRouter()
+
+  const Icon = licensePlate ? KeyRound : Car
+  const message = licensePlate
+    ? `Veículo ${licensePlate} em uso. `
+    : 'Nenhum veículo em uso. '
+  const status = licensePlate ? 'chegada' : 'saída'
 
   return (
     <Pressable
@@ -27,16 +33,16 @@ export function TopMessage() {
           )}
         >
           <Center className="size-[77] rounded-lg bg-background-700">
-            <KeyRound
+            <Icon
+              className="text-primary-300"
               size={52}
               fontWeight={'normal'}
-              color={fullConfig.theme.colors.emerald['500']}
             />
           </Center>
           <Text className="max-w-[250] text-wrap font-semibold text-typography-100">
-            Nenhum veículo em uso.{' '}
+            {message}
             <Text className="text-primary-300">
-              Clique aqui para registrar a saída.{' '}
+              Clique aqui para registrar a {status}.{' '}
             </Text>
           </Text>
         </HStack>

@@ -50,7 +50,7 @@ export function Signin() {
     <VStack className="flex-1">
       <Image
         className="w-full flex-1"
-        source={require('../../assets/login-bg.png')}
+        source={require('../../../assets/login-bg.png')}
         alt="login-bg"
       />
       <Center className="absolute h-full w-full flex-1 gap-8 bg-background-900/65">

@@ -1,5 +1,5 @@
 import { HistoricList } from '@/components/routes/home/historic-list'
-import { TopMessage } from '@/components/routes/home/top-message'
+import { CarStatus } from '@/components/routes/home/car-status'
 import { Box } from '@/components/ui/box'
 import { Text } from '@/components/ui/text'
 import { VStack } from '@/components/ui/vstack'
@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <Box>
-      <TopMessage />
+      <CarStatus licensePlate="A01-001" />
       <Box>
         <VStack className="max-h-full pt-4">
           <Text className="text-lg font-bold text-typography-100">
