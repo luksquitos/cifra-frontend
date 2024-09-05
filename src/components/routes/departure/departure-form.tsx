@@ -2,9 +2,12 @@ import { TextArea, TextAreaInput, TextAreaLabel } from '@/components/text-area'
 import { Button, ButtonSpinner, ButtonText } from '@/components/ui/button'
 import { VStack } from '@/components/ui/vstack'
 import { licensePlateValidate } from '@/utils/liscense-plate-validate'
-import { useRealm } from '@realm/react'
+import { useRealm } from '@/libs/realm'
 import { useRef, useState } from 'react'
 import { Alert, TextInput } from 'react-native'
+import { Historic } from '@/libs/realm/schemas/historic'
+import { useUser } from '@realm/react'
+import { useRouter } from 'expo-router'
 
 export function DepartureForm() {
   const [licensePlate, setLicensePlate] = useState<string>('')
@@ -14,6 +17,8 @@ export function DepartureForm() {
   const licensePlateRef = useRef<TextInput>(null)
   const [isRegistering, setIsRegistering] = useState(false)
   const realm = useRealm()
+  const user = useUser()
+  const router = useRouter()
 
   function handleDepartureRegister() {
     try {
@@ -35,7 +40,20 @@ export function DepartureForm() {
 
       setIsRegistering(true)
 
-      realm.write()
+      realm.write(() => {
+        realm.create(
+          'Historic',
+          Historic.generate({
+            user_id: user.id,
+            license_plate: licensePlate,
+            description,
+          }),
+        )
+      })
+
+      Alert.alert('Saída', 'Saída do veículo registrada com sucesso.')
+
+      router.back()
     } catch (error) {
       console.log(error)
       Alert.alert('Erro', 'Não foi possivel registrar a saída do veículo')
@@ -45,7 +63,7 @@ export function DepartureForm() {
   }
 
   return (
-    <VStack className="mx-10 mt-9 gap-4">
+    <VStack className="gap-4" style={{ paddingHorizontal: 40, paddingTop: 36 }}>
       <TextArea>
         <TextAreaLabel>Placa do veículo</TextAreaLabel>
         <TextAreaInput

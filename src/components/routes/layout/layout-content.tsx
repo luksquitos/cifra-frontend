@@ -1,3 +1,5 @@
+import 'react-native-get-random-values'
+
 import {
   useFonts,
   Roboto_400Regular,
@@ -10,7 +12,6 @@ import { useWindowDimensions } from 'react-native'
 import { type ReactNode, useEffect } from 'react'
 
 import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider'
-import '@/global.css'
 
 import { AppProvider, UserProvider } from '@realm/react'
 import { VStack } from '@/components/ui/vstack'

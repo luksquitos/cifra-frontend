@@ -44,7 +44,7 @@ if (getRNMinorVersion() >= 75) {
   }
 }
 
-rootProject.name = 'teste-gluestack'
+rootProject.name = 'ignite-fleet'
 
 dependencyResolutionManagement {
   versionCatalogs {
