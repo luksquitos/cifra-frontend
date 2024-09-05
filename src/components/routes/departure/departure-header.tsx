@@ -13,7 +13,7 @@ export default function DepartureHeader() {
 
   return (
     <HStack
-      className="items-center justify-between bg-background-800 px-6 pb-4"
+      className="items-center justify-between bg-background-700 px-6 pb-4"
       style={{ paddingTop }}
     >
       <TouchableOpacity onPress={() => router.back()}>

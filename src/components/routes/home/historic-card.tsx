@@ -18,7 +18,7 @@ export function HistoricCard({ title, message }: HistoricCardProps) {
     <Pressable onPress={() => router.push('/vehicle')}>
       <HStack
         className={cn(
-          'h-[82] w-full items-center justify-between rounded-lg bg-background-800 px-4',
+          'h-[82] w-full items-center justify-between rounded-lg bg-background-700 px-4',
         )}
       >
         <VStack>

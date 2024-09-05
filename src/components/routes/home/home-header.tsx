@@ -19,7 +19,7 @@ export function HomeHeader() {
 
   return (
     <HStack
-      className="h-[150] w-full items-center justify-between bg-background-800 px-8 pb-8"
+      className="h-[150] w-full items-center justify-between bg-background-700 px-8 pb-8"
       style={{ paddingTop }}
     >
       <HStack className="gap-4">

@@ -23,6 +23,7 @@ import {
   Power,
   KeyRound,
   Car,
+  CarFront,
 } from 'lucide-react-native'
 import { cssInterop } from 'nativewind'
 
@@ -69,6 +70,7 @@ const icons: Record<string, LucideIcon> = {
   Power,
   KeyRound,
   Car,
+  CarFront,
 }
 
 Object.values(icons).forEach(interopIcon)
@@ -97,4 +99,5 @@ export {
   Power,
   KeyRound,
   Car,
+  CarFront,
 }

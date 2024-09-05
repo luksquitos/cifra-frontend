@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router'
 import { Pressable, PressableStateProps } from '@/components/ui/pressable'
 import { cn } from '@/utils/cn'
 import { HStack } from '@/components/ui/hstack'
-import { Car, KeyRound } from '@/utils/icons'
+import { CarFront, KeyRound } from '@/utils/icons'
 
 interface CarStatusProps {
   licensePlate?: string
@@ -13,7 +13,7 @@ interface CarStatusProps {
 export function CarStatus({ licensePlate }: CarStatusProps) {
   const router = useRouter()
 
-  const Icon = licensePlate ? KeyRound : Car
+  const Icon = licensePlate ? KeyRound : CarFront
   const message = licensePlate
     ? `Veículo ${licensePlate} em uso. `
     : 'Nenhum veículo em uso. '
@@ -28,7 +28,7 @@ export function CarStatus({ licensePlate }: CarStatusProps) {
       {({ pressed }: PressableStateProps) => (
         <HStack
           className={cn(
-            'h-[120] w-full flex-row items-center gap-3 rounded-lg bg-background-800 px-6',
+            'h-[120] w-full flex-row items-center gap-3 rounded-lg bg-background-700 px-6',
             pressed && 'bg-background-600',
           )}
         >
@@ -39,7 +39,7 @@ export function CarStatus({ licensePlate }: CarStatusProps) {
               fontWeight={'normal'}
             />
           </Center>
-          <Text className="max-w-[250] text-wrap font-semibold text-typography-100">
+          <Text className="flex-1 font-semibold text-typography-100">
             {message}
             <Text className="text-primary-300">
               Clique aqui para registrar a {status}.{' '}

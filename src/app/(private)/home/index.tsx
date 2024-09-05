@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <Box>
-      <CarStatus licensePlate="A01-001" />
+      <CarStatus />
       <Box>
         <VStack className="max-h-full pt-4">
           <Text className="text-lg font-bold text-typography-100">

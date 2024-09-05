@@ -17,6 +17,13 @@ import { VStack } from '@/components/ui/vstack'
 import { REALM_APP_ID } from '@env'
 import { Signin } from '@/components/signin/signin'
 import { RealmProvider } from '@/libs/realm'
+import { cssInterop } from 'nativewind'
+
+cssInterop(SafeAreaProvider, {
+  className: {
+    target: 'style',
+  },
+})
 
 interface LayoutContentProps {
   children: ReactNode
@@ -46,8 +53,8 @@ export function LayoutContent({ children }: LayoutContentProps) {
   return (
     <AppProvider id={REALM_APP_ID}>
       <GluestackUIProvider mode="system">
-        <SafeAreaProvider>
-          <VStack className="flex-1 bg-background-950" style={{ height }}>
+        <SafeAreaProvider className="bg-background-800">
+          <VStack className="flex-1" style={{ height }}>
             <RealmProvider>
               <UserProvider fallback={Signin}>{children}</UserProvider>
             </RealmProvider>
