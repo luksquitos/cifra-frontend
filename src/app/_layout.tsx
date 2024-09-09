@@ -1,4 +1,3 @@
-import 'react-native-get-random-values'
 import { Slot } from 'expo-router'
 
 import '../global.css'

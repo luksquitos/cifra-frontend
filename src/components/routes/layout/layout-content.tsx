@@ -1,5 +1,3 @@
-import 'react-native-get-random-values'
-
 import {
   useFonts,
   Roboto_400Regular,
