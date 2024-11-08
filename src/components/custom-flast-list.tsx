@@ -1,4 +1,4 @@
-import { remapProps } from "nativewind";
+import { remapProps } from 'nativewind'
 
 function ThirdPartyComponent({ style, contentContainerStyle, ...props }) {
   return (
@@ -15,4 +15,3 @@ remapProps(ThirdPartyComponent, {
   className: 'style',
   contentContainerClassName: 'contentContainerStyle',
 })
-

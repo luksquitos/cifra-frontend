@@ -1,21 +1,18 @@
 import {
-  useFonts,
   Roboto_400Regular,
   Roboto_500Medium,
   Roboto_700Bold,
+  useFonts,
 } from '@expo-google-fonts/roboto'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
 import * as SplashScreen from 'expo-splash-screen'
-import { useWindowDimensions } from 'react-native'
 import { type ReactNode, useEffect } from 'react'
+import { useWindowDimensions } from 'react-native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import '@/global.css'
 
 import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider'
 
-import { AppProvider, UserProvider } from '@realm/react'
 import { VStack } from '@/components/ui/vstack'
-import { REALM_APP_ID } from '@env'
-import { Signin } from '@/components/signin/signin'
-import { RealmProvider } from '@/libs/realm'
 import { cssInterop } from 'nativewind'
 
 cssInterop(SafeAreaProvider, {
@@ -50,16 +47,12 @@ export function LayoutContent({ children }: LayoutContentProps) {
   }
 
   return (
-    <AppProvider id={REALM_APP_ID}>
-      <GluestackUIProvider mode="system">
-        <SafeAreaProvider className="bg-background-800">
-          <VStack className="flex-1" style={{ height }}>
-            <RealmProvider>
-              <UserProvider fallback={Signin}>{children}</UserProvider>
-            </RealmProvider>
-          </VStack>
-        </SafeAreaProvider>
-      </GluestackUIProvider>
-    </AppProvider>
+    <GluestackUIProvider mode="system">
+      <SafeAreaProvider className="bg-background-800">
+        <VStack className="flex-1" style={{ height }}>
+          {children}
+        </VStack>
+      </SafeAreaProvider>
+    </GluestackUIProvider>
   )
 }

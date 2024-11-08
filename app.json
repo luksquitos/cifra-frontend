@@ -20,7 +20,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.andreserafin.ignitefleet"
+      "package": "com.cifra.ciframobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
