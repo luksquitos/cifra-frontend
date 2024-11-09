@@ -9,9 +9,9 @@ import { Text } from '@/components/ui/text'
 import { VStack } from '@/components/ui/vstack'
 import { categories } from '@/constants/category-mock'
 import { productsByCategory } from '@/constants/items-mock'
-import { Bell, MapPin, Search } from '@/utils/icons'
+import { ArrowRight, Bell, MapPin, Search } from '@/utils/icons'
 
-export default function Home() {
+export default function SearchPage() {
   const insets = useSafeAreaInsets()
   const paddingTop = insets.top + 14
 
@@ -48,6 +48,12 @@ export default function Home() {
             {categories.map((categorie, index) => (
               <CategoryItem {...categorie} key={categorie.title + index} />
             ))}
+            <TouchableOpacity className="h-[70px] w-[190px] flex-row items-center rounded-lg border-2 border-background-100 bg-primary-500">
+              <Text className="px-[12px] text-typography-50">
+                Todas as categorias
+              </Text>
+              <ArrowRight className="text-typography-50" />
+            </TouchableOpacity>
           </ScrollView>
         </VStack>
         <ScrollView>

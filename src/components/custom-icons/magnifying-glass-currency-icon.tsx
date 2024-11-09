@@ -10,7 +10,7 @@ interface MagnifingGlassCurrencyIconProps extends SvgProps {
 export function MagnifyingGlassCurrencyIcon({
   width = 16,
   height = 16,
-  fill = '#29394A',
+  fill = '#0BB1EF',
   ...props
 }: MagnifingGlassCurrencyIconProps) {
   return (

@@ -1,59 +1,18 @@
 export const categories = [
   {
     title: 'Pisos e revestimentos',
+    imageSrc: require('../../assets/products-images/pisos-e-revestimentos.png'),
   },
   {
-    title: 'Tintas e Pintura',
+    title: 'Materiais básicos',
+    imageSrc: require('../../assets/products-images/materiais-basicos.png'),
   },
   {
-    title: 'Materiais Básicos',
+    title: 'Metais',
+    imageSrc: require('../../assets/products-images/metais.png'),
   },
   {
-    title: 'Ferramentas Elétricas',
-  },
-  {
-    title: 'Ferramentas Manuais',
-  },
-  {
-    title: 'Hidráulica',
-  },
-  {
-    title: 'Elétrica',
-  },
-  {
-    title: 'Iluminação',
-  },
-  {
-    title: 'Portas e Janelas',
-  },
-  {
-    title: 'Decoração e Acabamentos',
-  },
-  {
-    title: 'Móveis e Marcenaria',
-  },
-  {
-    title: 'Segurança e EPI',
-  },
-  {
-    title: 'Armazenagem e Organização',
-  },
-  {
-    title: 'Aquecimento e Climatização',
-  },
-  {
-    title: 'Jardinagem e Paisagismo',
-  },
-  {
-    title: 'Banheiros e Louças',
-  },
-  {
-    title: 'Cozinhas e Acessórios',
-  },
-  {
-    title: 'Construção a Seco',
-  },
-  {
-    title: 'Impermeabilizantes',
+    title: 'Tintas e acessórios',
+    imageSrc: require('../../assets/products-images/tintas-e-acessorios.png'),
   },
 ]
