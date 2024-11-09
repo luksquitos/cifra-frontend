@@ -1,19 +1,19 @@
+import '@/global.css'
+
 import {
-  Roboto_400Regular,
-  Roboto_500Medium,
-  Roboto_700Bold,
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_700Bold,
   useFonts,
-} from '@expo-google-fonts/roboto'
+} from '@expo-google-fonts/inter'
 import * as SplashScreen from 'expo-splash-screen'
+import { cssInterop } from 'nativewind'
 import { type ReactNode, useEffect } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import '@/global.css'
 
 import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider'
-
 import { VStack } from '@/components/ui/vstack'
-import { cssInterop } from 'nativewind'
 
 cssInterop(SafeAreaProvider, {
   className: {
@@ -29,9 +29,9 @@ SplashScreen.preventAutoHideAsync()
 
 export function LayoutContent({ children }: LayoutContentProps) {
   const [loaded, error] = useFonts({
-    robotoRegular: Roboto_400Regular,
-    robotoBold: Roboto_700Bold,
-    robotoMedium: Roboto_500Medium,
+    interRegular: Inter_400Regular,
+    interBold: Inter_700Bold,
+    interMedium: Inter_500Medium,
   })
 
   const { height } = useWindowDimensions()
@@ -47,8 +47,8 @@ export function LayoutContent({ children }: LayoutContentProps) {
   }
 
   return (
-    <GluestackUIProvider mode="system">
-      <SafeAreaProvider className="bg-background-800">
+    <GluestackUIProvider mode="light">
+      <SafeAreaProvider className="bg-background-100">
         <VStack className="flex-1" style={{ height }}>
           {children}
         </VStack>

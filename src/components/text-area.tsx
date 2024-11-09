@@ -1,8 +1,9 @@
+import { forwardRef, ReactNode } from 'react'
 import { Text as RNText, TextInput, TextInputProps, View } from 'react-native'
+
 import { Text } from '@/components/ui/text'
 import { VStack } from '@/components/ui/vstack'
 import { cn } from '@/utils/cn'
-import { forwardRef, ReactNode } from 'react'
 
 export interface TextAreaInputProps extends TextInputProps {}
 

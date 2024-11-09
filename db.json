@@ -1,0 +1,199 @@
+{
+  "categories": [
+    {
+      "id": "1a2b3c4d",
+      "title": "Pisos e revestimentos"
+    },
+    {
+      "id": "2b3c4d5e",
+      "title": "Tintas e Pintura"
+    },
+    {
+      "id": "3c4d5e6f",
+      "title": "Materiais Básicos"
+    },
+    {
+      "id": "4d5e6f7g",
+      "title": "Ferramentas Elétricas"
+    },
+    {
+      "id": "5e6f7g8h",
+      "title": "Ferramentas Manuais"
+    },
+    {
+      "id": "6f7g8h9i",
+      "title": "Hidráulica"
+    },
+    {
+      "id": "7g8h9i0j",
+      "title": "Elétrica"
+    },
+    {
+      "id": "8h9i0j1k",
+      "title": "Iluminação"
+    },
+    {
+      "id": "9i0j1k2l",
+      "title": "Portas e Janelas"
+    },
+    {
+      "id": "0j1k2l3m",
+      "title": "Decoração e Acabamentos"
+    },
+    {
+      "id": "1k2l3m4n",
+      "title": "Móveis e Marcenaria"
+    },
+    {
+      "id": "2l3m4n5o",
+      "title": "Segurança e EPI"
+    },
+    {
+      "id": "3m4n5o6p",
+      "title": "Armazenagem e Organização"
+    },
+    {
+      "id": "4n5o6p7q",
+      "title": "Aquecimento e Climatização"
+    },
+    {
+      "id": "5o6p7q8r",
+      "title": "Jardinagem e Paisagismo"
+    },
+    {
+      "id": "6p7q8r9s",
+      "title": "Banheiros e Louças"
+    },
+    {
+      "id": "7q8r9s0t",
+      "title": "Cozinhas e Acessórios"
+    },
+    {
+      "id": "8r9s0t1u",
+      "title": "Construção a Seco"
+    },
+    {
+      "id": "9s0t1u2v",
+      "title": "Impermeabilizantes"
+    }
+  ],
+  "productsByCategory": [
+    {
+      "id": "a1b2c3d4",
+      "category": "Tintas",
+      "items": [
+        {
+          "id": "d5e6f7g8",
+          "title": "Tinta Borracha Liquida Solução Total - Decor Color",
+          "price": "R$ 699,22",
+          "description": "ou até 12x de R$ 66,50",
+          "cardAppend": "Compare entre 4 lojas",
+          "stores": [
+            {
+              "name": "Goiás Construções",
+              "price": "R$ 699,22",
+              "description": "ou até 12x de R$ 66,50",
+              "location": "Ver localização"
+            },
+            {
+              "name": "Loja X",
+              "price": "R$ 700,00",
+              "description": "ou até 12x de R$ 58,00",
+              "location": "Ver localização"
+            }
+          ]
+        },
+        {
+          "id": "f8g9h0i1",
+          "title": "Tinta Acrílica Fosca Premium - Coral",
+          "price": "R$ 489,90",
+          "description": "ou até 10x de R$ 49,90",
+          "cardAppend": "Compare entre 3 lojas",
+          "stores": [
+            {
+              "name": "Casa das Tintas",
+              "price": "R$ 489,90",
+              "description": "ou até 10x de R$ 49,90",
+              "location": "Ver localização"
+            },
+            {
+              "name": "Tintas e Cores",
+              "price": "R$ 495,00",
+              "description": "ou até 10x de R$ 49,50",
+              "location": "Ver localização"
+            }
+          ]
+        },
+        {
+          "id": "g0h1i2j3",
+          "title": "Tinta Esmalte Sintético Brilhante - Suvinil",
+          "price": "R$ 239,99",
+          "description": "ou até 6x de R$ 40,00",
+          "cardAppend": "Compare entre 5 lojas",
+          "stores": [
+            {
+              "name": "Super Tintas",
+              "price": "R$ 239,99",
+              "description": "ou até 6x de R$ 40,00",
+              "location": "Ver localização"
+            },
+            {
+              "name": "Color Mix",
+              "price": "R$ 245,00",
+              "description": "ou até 5x de R$ 49,00",
+              "location": "Ver localização"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b2c3d4e5",
+      "category": "Pisos e Revestimentos",
+      "items": [
+        {
+          "id": "h1i2j3k4",
+          "title": "Porcelanato Polido - 60x60cm - Portobello",
+          "price": "R$ 1.299,90",
+          "description": "ou até 12x de R$ 108,32",
+          "cardAppend": "Compare entre 6 lojas",
+          "stores": [
+            {
+              "name": "Leroy Merlin",
+              "price": "R$ 1.299,90",
+              "description": "ou até 12x de R$ 108,32",
+              "location": "Ver localização"
+            },
+            {
+              "name": "Home Center",
+              "price": "R$ 1.310,00",
+              "description": "ou até 10x de R$ 131,00",
+              "location": "Ver localização"
+            }
+          ]
+        },
+        {
+          "id": "j3k4l5m6",
+          "title": "Piso Vinílico Eucafloor - 5mm - Eucatex",
+          "price": "R$ 89,90",
+          "description": "ou até 3x de R$ 29,97",
+          "cardAppend": "Compare entre 2 lojas",
+          "stores": [
+            {
+              "name": "Construcasa",
+              "price": "R$ 89,90",
+              "description": "ou até 3x de R$ 29,97",
+              "location": "Ver localização"
+            },
+            {
+              "name": "Decora Lar",
+              "price": "R$ 92,00",
+              "description": "ou até 2x de R$ 46,00",
+              "location": "Ver localização"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

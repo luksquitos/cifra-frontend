@@ -1,16 +1,16 @@
+import { IOS_CLIENT_ID, WEB_CLIENT_ID } from '@env'
+import { GoogleSignin } from '@react-native-google-signin/google-signin'
+import { useApp } from '@realm/react'
+import { useState } from 'react'
+import { Alert } from 'react-native'
+import { Realm } from 'realm'
+
 import { Button, ButtonText } from '@/components/ui/button'
 import { Center } from '@/components/ui/center'
 import { Image } from '@/components/ui/image'
+import { Spinner } from '@/components/ui/spinner'
 import { Text } from '@/components/ui/text'
 import { VStack } from '@/components/ui/vstack'
-import { GoogleSignin } from '@react-native-google-signin/google-signin'
-
-import { WEB_CLIENT_ID, IOS_CLIENT_ID } from '@env'
-import { useState } from 'react'
-import { Spinner } from '@/components/ui/spinner'
-import { Alert } from 'react-native'
-import { Realm } from 'realm'
-import { useApp } from '@realm/react'
 
 GoogleSignin.configure({
   scopes: ['email', 'profile'],
@@ -53,7 +53,7 @@ export function Signin() {
         source={require('../../../assets/login-bg.png')}
         alt="login-bg"
       />
-      <Center className="absolute h-full w-full flex-1 gap-8 bg-background-900/65">
+      <Center className="bg-background-900/65 absolute size-full flex-1 gap-8">
         <Center>
           <Text className="font-robotoBold text-4xl font-bold text-primary-300">
             Ignite Fleet

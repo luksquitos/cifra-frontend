@@ -1,5 +1,7 @@
 import 'react-native-get-random-values'
+
 import { createRealmContext } from '@realm/react'
+
 import { Historic } from './schemas/historic'
 
 export const { RealmProvider, useRealm, useQuery, useObject } =

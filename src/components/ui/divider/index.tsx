@@ -1,10 +1,10 @@
-'use client';
-import React from 'react';
-import { createDivider } from '@gluestack-ui/divider';
-import { tva } from '@gluestack-ui/nativewind-utils/tva';
-import { View } from 'react-native';
-import { cssInterop } from 'nativewind';
-import type { VariantProps } from '@gluestack-ui/nativewind-utils';
+'use client'
+import { createDivider } from '@gluestack-ui/divider'
+import type { VariantProps } from '@gluestack-ui/nativewind-utils'
+import { tva } from '@gluestack-ui/nativewind-utils/tva'
+import { cssInterop } from 'nativewind'
+import React from 'react'
+import { View } from 'react-native'
 
 const dividerStyle = tva({
   base: 'bg-background-200',
@@ -14,14 +14,14 @@ const dividerStyle = tva({
       horizontal: 'h-px w-full',
     },
   },
-});
+})
 
-const UIDivider = createDivider({ Root: View });
+const UIDivider = createDivider({ Root: View })
 
-cssInterop(UIDivider, { className: 'style' });
+cssInterop(UIDivider, { className: 'style' })
 
 type IUIDividerProps = React.ComponentPropsWithoutRef<typeof UIDivider> &
-  VariantProps<typeof dividerStyle>;
+  VariantProps<typeof dividerStyle>
 
 const Divider = React.forwardRef<
   React.ElementRef<typeof UIDivider>,
@@ -36,9 +36,9 @@ const Divider = React.forwardRef<
         class: className,
       })}
     />
-  );
-});
+  )
+})
 
-Divider.displayName = 'Divider';
+Divider.displayName = 'Divider'
 
-export { Divider };
+export { Divider }
