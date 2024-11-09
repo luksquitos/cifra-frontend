@@ -1,4 +1,4 @@
-package com.andreserafin.ignitefleet
+package com.cifra.ciframobile
 
 import android.app.Application
 import android.content.res.Configuration

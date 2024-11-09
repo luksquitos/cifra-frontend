@@ -12,7 +12,7 @@ export function ProductHeader() {
   const router = useRouter()
 
   return (
-    <HStack style={{ paddingTop }} className="px-[20px]">
+    <HStack style={{ paddingTop }}>
       <TouchableOpacity className="flex-row" onPress={() => router.back()}>
         <ChevronLeft className="text-primary-700" />
         <Text className="text-[16px] text-primary-700">Voltar</Text>

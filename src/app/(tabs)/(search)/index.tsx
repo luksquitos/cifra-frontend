@@ -1,8 +1,8 @@
 import { ScrollView, TouchableOpacity } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { CategoryItem } from '@/components/routes/home/category-item'
-import { ProductItem } from '@/components/routes/home/product-item'
+import { CategoryItem } from '@/components/routes/search/category-item'
+import { ProductItem } from '@/components/routes/search/product-item'
 import { HStack } from '@/components/ui/hstack'
 import { Input, InputField, InputIcon, InputSlot } from '@/components/ui/input'
 import { Text } from '@/components/ui/text'

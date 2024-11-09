@@ -9,7 +9,7 @@ import { Center } from '@/components/ui/center'
 import { HStack } from '@/components/ui/hstack'
 import { Text } from '@/components/ui/text'
 import { VStack } from '@/components/ui/vstack'
-import { PrivateRoutes } from '@/constants/routes/prive-routes-enum'
+import { PrivateRoutes } from '@/constants/routes/private-routes-enum'
 
 interface CategoryItemProps {
   id: string

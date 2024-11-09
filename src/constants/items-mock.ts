@@ -9,6 +9,32 @@ export const productsByCategory = [
         description: 'ou até 12x de R$ 66,50',
         cardAppend: 'Compare entre 4 lojas',
         imageSrc: require('../../assets/products-images/tinta-borracha.png'),
+        stores: [
+          {
+            name: 'Goiás Construções',
+            price: 'R$ 699,22',
+            location: 'Ver localização',
+            isBestSeller: true,
+          },
+          {
+            name: 'ConstruShop',
+            price: 'R$ 719,90',
+            location: 'Ver localização',
+            isBestSeller: false,
+          },
+          {
+            name: 'Casa & Construção',
+            price: 'R$ 725,00',
+            location: 'Ver localização',
+            isBestSeller: false,
+          },
+          {
+            name: 'MegaTintas',
+            price: 'R$ 730,00',
+            location: 'Ver localização',
+            isBestSeller: false,
+          },
+        ],
       },
       {
         id: '2a23c5f6-7a66-4e78-b2f1-8832f4f3c9e9',
@@ -17,6 +43,26 @@ export const productsByCategory = [
         description: 'ou até 10x de R$ 49,90',
         cardAppend: 'Compare entre 3 lojas',
         imageSrc: require('../../assets/products-images/tinta-coral.png'),
+        stores: [
+          {
+            name: 'Tintas ABC',
+            price: 'R$ 480,00',
+            location: 'Ver localização',
+            isBestSeller: true,
+          },
+          {
+            name: 'Goiás Construções',
+            price: 'R$ 489,90',
+            location: 'Ver localização',
+            isBestSeller: false,
+          },
+          {
+            name: 'Casa & Construção',
+            price: 'R$ 499,00',
+            location: 'Ver localização',
+            isBestSeller: false,
+          },
+        ],
       },
       {
         id: '3b37d7a8-8b99-4c67-a6f4-1125f7e2d6b3',
@@ -25,6 +71,38 @@ export const productsByCategory = [
         description: 'ou até 6x de R$ 40,00',
         cardAppend: 'Compare entre 5 lojas',
         imageSrc: require('../../assets/products-images/tinta-parede.png'),
+        stores: [
+          {
+            name: 'Goiás Construções',
+            price: 'R$ 239,99',
+            location: 'Ver localização',
+            isBestSeller: true,
+          },
+          {
+            name: 'MegaTintas',
+            price: 'R$ 249,99',
+            location: 'Ver localização',
+            isBestSeller: false,
+          },
+          {
+            name: 'ConstruShop',
+            price: 'R$ 250,00',
+            location: 'Ver localização',
+            isBestSeller: false,
+          },
+          {
+            name: 'Casa & Construção',
+            price: 'R$ 255,00',
+            location: 'Ver localização',
+            isBestSeller: false,
+          },
+          {
+            name: 'Tintas ABC',
+            price: 'R$ 260,00',
+            location: 'Ver localização',
+            isBestSeller: false,
+          },
+        ],
       },
     ],
   },
@@ -38,6 +116,44 @@ export const productsByCategory = [
         description: 'ou até 12x de R$ 108,32',
         cardAppend: 'Compare entre 6 lojas',
         imageSrc: require('../../assets/products-images/porcelanato.png'),
+        stores: [
+          {
+            name: 'RevestirBem',
+            price: 'R$ 1.250,00',
+            location: 'Ver localização',
+            isBestSeller: true,
+          },
+          {
+            name: 'ConstruShop',
+            price: 'R$ 1.299,90',
+            location: 'Ver localização',
+            isBestSeller: false,
+          },
+          {
+            name: 'Casa & Construção',
+            price: 'R$ 1.320,00',
+            location: 'Ver localização',
+            isBestSeller: false,
+          },
+          {
+            name: 'Goiás Construções',
+            price: 'R$ 1.350,00',
+            location: 'Ver localização',
+            isBestSeller: false,
+          },
+          {
+            name: 'MegaTintas',
+            price: 'R$ 1.360,00',
+            location: 'Ver localização',
+            isBestSeller: false,
+          },
+          {
+            name: 'Tintas ABC',
+            price: 'R$ 1.380,00',
+            location: 'Ver localização',
+            isBestSeller: false,
+          },
+        ],
       },
       {
         id: '5d56f1c1-2a22-4f33-a1b7-3347e1f4d9e5',
@@ -46,6 +162,20 @@ export const productsByCategory = [
         description: 'ou até 3x de R$ 29,97',
         cardAppend: 'Compare entre 2 lojas',
         imageSrc: require('../../assets/products-images/pisos-e-revestimentos.png'),
+        stores: [
+          {
+            name: 'Casa & Construção',
+            price: 'R$ 85,00',
+            location: 'Ver localização',
+            isBestSeller: true,
+          },
+          {
+            name: 'Goiás Construções',
+            price: 'R$ 89,90',
+            location: 'Ver localização',
+            isBestSeller: false,
+          },
+        ],
       },
       {
         id: '6e66f2d2-3b33-4f88-c2f8-4458f6f5e8f6',
@@ -54,22 +184,32 @@ export const productsByCategory = [
         description: 'ou até 5x de R$ 47,98',
         cardAppend: 'Compare entre 4 lojas',
         imageSrc: require('../../assets/products-images/piso-madeira.png'),
-      },
-      {
-        id: '7f77f3e3-4c44-4f99-d3f9-5569f7f6f9f7',
-        title: 'Piso Laminado Durafloor - Eucatex',
-        price: 'R$ 59,90',
-        description: 'ou até 2x de R$ 29,95',
-        cardAppend: 'Compare entre 3 lojas',
-        imageSrc: require('../../assets/products-images/materiais-basicos.png'),
-      },
-      {
-        id: '8g88g4g4-5d55-4faa-e4fa-6670g8g7g8g8',
-        title: 'Porcelanato Acetinado - 80x80cm - Eliane',
-        price: 'R$ 899,90',
-        description: 'ou até 10x de R$ 89,99',
-        cardAppend: 'Compare entre 5 lojas',
-        imageSrc: require('../../assets/products-images/porcelanato.png'),
+        stores: [
+          {
+            name: 'ConstruShop',
+            price: 'R$ 235,00',
+            location: 'Ver localização',
+            isBestSeller: true,
+          },
+          {
+            name: 'RevestirBem',
+            price: 'R$ 239,90',
+            location: 'Ver localização',
+            isBestSeller: false,
+          },
+          {
+            name: 'Goiás Construções',
+            price: 'R$ 245,00',
+            location: 'Ver localização',
+            isBestSeller: false,
+          },
+          {
+            name: 'Casa & Construção',
+            price: 'R$ 249,99',
+            location: 'Ver localização',
+            isBestSeller: false,
+          },
+        ],
       },
     ],
   },

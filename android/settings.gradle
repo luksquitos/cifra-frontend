@@ -44,7 +44,7 @@ if (getRNMinorVersion() >= 75) {
   }
 }
 
-rootProject.name = 'ignite-fleet'
+rootProject.name = 'cifra-mobile'
 
 dependencyResolutionManagement {
   versionCatalogs {
