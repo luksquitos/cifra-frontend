@@ -20,6 +20,18 @@ export const productsByCategory = [
         description: 'ou até 6x de R$ 40,00',
         cardAppend: 'Compare entre 5 lojas',
       },
+      {
+        title: 'Tinta Epóxi Brilhante - Sherwin-Williams',
+        price: 'R$ 579,50',
+        description: 'ou até 8x de R$ 72,44',
+        cardAppend: 'Compare entre 2 lojas',
+      },
+      {
+        title: 'Tinta Spray Multiuso - Colorgin',
+        price: 'R$ 29,90',
+        description: 'ou em até 1x de R$ 29,90',
+        cardAppend: 'Compare entre 3 lojas',
+      },
     ],
   },
   {
@@ -37,45 +49,23 @@ export const productsByCategory = [
         description: 'ou até 3x de R$ 29,97',
         cardAppend: 'Compare entre 2 lojas',
       },
-    ],
-  },
-  {
-    category: 'Ferramentas',
-    items: [
       {
-        title: 'Furadeira de Impacto 500W - Bosch',
-        price: 'R$ 229,00',
-        description: 'ou até 5x de R$ 45,80',
+        title: 'Revestimento Cerâmico 30x90cm - Ceusa',
+        price: 'R$ 239,90',
+        description: 'ou até 5x de R$ 47,98',
         cardAppend: 'Compare entre 4 lojas',
       },
       {
-        title: 'Parafusadeira Elétrica - Dewalt',
-        price: 'R$ 379,90',
-        description: 'ou até 7x de R$ 54,27',
+        title: 'Piso Laminado Durafloor - Eucatex',
+        price: 'R$ 59,90',
+        description: 'ou até 2x de R$ 29,95',
         cardAppend: 'Compare entre 3 lojas',
       },
       {
-        title: 'Esmerilhadeira Angular 800W - Makita',
-        price: 'R$ 299,90',
-        description: 'ou até 6x de R$ 49,98',
+        title: 'Porcelanato Acetinado - 80x80cm - Eliane',
+        price: 'R$ 899,90',
+        description: 'ou até 10x de R$ 89,99',
         cardAppend: 'Compare entre 5 lojas',
-      },
-    ],
-  },
-  {
-    category: 'Iluminação',
-    items: [
-      {
-        title: 'Lâmpada LED Bulbo - 9W - Philips',
-        price: 'R$ 29,90',
-        description: 'ou até 2x de R$ 14,95',
-        cardAppend: 'Compare entre 4 lojas',
-      },
-      {
-        title: 'Luminária de Teto - Plafon Quadrado - Brilia',
-        price: 'R$ 119,90',
-        description: 'ou até 4x de R$ 29,98',
-        cardAppend: 'Compare entre 3 lojas',
       },
     ],
   },

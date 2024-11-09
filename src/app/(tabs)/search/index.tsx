@@ -17,7 +17,7 @@ export default function Home() {
 
   return (
     <VStack className="flex-1 gap-5" style={{ paddingTop }}>
-      <VStack className="mx-3 gap-4">
+      <VStack className="mx-[20px] gap-[16px]">
         <HStack className=" items-center justify-between gap-1">
           <HStack className="items-center gap-1">
             <MapPin className="text-typography-600" size={12} />
@@ -41,10 +41,10 @@ export default function Home() {
           />
         </Input>
       </VStack>
-      <VStack className="flex-1 bg-background-50 px-3 pt-4">
-        <VStack className="gap-4">
-          <Text className="font-interBold text-lg">Categorias</Text>
-          <ScrollView className="pb-4" horizontal>
+      <VStack className="flex-1 bg-background-50 px-[20px] pt-[16px]">
+        <VStack className="gap-[16px]">
+          <Text className="font-interMedium text-lg">Categorias</Text>
+          <ScrollView className="pb-[16px]" horizontal>
             {categories.map((categorie, index) => (
               <CategoryItem {...categorie} key={categorie.title + index} />
             ))}
@@ -52,9 +52,9 @@ export default function Home() {
         </VStack>
         <ScrollView>
           {productsByCategory.map(({ category, items }, index) => (
-            <VStack className="mb-2 gap-4" key={category + index}>
-              <Text className="font-interBold text-lg">{category}</Text>
-              <ScrollView className="pb-4" horizontal>
+            <VStack className="mb-[8px] gap-[16px]" key={category + index}>
+              <Text className="font-interMedium text-lg">{category}</Text>
+              <ScrollView className="pb-[16px]" horizontal>
                 {items.map((item, index) => (
                   <ProductItem key={item.title + index} {...item} />
                 ))}

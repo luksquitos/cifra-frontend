@@ -2,32 +2,33 @@
 import { vars } from 'nativewind'
 
 export const lightTheme = {
-  '--color-primary-0': '#e6fff5',
-  '--color-primary-50': '#c8f5e6',
-  '--color-primary-100': '#96e1c8',
-  '--color-primary-200': '#64c8a5',
-  '--color-primary-300': '#00b37e',
-  '--color-primary-400': '#00875f',
-  '--color-primary-500': '#007755',
-  '--color-primary-600': '#00644b',
-  '--color-primary-700': '#00503c',
-  '--color-primary-800': '#003c2d',
-  '--color-primary-900': '#00281e',
-  '--color-primary-950': '#00140f',
+  /* Primary */
+  '--color-primary-0': '#ECF8FE',
+  '--color-primary-50': '#C7EBFC',
+  '--color-primary-100': '#A2DFFA',
+  '--color-primary-200': '#7CC3F8',
+  '--color-primary-300': '#57B8F6',
+  '--color-primary-400': '#32ACF4',
+  '--color-primary-500': '#0D9FF2',
+  '--color-primary-600': '#0B8ACD',
+  '--color-primary-700': '#0973A8',
+  '--color-primary-800': '#075A83',
+  '--color-primary-900': '#05405D',
+  '--color-primary-950': '#032638',
 
   /* Secondary */
-  '--color-secondary-0': '#feffff',
-  '--color-secondary-50': '#f1f2f2',
-  '--color-secondary-100': '#e7e8e8',
-  '--color-secondary-200': '#dbdbdb',
-  '--color-secondary-300': '#afb0b0',
-  '--color-secondary-400': '#727373',
-  '--color-secondary-500': '#5e5f5f',
-  '--color-secondary-600': '#515252',
-  '--color-secondary-700': '#3f4040',
-  '--color-secondary-800': '#272626',
-  '--color-secondary-900': '#181717',
-  '--color-secondary-950': '#0b0c0c',
+  '--color-secondary-0': '#e4fff4',
+  '--color-secondary-50': '#caffc8',
+  '--color-secondary-100': '#a2f1c0',
+  '--color-secondary-200': '#84d39f',
+  '--color-secondary-300': '#66b583',
+  '--color-secondary-400': '#489966',
+  '--color-secondary-500': '#348352',
+  '--color-secondary-600': '#2a7948',
+  '--color-secondary-700': '#20703e',
+  '--color-secondary-800': '#165234',
+  '--color-secondary-900': '#14532d',
+  '--color-secondary-950': '#1b3224',
 
   /* Tertiary */
   '--color-tertiary-0': '#fffaf5',
@@ -100,18 +101,28 @@ export const lightTheme = {
   '--color-info-950': '#032638',
 
   /* Typography */
-  '--color-typography-0': '#ffffff',
-  '--color-typography-50': '#f0f0f5',
-  '--color-typography-100': '#e1e1e6',
-  '--color-typography-200': '#c4c4cc',
-  '--color-typography-300': '#a5a5af',
-  '--color-typography-400': '#7c7c8a',
-  '--color-typography-500': '#505059',
-  '--color-typography-600': '#323238',
-  '--color-typography-700': '#29292e',
-  '--color-typography-800': '#202024',
-  '--color-typography-900': '#19191e',
-  '--color-typography-950': '#0f0f14',
+  '--color-typography-0': '#FFFFFF',
+  '--color-typography-25': '#FAFAFA',
+  '--color-typography-50': '#F5F6F8',
+  '--color-typography-100': '#EBEDF0',
+  '--color-typography-200': '#CDD1D6',
+  '--color-typography-300': '#A6AEB8',
+  '--color-typography-400': '#7C8999',
+  '--color-typography-500': '#475567',
+  '--color-typography-600': '#29394A',
+  '--color-typography-700': '#0A1D2E',
+
+  /* Background */
+  '--color-background-0': '#FFFFFF',
+  '--color-background-25': '#FAFAFA',
+  '--color-background-50': '#F5F6F8',
+  '--color-background-100': '#EBEDF0',
+  '--color-background-200': '#CDD1D6',
+  '--color-background-300': '#A6AEB8',
+  '--color-background-400': '#7C8999',
+  '--color-background-500': '#475567',
+  '--color-background-600': '#29394A',
+  '--color-background-700': '#0A1D2E',
 
   /* Outline */
   '--color-outline-0': '#e6fff5',
@@ -125,33 +136,6 @@ export const lightTheme = {
   '--color-outline-700': '#00503c',
   '--color-outline-800': '#003c2d',
   '--color-outline-900': '#00281e',
-  '--color-outline-950': '#00140f',
-
-  /* Background */
-  '--color-background-0': '#f7f8fa',
-  '--color-background-50': '#f0f1f3',
-  '--color-background-100': '#e6e7ea',
-  '--color-background-200': '#d1d3d6',
-  '--color-background-300': '#b3b6bb',
-  '--color-background-400': '#8e929a',
-  '--color-background-500': '#6e7177',
-  '--color-background-600': '#4f5259',
-  '--color-background-700': '#3f4248',
-  '--color-background-800': '#2e3036',
-  '--color-background-900': '#1f2025',
-  '--color-background-950': '#131418',
-
-  /* Background Special */
-  '--color-background-error': '#fef1f1',
-  '--color-background-warning': '#fff4eb',
-  '--color-background-success': '#edf8f2',
-  '--color-background-muted': '#f7f8f7',
-  '--color-background-info': '#ebf8fe',
-
-  /* Focus Ring Indicator */
-  '--color-indicator-primary': '#373737',
-  '--color-indicator-info': '#5399ec',
-  '--color-indicator-error': '#b91c1c',
 }
 
 export const darkTheme = {

@@ -19,6 +19,8 @@ const { width } = Dimensions.get('window')
 
 const GridContext = createContext<any>({})
 
+/* eslint-disable */
+
 function arrangeChildrenIntoRows({
   childrenArray,
   colSpanArr,
