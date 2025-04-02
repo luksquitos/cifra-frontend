@@ -1,13 +1,12 @@
-import { Stack } from 'expo-router'
+import { ThemeProvider } from 'styled-components/native'
 
-import { LayoutContent } from '@/components/routes/layout/layout-content'
+import { Button } from '../components/button'
+import { defaultTheme } from '../constants/theme'
 
 export default function RootLayout() {
   return (
-    <LayoutContent>
-      <Stack screenOptions={{ navigationBarColor: 'transparent' }}>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
-    </LayoutContent>
+    <ThemeProvider theme={defaultTheme}>
+      <Button />
+    </ThemeProvider>
   )
 }
