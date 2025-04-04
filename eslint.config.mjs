@@ -19,6 +19,7 @@ const antfuConfig = antfu(
     },
     {
         rules: {
+            "react-refresh/only-export-components": 'off',
             'ts/no-redeclare': 'off',
             'ts/consistent-type-definitions': ['error', 'type'],
             'no-console': ['warn'],
