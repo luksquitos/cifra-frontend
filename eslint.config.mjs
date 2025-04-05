@@ -13,11 +13,6 @@ const antfuConfig = antfu(
         react: true,
     },
     {
-        plugins: {
-            'styled-components-a11y': styledA11y,
-        }
-    },
-    {
         rules: {
             "react-refresh/only-export-components": 'off',
             'ts/no-redeclare': 'off',
