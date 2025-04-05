@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import { useCallback, useEffect, useMemo, useState } from 'react'
 import { FlatList } from 'react-native'
 
 import type { Pagination } from '@/@types/api/api'
@@ -55,38 +54,37 @@ export function Products() {
   const products = query.data?.results || []
 
   return (
-    <FlatList
-      data={products}
-      keyExtractor={(item, idx) => item?.category + idx.toString()}
-      renderItem={({ item, index }) => (
+    <VStack>
+      {products.map(item => (
         <VStack
-          gap={defaultTheme.spacing['4xl']}
-          paddingHorizontal={defaultTheme.spacing['6xl']}
-          marginTop={defaultTheme.spacing['6xl']}
-        >
-          <Text fontSize={defaultTheme.font.size.lg} fontWeight="500">{item.category?.name}</Text>
-          <HStack overflow="visible">
-            <FlatList
-              data={item.products}
-              keyExtractor={(item, idx) => item.id + idx.toString()}
+        key={item.category.id}
+        gap={defaultTheme.spacing['4xl']}
+        paddingHorizontal={defaultTheme.spacing['6xl']}
+        marginTop={defaultTheme.spacing['6xl']}
+      >
+        <Text fontSize={defaultTheme.font.size.lg} fontWeight="500">{item.category?.name}</Text>
+        <HStack overflow="visible">
+          <FlatList
+            data={item.products}
+            keyExtractor={(item, idx) => item.id + idx.toString()}
 
-              horizontal
-              style={{
-                gap: defaultTheme.spacing.lg,
-                paddingBottom: defaultTheme.spacing.xl,
-                overscrollBehaviorX: 'auto',
-              }}
-              ItemSeparatorComponent={() => <HStack width={defaultTheme.spacing['4xl']} />}
-              renderItem={
-                ({ item, index }) =>
-                  (
-                    <ProductCard {...item} />
-                  )
-              }
-            />
-          </HStack>
-        </VStack>
-      )}
-    />
+            horizontal
+            style={{
+              gap: defaultTheme.spacing.lg,
+              paddingBottom: defaultTheme.spacing.xl,
+              overscrollBehaviorX: 'auto',
+            }}
+            ItemSeparatorComponent={() => <HStack width={defaultTheme.spacing['4xl']} />}
+            renderItem={
+              ({ item }) =>
+                (
+                  <ProductCard {...item} />
+                )
+            }
+          />
+        </HStack>
+      </VStack>
+      ))}
+      </VStack>
   )
 }

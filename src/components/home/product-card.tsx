@@ -3,14 +3,14 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { Image, TouchableOpacity } from 'react-native'
 
+import type { EachProduct } from '@/@types/api/products'
+
 import { defaultTheme } from '@/constants/theme'
 
 import { Text } from '../ui/text'
 import { HStack, VStack } from '../ui/view'
-import { EachProduct } from '@/@types/api/products'
 
-
-export function ProductCard({about,category,id,name,price,store,} : EachProduct) {
+export function ProductCard({ name, price }: EachProduct) {
   return (
     <TouchableOpacity
       style={{
@@ -36,7 +36,7 @@ export function ProductCard({about,category,id,name,price,store,} : EachProduct)
       >
         <Text fontWeight={500} fontSize={defaultTheme.font.size.sm}>{name}</Text>
         <VStack marginTop={defaultTheme.spacing['5xl']}>
-          <Text fontSize={defaultTheme.font.size.md} fontWeight={700}>{Number.parseFloat(price).toLocaleString("pt-BR", {style:"currency", currency:"BRL"})}</Text>
+          <Text fontSize={defaultTheme.font.size.md} fontWeight={700}>{Number.parseFloat(price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</Text>
           <Text fontSize={defaultTheme.font.size.xs} color={defaultTheme.colors.gray[400]}>ou até 12x de R$ 66,50</Text>
         </VStack>
       </VStack>

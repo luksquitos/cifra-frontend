@@ -1,7 +1,8 @@
-import type { defaultTheme } from '@/constants/theme'
 import type { Dispatch, PropsWithChildren, SetStateAction } from 'react'
 
 import React, { createContext, useContext, useState } from 'react'
+
+import type { defaultTheme } from '@/constants/theme'
 
 export enum ThemeVariants {
   LIGHT = 'light',

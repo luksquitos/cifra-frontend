@@ -7,7 +7,7 @@ export type ButtonProps = {
   variant: 'primary' | 'secondary'
 }
 
-export function Button({ children, variant }: ButtonProps) {
+export function Button({ children }: ButtonProps) {
   return (
     <TouchableOpacity>
       {

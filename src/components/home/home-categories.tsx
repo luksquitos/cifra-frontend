@@ -1,8 +1,6 @@
-import { faBell } from '@fortawesome/free-regular-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { useQuery } from '@tanstack/react-query'
-import ContentLoader, { Circle, Path, Rect } from 'react-content-loader/native'
-import { FlatList, TouchableOpacity } from 'react-native'
+import ContentLoader, { Rect } from 'react-content-loader/native'
+import { FlatList } from 'react-native'
 
 import type { CategoriesPaginated, EachCategory } from '@/@types/api/categories'
 

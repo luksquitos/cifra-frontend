@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import type { TextInputProps } from 'react-native'
 
+import { useState } from 'react'
 import { StyleSheet, TextInput } from 'react-native'
 
 import { defaultTheme } from '@/constants/theme'
@@ -19,20 +20,33 @@ const styleSheet = StyleSheet.create({
     paddingHorizontal: defaultTheme.spacing['2xl'],
     paddingVertical: defaultTheme.spacing.sm,
     borderWidth: 1,
-    borderColor: defaultTheme.colors.gray[100],
     gap: defaultTheme.spacing.lg,
   },
   input: {
     flex: 1,
-
   },
 })
 
 export function Input({ append, preppend, ...props }: InputProps) {
+  const [isFocused, setIsFocused] = useState(false)
+
   return (
-    <HStack style={styleSheet.container}>
+    <HStack
+      style={[
+        styleSheet.container,
+        {
+          borderColor: isFocused ? defaultTheme.colors.darkBlue[500] : defaultTheme.colors.gray[100],
+        },
+      ]}
+    >
       {preppend && preppend}
-      <TextInput style={[styleSheet.input, props.style]} placeholderTextColor={defaultTheme.colors.gray[300]} {...props} />
+      <TextInput
+        {...props}
+        style={[styleSheet.input, props.style]}
+        placeholderTextColor={defaultTheme.colors.gray[300]}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+      />
       {append && append}
     </HStack>
   )

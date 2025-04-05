@@ -1,6 +1,6 @@
 import type { ViewProps, ViewStyle } from 'react-native'
 
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 
 type CustomViewProps = ViewProps & {
   flexDirection?: ViewStyle['flexDirection']

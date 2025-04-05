@@ -4,6 +4,7 @@ import axios from 'axios'
 
 import type { paths } from '@/@types/openapi'
 
+import { env, parsedEnv } from '@/env'
 import { ApplicationError } from '@/utils/application-error'
 
 type AxiosRequestConfigWithRouteParams<D> = AxiosRequestConfig<D> & {
@@ -114,7 +115,7 @@ class Rest {
 }
 
 export const cifraApi = new Rest({
-  baseURL: process.env.EXPO_PUBLIC_API_URL,
+  baseURL: env.EXPO_PUBLIC_API_URL,
   headers: {
     'Content-Type': 'application/json',
     'Cache-Control': 'no-cache',
