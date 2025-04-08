@@ -1,17 +1,20 @@
+import type { TextInput } from 'react-native'
+
 import { faBell } from '@fortawesome/free-regular-svg-icons'
-import { faChevronLeft, faLocationDot, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faLocationDot, faMagnifyingGlass, faX, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { usePathname, useRouter } from 'expo-router'
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { Text } from '@/components/ui/text'
-import { HStack, VStack } from '@/components/ui/view'
+import { HStack } from '@/components/ui/view'
 
 import { Input } from '../../components/ui/input'
 import { defaultTheme } from '../../constants/theme'
@@ -42,10 +45,13 @@ const styleSheet = StyleSheet.create({
 })
 
 export function Header() {
+  const [search, setSearch] = useState('')
   const router = useRouter()
   const pathname = usePathname()
+  const { top } = useSafeAreaInsets()
 
   const translateY = useSharedValue(0)
+  const inputRef = useRef<TextInput>(null)
 
   useEffect(() => {
     translateY.value = withTiming(pathname === '/search' ? -15 : 0, { duration: 300 })
@@ -61,6 +67,7 @@ export function Header() {
         animatedStyle,
         styleSheet.baseHeaderStyle,
         pathname === '/' ? styleSheet.homeHeaderStyle : styleSheet.searchHeaderStyle,
+        { paddingTop: top + defaultTheme.spacing['4xl'] },
       ]}
     >
       {pathname === '/' && (
@@ -72,11 +79,32 @@ export function Header() {
           <FontAwesomeIcon icon={faBell} style={styleSheet.bellIcon} />
         </HStack>
       )}
-      <HStack width="100%">
-        <TouchableOpacity onPress={() => router.back()}>
-          {pathname === '/search' && <FontAwesomeIcon icon={faChevronLeft} />}
-        </TouchableOpacity>
+      <HStack width="100%" gap={defaultTheme.spacing['4xl']}>
+        {pathname === '/search' && (
+          <TouchableOpacity
+            style={{ alignItems: 'center', justifyContent: 'center', height: 30, width: 30 }}
+            onPress={() => {
+              inputRef.current?.blur()
+              router.push('/')
+            }}
+          >
+            <FontAwesomeIcon color={defaultTheme.colors.darkBlue[700]} icon={faChevronLeft} size={18} />
+          </TouchableOpacity>
+        )}
         <Input
+          value={search}
+          ref={inputRef}
+          onChangeText={e => setSearch(e)}
+          append={search.length > 0
+            ? (
+                <TouchableOpacity onPress={() => setSearch('')}>
+                  <FontAwesomeIcon
+                    icon={faXmark}
+                    color={defaultTheme.colors.gray[500]}
+                  />
+                </TouchableOpacity>
+              )
+            : null}
           onPress={() => router.push('/search')}
           preppend={<FontAwesomeIcon icon={faMagnifyingGlass} color={styleSheet.magnifyingGlass.color} />}
           placeholder="Procure por..."

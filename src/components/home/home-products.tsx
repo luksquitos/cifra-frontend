@@ -57,34 +57,34 @@ export function Products() {
     <VStack>
       {products.map(item => (
         <VStack
-        key={item.category.id}
-        gap={defaultTheme.spacing['4xl']}
-        paddingHorizontal={defaultTheme.spacing['6xl']}
-        marginTop={defaultTheme.spacing['6xl']}
-      >
-        <Text fontSize={defaultTheme.font.size.lg} fontWeight="500">{item.category?.name}</Text>
-        <HStack overflow="visible">
-          <FlatList
-            data={item.products}
-            keyExtractor={(item, idx) => item.id + idx.toString()}
+          key={item.category.id}
+          gap={defaultTheme.spacing['4xl']}
+          paddingHorizontal={defaultTheme.spacing['6xl']}
+          marginTop={defaultTheme.spacing['6xl']}
+        >
+          <Text fontSize={defaultTheme.font.size.lg} fontWeight="500">{item.category?.name}</Text>
+          <HStack overflow="visible">
+            <FlatList
+              data={item.products}
+              keyExtractor={(item, idx) => item.id + idx.toString()}
 
-            horizontal
-            style={{
-              gap: defaultTheme.spacing.lg,
-              paddingBottom: defaultTheme.spacing.xl,
-              overscrollBehaviorX: 'auto',
-            }}
-            ItemSeparatorComponent={() => <HStack width={defaultTheme.spacing['4xl']} />}
-            renderItem={
-              ({ item }) =>
-                (
-                  <ProductCard {...item} />
-                )
-            }
-          />
-        </HStack>
-      </VStack>
+              horizontal
+              style={{
+                gap: defaultTheme.spacing.lg,
+                paddingBottom: defaultTheme.spacing.xl,
+                overscrollBehaviorX: 'auto',
+              }}
+              ItemSeparatorComponent={() => <HStack width={defaultTheme.spacing['4xl']} />}
+              renderItem={
+                ({ item }) =>
+                  (
+                    <ProductCard {...item} />
+                  )
+              }
+            />
+          </HStack>
+        </VStack>
       ))}
-      </VStack>
+    </VStack>
   )
 }

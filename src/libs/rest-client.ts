@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import type { paths } from '@/@types/openapi'
 
-import { env, parsedEnv } from '@/env'
+import { env } from '@/env'
 import { ApplicationError } from '@/utils/application-error'
 
 type AxiosRequestConfigWithRouteParams<D> = AxiosRequestConfig<D> & {

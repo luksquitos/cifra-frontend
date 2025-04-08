@@ -1,28 +1,24 @@
-import type { PropsWithChildren } from 'react'
-
-import { faBell } from '@fortawesome/free-regular-svg-icons'
-import { faLocationDot, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faMap } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { Slot, Stack, useRouter } from 'expo-router'
-import { StyleSheet } from 'react-native'
+import { Link, Slot } from 'expo-router'
+import { StatusBar } from 'expo-status-bar'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
-import { Categories } from '@/components/home/home-categories'
-import { Header } from '@/components/home/home-header'
-import { Products } from '@/components/home/home-products'
-import { Text } from '@/components/ui/text'
-import { HStack, VStack } from '@/components/ui/view'
 import { QueryProvider } from '@/providers/query-provider'
 
-import { Input } from '../components/ui/input'
 import { defaultTheme } from '../constants/theme'
 import { ThemeProvider } from '../providers/theme-provider'
 
 export default function RootLayout() {
   return (
-    <QueryProvider>
-      <ThemeProvider theme={defaultTheme}>
-        <Slot />
-      </ThemeProvider>
-    </QueryProvider>
+    <SafeAreaProvider>
+      <StatusBar translucent style="inverted" />
+      <QueryProvider>
+        <ThemeProvider theme={defaultTheme}>
+          <Slot />
+        </ThemeProvider>
+        <Link style={{ position: 'absolute', left: 0, bottom: 0 }} href="/_sitemap"><FontAwesomeIcon icon={faMap} /></Link>
+      </QueryProvider>
+    </SafeAreaProvider>
   )
 }

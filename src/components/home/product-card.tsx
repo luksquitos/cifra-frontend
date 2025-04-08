@@ -1,6 +1,7 @@
 import image from '@/assets/images/tinta.png'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { useRouter } from 'expo-router'
 import { Image, TouchableOpacity } from 'react-native'
 
 import type { EachProduct } from '@/@types/api/products'
@@ -10,9 +11,11 @@ import { defaultTheme } from '@/constants/theme'
 import { Text } from '../ui/text'
 import { HStack, VStack } from '../ui/view'
 
-export function ProductCard({ name, price }: EachProduct) {
+export function ProductCard({ name, price, id }: EachProduct) {
+  const router = useRouter()
   return (
     <TouchableOpacity
+      onPress={() => router.push(`/product/${id}`)}
       style={{
         width: 220,
         backgroundColor: defaultTheme.colors.gray[0],

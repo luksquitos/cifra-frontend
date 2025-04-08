@@ -9,12 +9,19 @@ type CustomViewProps = ViewProps & {
   gap?: number
 } & Omit<ViewStyle, 'flexDirection' | 'alignItems' | 'justifyContent' | 'gap'>
 
-function CustomView({ children, style, gap, flexDirection, alignItems, justifyContent, ...props }: CustomViewProps) {
+function CustomView({
+  children,
+  style,
+  gap,
+  flexDirection,
+  alignItems,
+  justifyContent,
+  ...props
+}: CustomViewProps) {
   return (
     <View
       style={[
         { flexDirection, alignItems, justifyContent, gap },
-        props,
         style,
       ]}
       {...props}
