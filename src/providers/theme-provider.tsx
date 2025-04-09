@@ -2,7 +2,7 @@ import type { Dispatch, PropsWithChildren, SetStateAction } from 'react'
 
 import React, { createContext, useContext, useState } from 'react'
 
-import type { defaultTheme } from '@/constants/theme'
+import { defaultTheme } from '@/constants/theme'
 
 export enum ThemeVariants {
   LIGHT = 'light',
@@ -13,6 +13,7 @@ export enum ThemeVariants {
 export type Theme = typeof defaultTheme
 
 export type ThemeContextType = {
+  theme: Theme
   themeVariant: string
   toggleTheme: () => void
   setThemeVariant: Dispatch<SetStateAction<ThemeVariants>>
@@ -21,6 +22,7 @@ export type ThemeContextType = {
 export const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { theme: Theme } & PropsWithChildren) {
+  const [theme] = useState<Theme>(defaultTheme)
   const [themeVariant, setThemeVariant] = useState<ThemeVariants>(ThemeVariants.SYSTEM)
 
   const toggleTheme = React.useCallback(() => {
@@ -33,7 +35,7 @@ export function ThemeProvider({ children }: { theme: Theme } & PropsWithChildren
     })
   }, [])
 
-  const contextValue = React.useMemo(() => ({ themeVariant, toggleTheme, setThemeVariant }), [themeVariant, setThemeVariant, toggleTheme])
+  const contextValue = React.useMemo(() => ({ themeVariant, toggleTheme, setThemeVariant, theme }), [themeVariant, setThemeVariant, toggleTheme, theme])
 
   return (
     <ThemeContext.Provider value={contextValue}>

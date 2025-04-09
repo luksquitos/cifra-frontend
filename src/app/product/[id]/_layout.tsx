@@ -1,8 +1,6 @@
-import type { PropsWithChildren } from 'react'
-
 import image from '@/assets/images/tinta.png'
 import {} from '@fortawesome/free-regular-svg-icons'
-import { faChevronLeft, faSearch, faShare, faShareAlt } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faSearch, faShareAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { Slot } from 'expo-router'
 import { Image } from 'react-native'
@@ -38,7 +36,14 @@ export default function ProductDetailLayout() {
           >
             <Image height={130} source={image} />
           </HStack>
-          <Text color={defaultTheme.colors.gray[600]} fontSize={defaultTheme.font.size.xl} fontWeight={700}>Tinta Borracha Liquida Solução Total</Text>
+          <Text
+            marginVertical={defaultTheme.spacing['8xl']}
+            color={defaultTheme.colors.gray[600]}
+            fontSize={defaultTheme.font.size.xl}
+            fontWeight={700}
+          >
+            Tinta Borracha Liquida Solução Total
+          </Text>
         </VStack>
       </VStack>
       <Slot />
