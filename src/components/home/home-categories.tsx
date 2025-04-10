@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import ContentLoader, { Rect } from 'react-content-loader/native'
 import { FlatList } from 'react-native'
 
-import type { CategoriesPaginated, EachCategory } from '@/@types/api/categories'
+import type { CategoriesPaginated, CategoriesQuery, EachCategory } from '@/@types/api/categories'
 
 import { Text } from '@/components/ui/text'
 import { HStack, VStack } from '@/components/ui/view'
@@ -11,8 +11,9 @@ import { cifraApi } from '@/libs/rest-client'
 
 import { CategoryCard } from './home-category-card'
 
-async function fetchCategories() {
-  const { data } = await cifraApi.get<CategoriesPaginated>('/api/stores/categories/')
+async function fetchCategories(query?: CategoriesQuery) {
+  const { data } = await cifraApi.get<CategoriesPaginated>('/api/stores/categories/', { params: query })
+  console.log('data', data)
 
   return data
 }
@@ -21,11 +22,12 @@ export function Categories() {
   const categories = useQuery({
     queryKey: ['categories'],
     queryFn: async () => {
-      return await fetchCategories()
+      return await fetchCategories({ height: '20', width: '20', fill_path: '#FED641', fill_svg: '#FED641' })
     },
   })
 
-  const categoriesData = categories.data?.results as EachCategory[]
+  const categoriesData = (categories.data ?? []) as EachCategory[]
+  console.log(categoriesData)
 
   return (
     <VStack

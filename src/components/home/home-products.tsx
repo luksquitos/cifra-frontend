@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { FlatList } from 'react-native'
 
 import type { Pagination } from '@/@types/api/api'
-import type { CategoriesPaginated } from '@/@types/api/categories'
+import type { EachCategory } from '@/@types/api/categories'
 import type { EachProduct, ProductsPaginated } from '@/@types/api/products'
 
 import { Text } from '@/components/ui/text'
@@ -14,12 +14,12 @@ import { ProductCard } from './product-card'
 
 async function fetchProductsByCategories(): Promise<Pagination<ProductByCategory>> {
   const { data: productsData } = await cifraApi.get<ProductsPaginated>('/api/stores/products/')
-  const { data: categoriesData } = await cifraApi.get<CategoriesPaginated>('/api/stores/categories/')
+  const { data: categoriesData } = await cifraApi.get<EachCategory[]>('/api/stores/categories/')
 
   function segregateProductsByCategory(products: EachProduct[]) {
     const productByCategory: ProductByCategory[] = []
 
-    categoriesData.results.forEach((category) => {
+    categoriesData.forEach((category) => {
       const productsByCategory = products.filter(product => product.category === category.id)
       if (productsByCategory.length > 0) {
         productByCategory.push({
