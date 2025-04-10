@@ -6,7 +6,6 @@ import type { Pagination } from '@/@types/api/api'
 import type { EachProduct, FetchProductsFilter, ProductsPaginated } from '@/@types/api/products'
 
 import { HStack, VStack } from '@/components/ui/view'
-import { defaultTheme } from '@/constants/theme'
 import { cifraApi } from '@/libs/rest-client'
 import { useTheme } from '@/providers/theme-provider'
 

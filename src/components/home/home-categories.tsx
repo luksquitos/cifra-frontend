@@ -13,7 +13,6 @@ import { CategoryCard } from './home-category-card'
 
 async function fetchCategories(query?: CategoriesQuery) {
   const { data } = await cifraApi.get<CategoriesPaginated>('/api/stores/categories/', { params: query })
-  console.log('data', data)
 
   return data
 }
@@ -27,7 +26,6 @@ export function Categories() {
   })
 
   const categoriesData = (categories.data ?? []) as EachCategory[]
-  console.log(categoriesData)
 
   return (
     <VStack

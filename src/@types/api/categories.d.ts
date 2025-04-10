@@ -1,5 +1,3 @@
-import { Categories } from '@/components/home/home-categories'
-
 import type { components, operations } from '../openapi'
 import type { Pagination } from './api'
 
