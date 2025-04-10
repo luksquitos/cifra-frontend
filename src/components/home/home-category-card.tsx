@@ -1,6 +1,7 @@
 import { faBell } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { TouchableOpacity } from 'react-native'
+import { SvgFromXml } from 'react-native-svg'
 
 import type { EachCategory } from '@/@types/api/categories'
 
@@ -24,11 +25,15 @@ export function CategoryCard({ item }: CategoryCardProps) {
         backgroundColor: defaultTheme.colors.gray[0],
       }}
     >
-      <FontAwesomeIcon
-        color={defaultTheme.colors.yellow[300]}
-        size={defaultTheme.spacing['6xl']}
-        icon={faBell}
-      />
+      {item.svg
+        ? <SvgFromXml xml={item.svg} />
+        : (
+            <FontAwesomeIcon
+              color={defaultTheme.colors.yellow[300]}
+              size={defaultTheme.spacing['6xl']}
+              icon={faBell}
+            />
+          )}
       <Text fontSize={defaultTheme.font.size.sm}>{item.name}</Text>
     </TouchableOpacity>
   )

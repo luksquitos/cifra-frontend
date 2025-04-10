@@ -108,6 +108,22 @@ export type paths = {
     patch?: never
     trace?: never
   }
+  '/api/stores/products/promotions/': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: operations['stores_products_promotions_retrieve']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/users/me/': {
     parameters: {
       query?: never
@@ -140,23 +156,7 @@ export type components = {
       readonly id: number
       /** Nome */
       name: string
-    } & {
-      [key: string]: unknown
-    }
-    PaginatedCategoryList: {
-      /** @example 123 */
-      count?: number
-      /**
-       * Format: uri
-       * @example http://api.example.org/accounts/?offset=400&limit=100
-       */
-      next?: string | null
-      /**
-       * Format: uri
-       * @example http://api.example.org/accounts/?offset=200&limit=100
-       */
-      previous?: string | null
-      results?: components['schemas']['Category'][]
+      svg?: string | null
     } & {
       [key: string]: unknown
     }
@@ -299,10 +299,14 @@ export type operations = {
   stores_categories_list: {
     parameters: {
       query?: {
-        /** @description Number of results to return per page. */
-        limit?: number
-        /** @description The initial index from which to return the results. */
-        offset?: number
+        /** @description Cor do path do SVG */
+        fill_path?: string
+        /** @description Cor do SVG */
+        fill_svg?: string
+        /** @description Altura do SVG */
+        height?: string
+        /** @description Largura do SVG */
+        width?: string
       }
       header?: never
       path?: never
@@ -315,7 +319,7 @@ export type operations = {
           [name: string]: unknown
         }
         content: {
-          'application/json': components['schemas']['PaginatedCategoryList']
+          'application/json': components['schemas']['Category'][]
         }
       }
     }
@@ -378,6 +382,25 @@ export type operations = {
         /** @description A unique integer value identifying this Produto. */
         id: number
       }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Product']
+        }
+      }
+    }
+  }
+  stores_products_promotions_retrieve: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
       cookie?: never
     }
     requestBody?: never

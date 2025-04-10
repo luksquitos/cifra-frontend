@@ -28,8 +28,8 @@ export const TabsTrigger = React.forwardRef<TabsPrimitive.TriggerRef, TabsPrimit
           [value === props.value
             && {
               color: defaultTheme.colors.darkBlue[700],
+              fontWeight: 500,
             }, {
-            fontWeight: 500,
           }]
         }
       >

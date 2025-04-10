@@ -1,7 +1,7 @@
 import type { TextInput } from 'react-native'
 
 import { faBell } from '@fortawesome/free-regular-svg-icons'
-import { faChevronLeft, faLocationDot, faMagnifyingGlass, faX, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faLocationDot, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { usePathname, useRouter } from 'expo-router'
 import { useEffect, useRef, useState } from 'react'
@@ -12,6 +12,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useDebounceCallback } from 'usehooks-ts'
 
 import { Text } from '@/components/ui/text'
 import { HStack } from '@/components/ui/view'
@@ -53,6 +54,10 @@ export function Header() {
   const translateY = useSharedValue(0)
   const inputRef = useRef<TextInput>(null)
 
+  const debouncedSearch = useDebounceCallback((value: string) => {
+    setSearchParams(value)
+  })
+
   useEffect(() => {
     translateY.value = withTiming(pathname === '/search' ? -15 : 0, { duration: 300 })
   }, [pathname])
@@ -60,6 +65,13 @@ export function Header() {
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],
   }))
+
+  function setSearchParams(value: string) {
+    const params = new URLSearchParams(pathname)
+    params.append('search', value)
+
+    router.push(`/search?${params.toString()}`)
+  }
 
   return (
     <Animated.View
@@ -94,7 +106,10 @@ export function Header() {
         <Input
           value={search}
           ref={inputRef}
-          onChangeText={e => setSearch(e)}
+          onChangeText={(e) => {
+            setSearch(e)
+            debouncedSearch(e)
+          }}
           append={search.length > 0
             ? (
                 <TouchableOpacity onPress={() => setSearch('')}>
