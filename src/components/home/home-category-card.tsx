@@ -1,5 +1,6 @@
 import { faBell } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { useRouter } from 'expo-router'
 import { TouchableOpacity } from 'react-native'
 import { SvgFromXml } from 'react-native-svg'
 
@@ -13,8 +14,18 @@ type CategoryCardProps = {
 }
 
 export function CategoryCard({ item }: CategoryCardProps) {
+  const router = useRouter()
+
+  function handlePress(category: string) {
+    const searchParams = new URLSearchParams('/search')
+
+    searchParams.append('category', category)
+    router.push(`/search?${searchParams.toString()}`)
+  }
+
   return (
     <TouchableOpacity
+      onPress={() => handlePress(item.id.toString())}
       style={{
         width: 90,
         height: 90,

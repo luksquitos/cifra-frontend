@@ -1,6 +1,6 @@
 import { faMap } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { Link, Slot } from 'expo-router'
+import { Link, Slot, usePathname } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
@@ -10,6 +10,8 @@ import { defaultTheme } from '../constants/theme'
 import { ThemeProvider } from '../providers/theme-provider'
 
 export default function RootLayout() {
+  const pathname = usePathname()
+  console.log('pathname', pathname)
   return (
     <SafeAreaProvider>
       <StatusBar translucent style="inverted" />

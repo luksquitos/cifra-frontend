@@ -63,7 +63,7 @@ export function Header() {
   }, [pathname])
 
   const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateY: translateY.value }],
+    transform: [],
   }))
 
   function setSearchParams(value: string) {
@@ -97,6 +97,7 @@ export function Header() {
             style={{ alignItems: 'center', justifyContent: 'center', height: 30, width: 30 }}
             onPress={() => {
               inputRef.current?.blur()
+              setSearch('')
               router.push('/')
             }}
           >

@@ -20,11 +20,13 @@ async function fetchProducts(query?: FetchProductsFilter): Promise<Pagination<Ea
 export function Products() {
   const params = useSearchParams()
   const search = params.get('search') || ''
+  const category = params.get('category') || ''
+
   const { theme } = useTheme()
 
   const query = useQuery({
-    queryKey: ['products', search],
-    queryFn: async () => { return await fetchProducts({ search }) },
+    queryKey: ['products', search, category],
+    queryFn: async () => { return await fetchProducts({ search, category }) },
   })
 
   const products = query.data?.results || []
@@ -44,6 +46,7 @@ export function Products() {
         <FlatList
           data={products}
           keyExtractor={(item, idx) => item.id + idx.toString()}
+          ListEmptyComponent={<Text>Nenhum Produto encontrado</Text>}
           numColumns={2}
           columnWrapperStyle={{ gap: theme.spacing['4xl'] }}
           contentContainerStyle={{ gap: theme.spacing['4xl'], paddingHorizontal: theme.spacing['6xl'] }}
