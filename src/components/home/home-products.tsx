@@ -20,7 +20,7 @@ async function fetchProductsByCategories(): Promise<Pagination<ProductByCategory
     const productByCategory: ProductByCategory[] = []
 
     categoriesData.forEach((category) => {
-      const productsByCategory = products.filter(product => product.category === category.id)
+      const productsByCategory = products.filter(product => product.category.id === category.id)
       if (productsByCategory.length > 0) {
         productByCategory.push({
           category,
