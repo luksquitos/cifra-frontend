@@ -13,7 +13,7 @@ import { cifraApi } from '@/libs/rest-client'
 import { ProductCard } from './product-card'
 
 async function fetchProductsByCategories(): Promise<Pagination<ProductByCategory>> {
-  const { data: productsData } = await cifraApi.get<ProductsPaginated>('/api/stores/products/')
+  const { data: productsData } = await cifraApi.get<ProductsPaginated>('/api/stores/products/promotions/')
   const { data: categoriesData } = await cifraApi.get<EachCategory[]>('/api/stores/categories/')
 
   function segregateProductsByCategory(products: EachProduct[]) {
@@ -32,7 +32,7 @@ async function fetchProductsByCategories(): Promise<Pagination<ProductByCategory
     return productByCategory
   }
 
-  const segregatedProducts = segregateProductsByCategory(productsData.results)
+  const segregatedProducts = segregateProductsByCategory(productsData)
 
   return {
     ...productsData,
