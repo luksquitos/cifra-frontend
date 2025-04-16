@@ -1,8 +1,4 @@
-import { Slot, Stack, usePathname } from 'expo-router'
-
-import { Header } from '@/components/home/home-header'
-import { VStack } from '@/components/ui/view'
-import { defaultTheme } from '@/constants/theme'
+import { Slot, Stack } from 'expo-router'
 
 export default function HomeLayout() {
   return (
