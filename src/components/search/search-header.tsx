@@ -1,15 +1,21 @@
-import { faBell } from '@fortawesome/free-regular-svg-icons'
-import { faChevronLeft, faLocationDot, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import type { TextInput } from 'react-native'
+import type { DebouncedState } from 'usehooks-ts'
+
+import { faChevronLeft, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { usePathname, useRouter } from 'expo-router'
+import { useEffect, useRef, useState } from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
-import Animated from 'react-native-reanimated'
+import Animated, {
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { Text } from '@/components/ui/text'
 import { HStack } from '@/components/ui/view'
+import { defaultTheme } from '@/constants/theme'
 
-import { defaultTheme } from '../../constants/theme'
+import { Input } from '../ui/input'
 
 const styleSheet = StyleSheet.create({
   baseHeaderStyle: {
@@ -36,10 +42,22 @@ const styleSheet = StyleSheet.create({
   },
 })
 
-export function Header() {
+export function Header({ search, setSearch }: { search: string, setSearch: DebouncedState<(value: string) => void> }) {
   const router = useRouter()
   const pathname = usePathname()
   const { top } = useSafeAreaInsets()
+  const [displaySearch, setDisplaySearch] = useState('')
+
+  const translateY = useSharedValue(0)
+  const inputRef = useRef<TextInput>(null)
+
+  useEffect(() => {
+    translateY.value = withTiming(pathname === '/search' ? -15 : 0, { duration: 300 })
+  }, [pathname])
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
 
   return (
     <Animated.View
@@ -49,61 +67,46 @@ export function Header() {
         { paddingTop: top + defaultTheme.spacing['4xl'] },
       ]}
     >
-      {pathname === '/' && (
-        <HStack justifyContent="space-between" width="100%">
-          <HStack gap={defaultTheme.spacing.lg} alignItems="center">
-            <FontAwesomeIcon icon={faLocationDot} style={styleSheet.mapPinIcon} />
-            <Text color={defaultTheme.colors.gray[0]}>Anápolis, GO - 75020000</Text>
-          </HStack>
-          <FontAwesomeIcon icon={faBell} style={styleSheet.bellIcon} />
-        </HStack>
-      )}
       <HStack width="100%" gap={defaultTheme.spacing['4xl']}>
         {pathname === '/search' && (
           <TouchableOpacity
             style={{ alignItems: 'center', justifyContent: 'center', height: 30, width: 30 }}
             onPress={() => {
+              inputRef.current?.blur()
+              setSearch('')
+              setDisplaySearch('')
               router.push('/')
             }}
           >
             <FontAwesomeIcon color={defaultTheme.colors.darkBlue[700]} icon={faChevronLeft} size={18} />
           </TouchableOpacity>
         )}
-        <TouchableOpacity
-          style={{
-            backgroundColor: defaultTheme.colors.gray[0],
-            borderRadius: defaultTheme.radius.xl,
-            paddingHorizontal: defaultTheme.spacing['2xl'],
-            paddingVertical: defaultTheme.spacing['3xl'],
-            borderColor: defaultTheme.colors.primary.dark,
-            alignItems: 'center',
-            flexDirection: 'row',
-            borderWidth: 1,
-            gap: 8,
-            flex: 1,
+        <Input
+          value={displaySearch}
+          ref={inputRef}
+          onChangeText={(e) => {
+            setSearch(e)
+            setDisplaySearch(e)
           }}
+          append={search.length > 0
+            ? (
+                <TouchableOpacity onPress={() => {
+                  setDisplaySearch('')
+                  setSearch('')
+                }}
+                >
+                  <FontAwesomeIcon
+                    icon={faXmark}
+                    color={defaultTheme.colors.gray[500]}
+                  />
+                </TouchableOpacity>
+              )
+            : null}
           onPress={() => pathname === '/' && router.push('/search')}
-
-        >
-          <FontAwesomeIcon icon={faMagnifyingGlass} color={styleSheet.magnifyingGlass.color} />
-          <Text color={styleSheet.magnifyingGlass.color}>Procure por...</Text>
-        </TouchableOpacity>
+          preppend={<FontAwesomeIcon icon={faMagnifyingGlass} color={styleSheet.magnifyingGlass.color} />}
+          placeholder="Procure por..."
+        />
       </HStack>
     </Animated.View>
   )
 }
-
-// const styleSheet = StyleSheet.create({
-//   container: {
-//     backgroundColor: defaultTheme.colors.gray[0],
-//     borderRadius: defaultTheme.radius.xl,
-//     paddingHorizontal: defaultTheme.spacing['2xl'],
-//     paddingVertical: defaultTheme.spacing.sm,
-//     borderWidth: 1,
-//     gap: 2,
-//     flex: 1,
-//   },
-//   input: {
-//     flex: 1,
-//   },
-// })

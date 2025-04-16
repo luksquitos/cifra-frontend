@@ -17,9 +17,8 @@ async function fetchProducts(query?: FetchProductsFilter): Promise<Pagination<Ea
   return data
 }
 
-export function Products() {
+export function Products({ search }: { search?: string }) {
   const params = useSearchParams()
-  const search = params.get('search') || ''
   const category = params.get('category') || ''
 
   const { theme } = useTheme()
