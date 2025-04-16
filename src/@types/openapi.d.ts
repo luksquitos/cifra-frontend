@@ -179,6 +179,7 @@ export type components = {
     }
     Product: {
       readonly id: number
+      readonly category: components['schemas']['Category']
       /** Nome */
       name: string
       /**
@@ -198,8 +199,6 @@ export type components = {
       image?: string | null
       /** Loja */
       store: number
-      /** Categoria */
-      category: number
     } & {
       [key: string]: unknown
     }
