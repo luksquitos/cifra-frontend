@@ -92,18 +92,3 @@ export function Header() {
     </Animated.View>
   )
 }
-
-// const styleSheet = StyleSheet.create({
-//   container: {
-//     backgroundColor: defaultTheme.colors.gray[0],
-//     borderRadius: defaultTheme.radius.xl,
-//     paddingHorizontal: defaultTheme.spacing['2xl'],
-//     paddingVertical: defaultTheme.spacing.sm,
-//     borderWidth: 1,
-//     gap: 2,
-//     flex: 1,
-//   },
-//   input: {
-//     flex: 1,
-//   },
-// })
