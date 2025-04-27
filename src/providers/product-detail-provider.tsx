@@ -1,30 +1,31 @@
-import type { Dispatch, PropsWithChildren, SetStateAction } from 'react'
+import type { PropsWithChildren } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 import { useLocalSearchParams } from 'expo-router'
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext } from 'react'
 
 import type { EachProduct } from '@/@types/api/products'
 
-import { defaultTheme } from '@/constants/theme'
 import { cifraApi } from '@/libs/rest-client'
 
 export type ProductDetailType = {
-  productId: string
-  setProductId: Dispatch<SetStateAction<string>>
+  productData?: EachProduct
+  isLoading: boolean
 }
 
 export const ProductDetailContext = createContext<ProductDetailType | undefined>(undefined)
 
-export function ProductDetailProvider({ children }: { } & PropsWithChildren) {
+export function ProductDetailProvider({ children }: PropsWithChildren) {
   const { id }: { id: string } = useLocalSearchParams()
 
-  const { data } = useQuery({
+  const { data: productData, isFetching } = useQuery({
     queryKey: ['product-detail', id],
     queryFn: () => retrieveProductById({ id }),
   })
 
-  const value = React.useMemo(() => ({ productId, setProductId }), [productId])
+  const isLoading = isFetching || !productData
+
+  const value = React.useMemo(() => ({ productData, isLoading }), [productData, isLoading])
 
   return (
     <ProductDetailContext.Provider value={value}>

@@ -1,6 +1,7 @@
 import image from '@/assets/images/tinta.png'
 import { Image } from 'react-native'
 
+import { useProductDetail } from '@/providers/product-detail-provider'
 import { useTheme } from '@/providers/theme-provider'
 
 import { Text } from '../ui/text'
@@ -8,6 +9,8 @@ import { HStack, VStack } from '../ui/view'
 
 export function ProductDetailHero() {
   const { theme } = useTheme()
+  const { productData } = useProductDetail()
+
   return (
     <VStack gap={theme.spacing['8xl']}>
       <HStack
@@ -26,7 +29,7 @@ export function ProductDetailHero() {
         fontSize={theme.font.size.xl}
         fontWeight={700}
       >
-        Tinta Borracha Liquida Solução Total
+        {productData?.name}
       </Text>
     </VStack>
   )

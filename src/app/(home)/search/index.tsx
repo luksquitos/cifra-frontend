@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { useDebounceCallback, useDebounceValue } from 'usehooks-ts'
+import { useDebounceValue } from 'usehooks-ts'
 
 import { Header } from '@/components/search/search-header'
 import { Products } from '@/components/search/search-products'
