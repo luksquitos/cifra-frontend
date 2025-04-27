@@ -6,7 +6,7 @@ import type { SvgIconProps } from '.'
 export function Share({ width, height, size, color, ...props }: SvgIconProps) {
   const finalWidth = size ?? width ?? 16
   const finalHeight = size ?? height ?? 17
-  const finalColor = color ?? '#2723D2'
+  const finalColor = color ?? '#000'
 
   return (
     <Svg

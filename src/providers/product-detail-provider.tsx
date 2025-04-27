@@ -4,12 +4,13 @@ import { useQuery } from '@tanstack/react-query'
 import { useLocalSearchParams } from 'expo-router'
 import React, { createContext, useContext } from 'react'
 
-import type { EachProduct } from '@/@types/api/products'
+import type { EachProduct, ProductsPaginated } from '@/@types/api/products'
 
 import { cifraApi } from '@/libs/rest-client'
 
 export type ProductDetailType = {
   productData?: EachProduct
+  whereToBuyList: ProductsPaginated['results']
   isLoading: boolean
 }
 
@@ -20,12 +21,23 @@ export function ProductDetailProvider({ children }: PropsWithChildren) {
 
   const { data: productData, isFetching } = useQuery({
     queryKey: ['product-detail', id],
-    queryFn: () => retrieveProductById({ id }),
+    queryFn: async () => await retrieveProductById({ id }),
   })
 
-  const isLoading = isFetching || !productData
+  const { data: whereToBuyData, isFetching: isFetchingWhereToBuy } = useQuery(
+    {
+      queryKey: ['where-to-buy', id],
+      queryFn: async () => await retrieveWhereToBuy({ name: productData?.name ?? '' }),
+      enabled: !!productData,
+    },
+  )
 
-  const value = React.useMemo(() => ({ productData, isLoading }), [productData, isLoading])
+  const isLoading = isFetching || !productData || isFetchingWhereToBuy
+
+  const value = React.useMemo(() => {
+    const whereToBuyList = whereToBuyData ?? []
+    return { productData, isLoading, whereToBuyList }
+  }, [productData, isLoading, whereToBuyData])
 
   return (
     <ProductDetailContext.Provider value={value}>
@@ -48,4 +60,20 @@ async function retrieveProductById({ id }: { id: string }) {
   })
 
   return data
+}
+
+async function retrieveWhereToBuy({ name }: { name: string }): Promise<EachProduct[]> {
+  const { data } = await cifraApi.get<ProductsPaginated>('/api/stores/products/', {
+    params: {
+      search: name,
+    },
+  });
+
+  const sorted = data.results.sort((a, b) => {
+    const priceA = Number.parseFloat(a.price);
+    const priceB = Number.parseFloat(b.price);
+    return priceA > priceB ? 1 : priceA < priceB ? -1 : 0;
+  }); 
+
+  return sorted;
 }

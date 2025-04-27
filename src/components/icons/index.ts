@@ -6,3 +6,6 @@ export type SvgIconProps = {
   size?: number
   color?: string
 } & React.ComponentProps<typeof Svg>
+
+export * from './map-marker'
+export * from './share'

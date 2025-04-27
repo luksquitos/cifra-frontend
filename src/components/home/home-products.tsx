@@ -3,7 +3,7 @@ import { FlatList } from 'react-native'
 
 import type { Pagination } from '@/@types/api/api'
 import type { EachCategory } from '@/@types/api/categories'
-import type { EachProduct, ProductsPaginated } from '@/@types/api/products'
+import type { EachProduct } from '@/@types/api/products'
 
 import { Text } from '@/components/ui/text'
 import { HStack, VStack } from '@/components/ui/view'
@@ -13,7 +13,7 @@ import { cifraApi } from '@/libs/rest-client'
 import { ProductCard } from './product-card'
 
 async function fetchProductsByCategories(): Promise<Pagination<ProductByCategory>> {
-  const { data: productsData } = await cifraApi.get<ProductsPaginated>('/api/stores/products/promotions/')
+  const { data: productsData } = await cifraApi.get('/api/stores/products/promotions/')
   const { data: categoriesData } = await cifraApi.get<EachCategory[]>('/api/stores/categories/')
 
   function segregateProductsByCategory(products: EachProduct[]) {

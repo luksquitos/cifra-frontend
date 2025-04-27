@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { useTheme } from '@/providers/theme-provider'
 
-import { Share } from '../icons/share'
+import { Share } from '../icons'
 import { HStack } from '../ui/view'
 
 export function Header() {
