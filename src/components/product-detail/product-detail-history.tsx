@@ -1,7 +1,6 @@
 import type { LineChartPropsType } from 'react-native-gifted-charts'
 
 import { format, formatDate } from 'date-fns'
-import { ptBR } from 'date-fns/locale'
 import { useCallback, useMemo } from 'react'
 import { Dimensions, View } from 'react-native'
 import { LineChart } from 'react-native-gifted-charts'
@@ -18,7 +17,6 @@ import { Text } from '../ui/text'
 import { HStack, VStack } from '../ui/view'
 
 const screenWidth = Dimensions.get('window').width
-const maxValueOffset = 30
 
 function customLabel(date: Date) {
   return (
@@ -67,9 +65,11 @@ function formatData(data: ProductHistory[]): LineChartPropsType['data'] {
   })
 }
 
-function getMaxValue(data: ProductHistory[]): number {
-  return Math.max(...data.map(item => Number.parseFloat(item.price))) + maxValueOffset
+function getMaxMinValue(data: ProductHistory[]): number[] {
+  return [Math.min(...data.map(item => Number.parseFloat(item.price))), Math.max(...data.map(item => Number.parseFloat(item.price)))]
 }
+
+
 
 export function History() {
   const { theme } = useTheme()
@@ -81,9 +81,29 @@ export function History() {
     [productHistoryList],
   )
 
-  const maxValue = useCallback(
-    () => getMaxValue(productHistoryList),
+  const minMaxValue = useCallback(
+    () => getMaxMinValue(productHistoryList),
     [productHistoryList],
+  )
+  
+  // Cálculo dos valores mínimo e máximo ajustados para o eixo Y
+  const customYAxisValues = useCallback(
+    () => {
+      const [min, max] = minMaxValue();
+      const diff = max - min;
+      
+      // Se a diferença for muito pequena, criamos um intervalo ampliado
+      if (diff < 1) {
+        // Reduzimos o mínimo em 20% da diferença e aumentamos o máximo em 20%
+        const padding = diff * 0.2;
+        return [min - padding, max + padding];
+      }
+      
+      // Caso seja uma diferença maior, usamos um padding menor
+      const padding = diff * 0.1;
+      return [min - padding, max + padding];
+    },
+    [minMaxValue]
   )
 
   return (
@@ -103,24 +123,31 @@ export function History() {
           startFillColor="rgb(39,35,210)"
           startOpacity={0.4}
           endOpacity={0.04}
-          initialSpacing={30}
+          initialSpacing={40}          
           noOfSections={6}
-          maxValue={maxValue()}
+          maxValue={customYAxisValues()[1]+ 50}
+          roundToDigits={2}          
+          isAnimated
           endFillColor="rgb(23, 44, 46)"
           rulesType="solid"
           yAxisTextStyle={{ color: theme.colors.gray[400], fontWeight: 'bold' }}
           rulesColor={theme.colors.gray[400]}
           xAxisColor={theme.colors.gray[400]}
           pointerConfig={{
+            activatePointersOnLongPress: true,
             pointerStripColor: theme.colors.gray[700],
             pointerStripWidth: 1,
             strokeDashArray: [4, 5],
-            pointerComponent: () => <HStack marginLeft={-3} justifyContent="center"><PointerIcon size={16} /></HStack>,
+            pointerComponent: () => (
+              <HStack marginLeft={-3} justifyContent="center">
+                <PointerIcon size={16} />
+              </HStack>
+            ),
             radius: 4,
             pointerLabelWidth: 86,
             pointerLabelHeight: 60,
             autoAdjustPointerLabelPosition: true,
-            pointerLabelComponent: (items) => {
+            pointerLabelComponent: (items: any) => {
               return (
                 <VStack borderRadius={4} paddingHorizontal={theme.spacing['2xl']} paddingVertical={8} justifyContent="center" backgroundColor={theme.colors.yellow[300]}>
                   <Text fontSize={theme.font.size.sm} style={{ color: theme.colors.gray[600], fontWeight: 'light' }}>

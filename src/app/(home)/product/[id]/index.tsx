@@ -1,16 +1,10 @@
-import type { LineChartPropsType } from 'react-native-gifted-charts'
-
 import * as Tabs from '@rn-primitives/tabs'
 import { useState } from 'react'
-import { Dimensions, View } from 'react-native'
-import { LineChart } from 'react-native-gifted-charts'
 
 import { BuyOptions } from '@/components/product-detail/product-detail-buy-options'
 import { History } from '@/components/product-detail/product-detail-history'
 import { TabsTrigger } from '@/components/ui/tabs'
 import { Text } from '@/components/ui/text'
-import { HStack, VStack } from '@/components/ui/view'
-import { defaultTheme } from '@/constants/theme'
 import { useTheme } from '@/providers/theme-provider'
 
 const tabs = [{

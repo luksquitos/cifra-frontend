@@ -1,19 +1,20 @@
 import image from '@/assets/images/tinta.png'
 import { Image } from 'react-native'
 
+import type { EachProduct } from '@/@types/api/products'
+
 import { useTheme } from '@/providers/theme-provider'
 import { currencyFormatter } from '@/utils/locale'
 
 import { MapMarker } from '../icons'
 import { Text } from '../ui/text'
 import { HStack, VStack } from '../ui/view'
-import { EachProduct } from '@/@types/api/products'
 
 type BuyOptionCardProps = {
   bestPrice?: boolean
 } & EachProduct
 
-export function BuyOptionCard({ name,price,store,bestPrice }: BuyOptionCardProps) {
+export function BuyOptionCard({ name, price, bestPrice }: BuyOptionCardProps) {
   const { theme } = useTheme()
   return (
     <VStack>

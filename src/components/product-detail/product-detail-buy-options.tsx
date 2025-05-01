@@ -1,9 +1,9 @@
-import { FlatList, ScrollView } from 'react-native'
+import { FlatList } from 'react-native'
 
 import { useProductDetail } from '@/providers/product-detail-provider'
 import { useTheme } from '@/providers/theme-provider'
 
-import { HStack, VStack } from '../ui/view'
+import { HStack } from '../ui/view'
 import { BuyOptionCard } from './product-detail-buy-option-card'
 
 export function BuyOptions() {
