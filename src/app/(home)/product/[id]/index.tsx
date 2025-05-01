@@ -6,23 +6,12 @@ import { Dimensions, View } from 'react-native'
 import { LineChart } from 'react-native-gifted-charts'
 
 import { BuyOptions } from '@/components/product-detail/product-detail-buy-options'
+import { History } from '@/components/product-detail/product-detail-history'
 import { TabsTrigger } from '@/components/ui/tabs'
 import { Text } from '@/components/ui/text'
 import { HStack, VStack } from '@/components/ui/view'
 import { defaultTheme } from '@/constants/theme'
 import { useTheme } from '@/providers/theme-provider'
-
-const screenWidth = Dimensions.get('window').width
-
-function customLabel(val) {
-  return (
-    <View style={{ width: 70, marginLeft: 7 }}>
-      <Text style={{ color: defaultTheme.colors.gray[400], fontWeight: 'bold' }}>{val}</Text>
-    </View>
-  )
-}
-
-const data: LineChartPropsType['data'] = [{ value: 50, labelComponent: () => customLabel('24 Nov') }, { value: 80 }, { value: 90 }, { value: 70 }]
 
 const tabs = [{
   label: 'Onde Comprar',
@@ -32,18 +21,7 @@ const tabs = [{
   label: 'Histórico',
   value: 'history',
   content: (
-    <LineChart
-      width={screenWidth}
-      data={data}
-      areaChart
-      color="#2723D2"
-      curved
-      startFillColor="rgb(39,35,210)"
-      startOpacity={0.4}
-      endOpacity={0.04}
-      endFillColor="rgb(23, 44, 46)"
-
-    />
+    <History />
   ),
 }, {
   label: 'Sobre o Produto',
@@ -71,7 +49,7 @@ export default function ProductDetail() {
         <Tabs.Content
           key={tab.value}
           value={tab.value}
-          style={{ flex: 1, marginHorizontal: theme.spacing['6xl'] }}
+          style={{ flex: 1 }}
         >
           {tab.content}
         </Tabs.Content>

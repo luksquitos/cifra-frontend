@@ -4,14 +4,16 @@ import { useQuery } from '@tanstack/react-query'
 import { useLocalSearchParams } from 'expo-router'
 import React, { createContext, useContext } from 'react'
 
-import type { EachProduct, ProductsPaginated } from '@/@types/api/products'
+import type { EachProduct, ProductHistory, ProductsPaginated } from '@/@types/api/products'
 
 import { cifraApi } from '@/libs/rest-client'
 
 export type ProductDetailType = {
   productData?: EachProduct
+  productHistoryData?: ProductHistory[]
   whereToBuyList: ProductsPaginated['results']
   isLoading: boolean
+  isFetchingHistory: boolean
 }
 
 export const ProductDetailContext = createContext<ProductDetailType | undefined>(undefined)
@@ -32,12 +34,20 @@ export function ProductDetailProvider({ children }: PropsWithChildren) {
     },
   )
 
+  const { data: productHistoryData, isFetching: isFetchingHistory } = useQuery({
+    queryKey: ['product-history', id],
+    queryFn: async () => await productHistory({ id }),
+    enabled: !!productData,
+  })
+
   const isLoading = isFetching || !productData || isFetchingWhereToBuy
 
   const value = React.useMemo(() => {
     const whereToBuyList = whereToBuyData ?? []
-    return { productData, isLoading, whereToBuyList }
-  }, [productData, isLoading, whereToBuyData])
+    return { productData, isLoading, whereToBuyList, productHistoryData, isFetchingHistory }
+  }, [productData, isLoading, whereToBuyData, productHistoryData, isFetchingHistory])
+
+  console.log('productData', productData?.id)
 
   return (
     <ProductDetailContext.Provider value={value}>
@@ -67,13 +77,21 @@ async function retrieveWhereToBuy({ name }: { name: string }): Promise<EachProdu
     params: {
       search: name,
     },
-  });
+  })
 
   const sorted = data.results.sort((a, b) => {
-    const priceA = Number.parseFloat(a.price);
-    const priceB = Number.parseFloat(b.price);
-    return priceA > priceB ? 1 : priceA < priceB ? -1 : 0;
-  }); 
+    const priceA = Number.parseFloat(a.price)
+    const priceB = Number.parseFloat(b.price)
+    return priceA > priceB ? 1 : priceA < priceB ? -1 : 0
+  })
 
-  return sorted;
+  return sorted
+}
+
+async function productHistory({ id }: { id: string }) {
+  const { data } = await cifraApi.get<ProductHistory[]>('/api/stores/products/{id}/historic/', {
+    routeParams: { id },
+  })
+
+  return data
 }

@@ -11,18 +11,18 @@ export function BuyOptions() {
   const { whereToBuyList } = useProductDetail()
 
   return (
-    <>
-      <FlatList
-        data={
-          whereToBuyList.map((item, index) => (<BuyOptionCard bestPrice={index === 0} key={index} {...item} />))
-        }
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingVertical: theme.spacing['8xl'] }}
-        ItemSeparatorComponent={() => <HStack height={theme.spacing['8xl']} />}
-        renderItem={({ item, idx }) => item}
 
-      />
-    </>
+    <FlatList
+      data={
+        whereToBuyList.map((item, index) => (<BuyOptionCard bestPrice={index === 0} key={index} {...item} />))
+      }
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{ paddingVertical: theme.spacing['8xl'] }}
+      ItemSeparatorComponent={() => <HStack height={theme.spacing['8xl']} />}
+      renderItem={({ item }) => item}
+      style={{ marginHorizontal: theme.spacing['6xl'] }}
+    />
+
   )
 }
