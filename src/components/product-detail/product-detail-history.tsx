@@ -13,6 +13,7 @@ import { useTheme } from '@/providers/theme-provider'
 import { currencyFormatter } from '@/utils/locale'
 
 import { PointerIcon } from '../icons/pointer-icon'
+import { Button } from '../ui/button'
 import { Text } from '../ui/text'
 import { HStack, VStack } from '../ui/view'
 
@@ -69,8 +70,6 @@ function getMaxMinValue(data: ProductHistory[]): number[] {
   return [Math.min(...data.map(item => Number.parseFloat(item.price))), Math.max(...data.map(item => Number.parseFloat(item.price)))]
 }
 
-
-
 export function History() {
   const { theme } = useTheme()
   const { productHistoryData } = useProductDetail()
@@ -85,29 +84,38 @@ export function History() {
     () => getMaxMinValue(productHistoryList),
     [productHistoryList],
   )
-  
+
   // Cálculo dos valores mínimo e máximo ajustados para o eixo Y
   const customYAxisValues = useCallback(
     () => {
-      const [min, max] = minMaxValue();
-      const diff = max - min;
-      
+      const [min, max] = minMaxValue()
+      const diff = max - min
+
       // Se a diferença for muito pequena, criamos um intervalo ampliado
       if (diff < 1) {
         // Reduzimos o mínimo em 20% da diferença e aumentamos o máximo em 20%
-        const padding = diff * 0.2;
-        return [min - padding, max + padding];
+        const padding = diff * 0.2
+        return [min - padding, max + padding]
       }
-      
+
       // Caso seja uma diferença maior, usamos um padding menor
-      const padding = diff * 0.1;
-      return [min - padding, max + padding];
+      const padding = diff * 0.1
+      return [min - padding, max + padding]
     },
-    [minMaxValue]
+    [minMaxValue],
   )
 
   return (
-    <VStack alignItems="center" overflow="hidden" flex={1} width="100%">
+    <VStack alignItems="center" overflow="hidden" flex={1} width="100%" paddingVertical={theme.spacing['8xl']} gap={theme.spacing['8xl']}>
+      <VStack width="100%" paddingHorizontal={theme.spacing['6xl']} gap={theme.spacing['4xl']}>
+        <Text fontWeight="500" fontSize={theme.spacing['5xl']}>Históricos de preços</Text>
+        <HStack gap={theme.spacing['4xl']}>
+          <Button style={{ width: 72, paddingHorizontal: 0, alignItems: 'center' }} variant="secondary">1 mês</Button>
+          <Button style={{ width: 72, paddingHorizontal: 0, alignItems: 'center' }} variant="outlined">3 mês</Button>
+          <Button style={{ width: 72, paddingHorizontal: 0, alignItems: 'center' }} variant="outlined">6 mês</Button>
+          <Button style={{ width: 72, paddingHorizontal: 0, alignItems: 'center' }} variant="outlined">1 ano</Button>
+        </HStack>
+      </VStack>
 
       <HStack width={screenWidth - 30}>
         <LineChart
@@ -123,14 +131,14 @@ export function History() {
           startFillColor="rgb(39,35,210)"
           startOpacity={0.4}
           endOpacity={0.04}
-          initialSpacing={40}          
+          initialSpacing={20}
           noOfSections={6}
-          maxValue={customYAxisValues()[1]+ 50}
-          roundToDigits={2}          
+          maxValue={customYAxisValues()[1] + 50}
+          roundToDigits={2}
           isAnimated
           endFillColor="rgb(23, 44, 46)"
           rulesType="solid"
-          yAxisTextStyle={{ color: theme.colors.gray[400], fontWeight: 'bold' }}
+          yAxisTextStyle={{ color: theme.colors.gray[400], fontWeight: 'normal' }}
           rulesColor={theme.colors.gray[400]}
           xAxisColor={theme.colors.gray[400]}
           pointerConfig={{

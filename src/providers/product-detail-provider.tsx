@@ -47,8 +47,6 @@ export function ProductDetailProvider({ children }: PropsWithChildren) {
     return { productData, isLoading, whereToBuyList, productHistoryData, isFetchingHistory }
   }, [productData, isLoading, whereToBuyData, productHistoryData, isFetchingHistory])
 
-  console.log('productData', productData?.id)
-
   return (
     <ProductDetailContext.Provider value={value}>
       {children}
