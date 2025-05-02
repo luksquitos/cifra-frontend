@@ -42,6 +42,8 @@ export function Categories() {
       <HStack>
         <FlatList
           data={categoriesData}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
           keyExtractor={
             (item, idx) => item + idx.toString()
           }

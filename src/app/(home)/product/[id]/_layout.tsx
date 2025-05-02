@@ -13,7 +13,7 @@ export default function ProductDetailLayout() {
   return (
     <ProductDetailProvider>
       <VStack style={{ flex: 1 }}>
-        <VStack backgroundColor={theme.colors.gray[0]} paddingHorizontal={defaultTheme.spacing['6xl']}>
+        <VStack backgroundColor={theme.colors.gray[0]} paddingHorizontal={defaultTheme.spacing['6xl']} width="100%">
           <Header />
           <ProductDetailHero />
         </VStack>

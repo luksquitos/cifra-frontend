@@ -67,7 +67,8 @@ export function Products() {
             <FlatList
               data={item.products}
               keyExtractor={(item, idx) => item.id + idx.toString()}
-
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
               horizontal
               style={{
                 gap: defaultTheme.spacing.lg,

@@ -1,4 +1,4 @@
-import image from '@/assets/images/tinta.png'
+import fallback from '@/assets/images/tinta.png'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { useRouter } from 'expo-router'
@@ -11,7 +11,7 @@ import { defaultTheme } from '@/constants/theme'
 import { Text } from '../ui/text'
 import { HStack, VStack } from '../ui/view'
 
-export function ProductCard({ name, price, id }: EachProduct) {
+export function ProductCard({ name, image, price, id }: EachProduct) {
   const router = useRouter()
   return (
     <TouchableOpacity
@@ -27,7 +27,7 @@ export function ProductCard({ name, price, id }: EachProduct) {
         width="100%"
         height={160}
       >
-        <Image source={image} />
+        <Image source={image ? { uri: image, width: 120, height: 120 } : fallback} />
       </HStack>
       <VStack
         paddingHorizontal={defaultTheme.spacing['2xl']}

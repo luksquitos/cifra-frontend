@@ -1,4 +1,4 @@
-import image from '@/assets/images/tinta.png'
+import fallback from '@/assets/images/tinta.png'
 import { Image } from 'react-native'
 
 import { useProductDetail } from '@/providers/product-detail-provider'
@@ -12,7 +12,7 @@ export function ProductDetailHero() {
   const { productData } = useProductDetail()
 
   return (
-    <VStack gap={theme.spacing['8xl']}>
+    <VStack gap={theme.spacing['8xl']} width="100%">
       <HStack
         marginTop={theme.spacing['6xl']}
         justifyContent="center"
@@ -21,7 +21,7 @@ export function ProductDetailHero() {
         paddingVertical={theme.spacing['4xl']}
         borderRadius={theme.radius.xl}
       >
-        <Image height={130} source={image} />
+        <Image source={productData?.image ? { uri: productData.image, width: 120, height: 120 } : fallback} />
       </HStack>
       <Text
         marginVertical={theme.spacing['8xl']}

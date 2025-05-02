@@ -1,4 +1,4 @@
-import image from '@/assets/images/tinta.png'
+import fallback from '@/assets/images/tinta.png'
 import { Image } from 'react-native'
 
 import type { EachProduct } from '@/@types/api/products'
@@ -14,7 +14,7 @@ type BuyOptionCardProps = {
   bestPrice?: boolean
 } & EachProduct
 
-export function BuyOptionCard({ name, price, bestPrice }: BuyOptionCardProps) {
+export function BuyOptionCard({ name, image, price, bestPrice }: BuyOptionCardProps) {
   const { theme } = useTheme()
   return (
     <VStack>
@@ -42,7 +42,8 @@ export function BuyOptionCard({ name, price, bestPrice }: BuyOptionCardProps) {
           overflow="hidden"
         >
           <HStack backgroundColor={theme.colors.gray[25]} height="100%" width="32%" justifyContent="center" alignItems="center">
-            <Image source={image} style={{ width: 50, height: 75 }} />
+
+            <Image source={image ? { uri: image, width: 80, height: 80 } : fallback} />
           </HStack>
           <VStack flex={1} backgroundColor={theme.colors.gray[0]} height="100%" justifyContent="center" paddingLeft={theme.spacing['6xl']}>
             <VStack>
