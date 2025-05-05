@@ -75,6 +75,7 @@ export const defaultTheme = {
     '8xl': 24,
     '9xl': 28,
     '10xl': 32,
+    '11xl': 36,
   },
   font: {
     family: {

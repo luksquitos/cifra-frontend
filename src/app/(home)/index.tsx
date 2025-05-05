@@ -6,10 +6,12 @@ import { Products } from '@/components/home/home-products'
 
 export default function Index() {
   return (
-    <ScrollView>
+    <>
       <Header />
-      <Categories />
-      <Products />
-    </ScrollView>
+      <ScrollView>
+        <Categories />
+        <Products />
+      </ScrollView>
+    </>
   )
 }
