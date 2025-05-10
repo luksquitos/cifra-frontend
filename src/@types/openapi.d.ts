@@ -104,7 +104,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/stores/products/{id}/historic/": {
+    "/api/stores/products/{product_pk}/historic/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["stores_products_historic_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/stores/products/{product_pk}/historic/{id}/": {
         parameters: {
             query?: never;
             header?: never;
@@ -168,7 +184,38 @@ export interface components {
             readonly id: number;
             /** Nome */
             name: string;
-            svg?: string | null;
+        } & {
+            [key: string]: unknown;
+        };
+        CategorySvg: {
+            readonly id: number;
+            readonly svg: string;
+            /** Nome */
+            name: string;
+        } & {
+            [key: string]: unknown;
+        };
+        Nested: {
+            readonly id: number;
+            /** Nome */
+            name: string;
+        } & {
+            [key: string]: unknown;
+        };
+        PaginatedPriceHistoryList: {
+            /** @example 123 */
+            count?: number;
+            /**
+             * Format: uri
+             * @example http://api.example.org/accounts/?offset=400&limit=100
+             */
+            next?: string | null;
+            /**
+             * Format: uri
+             * @example http://api.example.org/accounts/?offset=200&limit=100
+             */
+            previous?: string | null;
+            results?: components["schemas"]["PriceHistory"][];
         } & {
             [key: string]: unknown;
         };
@@ -186,6 +233,17 @@ export interface components {
              */
             previous?: string | null;
             results?: components["schemas"]["Product"][];
+        } & {
+            [key: string]: unknown;
+        };
+        PriceHistory: {
+            /**
+             * Preço
+             * Format: decimal
+             */
+            price: string;
+            /** Format: date-time */
+            readonly created_at: string;
         } & {
             [key: string]: unknown;
         };
@@ -211,8 +269,7 @@ export interface components {
              * Format: uri
              */
             image?: string | null;
-            /** Loja */
-            store: number;
+            readonly store: components["schemas"]["Nested"];
         } & {
             [key: string]: unknown;
         };
@@ -332,7 +389,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Category"][];
+                    "application/json": components["schemas"]["CategorySvg"][];
                 };
             };
         };
@@ -354,7 +411,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Category"];
+                    "application/json": components["schemas"]["CategorySvg"];
                 };
             };
         };
@@ -409,13 +466,21 @@ export interface operations {
             };
         };
     };
-    stores_products_historic_retrieve: {
+    stores_products_historic_list: {
         parameters: {
-            query?: never;
+            query?: {
+                /** @description Filtrar por created at (com o lookup: lte) */
+                end_at?: string;
+                /** @description Number of results to return per page. */
+                limit?: number;
+                /** @description The initial index from which to return the results. */
+                offset?: number;
+                /** @description Filtrar por created at (com o lookup: gte) */
+                start_at?: string;
+            };
             header?: never;
             path: {
-                /** @description A unique integer value identifying this Produto. */
-                id: number;
+                product_pk: number;
             };
             cookie?: never;
         };
@@ -426,7 +491,30 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Product"];
+                    "application/json": components["schemas"]["PaginatedPriceHistoryList"];
+                };
+            };
+        };
+    };
+    stores_products_historic_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this Histórico de preço de produto. */
+                id: number;
+                product_pk: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PriceHistory"];
                 };
             };
         };
