@@ -2,7 +2,6 @@ import type { LineChartPropsType } from 'react-native-gifted-charts'
 
 import { format, formatDate, subMonths } from 'date-fns'
 import { useEffect, useMemo } from 'react'
-import ContentLoader, { Circle, Path, Rect } from 'react-content-loader/native'
 import { ActivityIndicator, Dimensions, View } from 'react-native'
 import { LineChart } from 'react-native-gifted-charts'
 
