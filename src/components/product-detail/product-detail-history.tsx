@@ -120,10 +120,9 @@ export function History() {
       </VStack>
 
       <HStack width={screenWidth - 30}>
-        {isFetchingHistory
+        {isFetchingHistory && !productHistoryData
           ? (
               <HStack flex={1} justifyContent="center" alignItems="center" height={220}>
-
                 <ActivityIndicator size={32} />
               </HStack>
             )
@@ -135,6 +134,7 @@ export function History() {
                 color="#2723D2"
                 yAxisThickness={0}
                 hideDataPoints
+
                 curved
                 height={220}
                 startFillColor="rgb(39,35,210)"
@@ -151,9 +151,11 @@ export function History() {
                 rulesColor={theme.colors.gray[400]}
                 xAxisColor={theme.colors.gray[400]}
                 pointerConfig={{
-                  activatePointersOnLongPress: true,
                   pointerStripColor: theme.colors.gray[700],
                   pointerStripWidth: 1,
+                  persistPointer: true,
+                  initialPointerIndex: productHistoryData ? Math.floor(productHistoryData.results.length / 2) : undefined,
+                  initialPointerAppearDelay: 4,
                   strokeDashArray: [4, 5],
                   pointerComponent: () => (
                     <HStack marginLeft={-3} justifyContent="center">
