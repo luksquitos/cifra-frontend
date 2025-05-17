@@ -1,5 +1,7 @@
 import type { LineChartPropsType } from 'react-native-gifted-charts'
 
+import { faX } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { format, formatDate, subMonths } from 'date-fns'
 import { useEffect, useMemo } from 'react'
 import { ActivityIndicator, Dimensions, View } from 'react-native'
@@ -91,6 +93,7 @@ export function History() {
   }, [])
 
   const productHistoryList = useMemo(() => productHistoryData?.results ?? [], [productHistoryData])
+
   const formattedData = useMemo(() => formatData(productHistoryList), [productHistoryList])
   const minMaxValue = useMemo(() => getMaxMinValue(productHistoryList), [productHistoryList])
 
@@ -120,12 +123,13 @@ export function History() {
       </VStack>
 
       <HStack width={screenWidth - 30}>
-        {isFetchingHistory && !productHistoryData
+        {isFetchingHistory
           ? (
               <HStack flex={1} justifyContent="center" alignItems="center" height={220}>
                 <ActivityIndicator size={32} />
               </HStack>
             )
+
           : (
               <LineChart
                 width={screenWidth - 80}
@@ -134,7 +138,6 @@ export function History() {
                 color="#2723D2"
                 yAxisThickness={0}
                 hideDataPoints
-
                 curved
                 height={220}
                 startFillColor="rgb(39,35,210)"
@@ -142,7 +145,7 @@ export function History() {
                 endOpacity={0.04}
                 initialSpacing={20}
                 noOfSections={6}
-                maxValue={customYAxisValues[1] + 50}
+                maxValue={customYAxisValues[1] + 5}
                 roundToDigits={2}
                 isAnimated
                 endFillColor="rgb(23, 44, 46)"
@@ -154,7 +157,7 @@ export function History() {
                   pointerStripColor: theme.colors.gray[700],
                   pointerStripWidth: 1,
                   persistPointer: true,
-                  initialPointerIndex: productHistoryData ? Math.floor(productHistoryData.results.length / 2) : undefined,
+                  initialPointerIndex: productHistoryList.length !== 0 ? Math.floor(productHistoryList.length / 2) : undefined,
                   initialPointerAppearDelay: 4,
                   strokeDashArray: [4, 5],
                   pointerComponent: () => (
