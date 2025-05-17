@@ -4,6 +4,7 @@ import type { DebouncedState } from 'usehooks-ts'
 import { faChevronLeft, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { usePathname, useRouter } from 'expo-router'
+import { useSearchParams } from 'expo-router/build/hooks'
 import { useEffect, useRef, useState } from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import Animated, {
@@ -16,6 +17,7 @@ import { HStack } from '@/components/ui/view'
 import { defaultTheme } from '@/constants/theme'
 
 import { Input } from '../ui/input'
+import { CategoryActiveHeader } from './search-category-active-header'
 
 const styleSheet = StyleSheet.create({
   baseHeaderStyle: {
@@ -47,66 +49,68 @@ export function Header({ search, setSearch }: { search: string, setSearch: Debou
   const pathname = usePathname()
   const { top } = useSafeAreaInsets()
   const [displaySearch, setDisplaySearch] = useState('')
+  const params = useSearchParams()
 
-  const translateY = useSharedValue(0)
+  const category = params.get('category') || ''
+
   const inputRef = useRef<TextInput>(null)
-
-  useEffect(() => {
-    translateY.value = withTiming(pathname === '/search' ? -15 : 0, { duration: 300 })
-  }, [pathname])
 
   useEffect(() => {
     inputRef.current?.focus()
   }, [])
 
   return (
-    <Animated.View
-      style={[
-        styleSheet.baseHeaderStyle,
-        pathname === '/' ? styleSheet.homeHeaderStyle : styleSheet.searchHeaderStyle,
-        { paddingTop: top + defaultTheme.spacing['4xl'] },
-      ]}
-    >
-      <HStack width="100%" gap={defaultTheme.spacing['4xl']}>
-        {pathname === '/search' && (
-          <TouchableOpacity
-            style={{ alignItems: 'center', justifyContent: 'center', height: 30, width: 30 }}
-            onPress={() => {
-              inputRef.current?.blur()
-              setSearch('')
-              setDisplaySearch('')
-              router.push('/')
-            }}
+    category
+      ? <CategoryActiveHeader id={category} />
+      : (
+          <Animated.View
+            style={[
+              styleSheet.baseHeaderStyle,
+              pathname === '/' ? styleSheet.homeHeaderStyle : styleSheet.searchHeaderStyle,
+              { paddingTop: top + defaultTheme.spacing['4xl'] },
+            ]}
           >
-            <FontAwesomeIcon color={defaultTheme.colors.darkBlue[700]} icon={faChevronLeft} size={18} />
-          </TouchableOpacity>
-        )}
-        <Input
-          value={displaySearch}
-          ref={inputRef}
-          onChangeText={(e) => {
-            setSearch(e)
-            setDisplaySearch(e)
-          }}
-          append={search.length > 0
-            ? (
-                <TouchableOpacity onPress={() => {
-                  setDisplaySearch('')
-                  setSearch('')
-                }}
+            <HStack width="100%" gap={defaultTheme.spacing['4xl']}>
+              {pathname === '/search' && (
+                <TouchableOpacity
+                  style={{ alignItems: 'center', justifyContent: 'center', height: 30, width: 30 }}
+                  onPress={() => {
+                    inputRef.current?.blur()
+                    setSearch('')
+                    setDisplaySearch('')
+                    router.push('/')
+                  }}
                 >
-                  <FontAwesomeIcon
-                    icon={faXmark}
-                    color={defaultTheme.colors.gray[500]}
-                  />
+                  <FontAwesomeIcon color={defaultTheme.colors.darkBlue[700]} icon={faChevronLeft} size={18} />
                 </TouchableOpacity>
-              )
-            : null}
-          onPress={() => pathname === '/' && router.push('/search')}
-          preppend={<FontAwesomeIcon icon={faMagnifyingGlass} color={styleSheet.magnifyingGlass.color} />}
-          placeholder="Procure por..."
-        />
-      </HStack>
-    </Animated.View>
+              )}
+              <Input
+                value={displaySearch}
+                ref={inputRef}
+                onChangeText={(e) => {
+                  setSearch(e)
+                  setDisplaySearch(e)
+                }}
+                append={search.length > 0
+                  ? (
+                      <TouchableOpacity onPress={() => {
+                        setDisplaySearch('')
+                        setSearch('')
+                      }}
+                      >
+                        <FontAwesomeIcon
+                          icon={faXmark}
+                          color={defaultTheme.colors.gray[500]}
+                        />
+                      </TouchableOpacity>
+                    )
+                  : null}
+                onPress={() => pathname === '/' && router.push('/search')}
+                preppend={<FontAwesomeIcon icon={faMagnifyingGlass} color={styleSheet.magnifyingGlass.color} />}
+                placeholder="Procure por..."
+              />
+            </HStack>
+          </Animated.View>
+        )
   )
 }

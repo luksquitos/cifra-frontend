@@ -1,3 +1,4 @@
+import type { StatusBarStyle } from 'expo-status-bar'
 import type { Dispatch, PropsWithChildren, SetStateAction } from 'react'
 
 import React, { createContext, useContext, useState } from 'react'
@@ -17,6 +18,8 @@ export type ThemeContextType = {
   themeVariant: string
   toggleTheme: () => void
   setThemeVariant: Dispatch<SetStateAction<ThemeVariants>>
+  statusBarStyle: StatusBarStyle
+  setStatusBarStyle: Dispatch<SetStateAction<StatusBarStyle>>
 }
 
 export const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
@@ -24,6 +27,7 @@ export const ThemeContext = createContext<ThemeContextType | undefined>(undefine
 export function ThemeProvider({ children }: { theme: Theme } & PropsWithChildren) {
   const [theme] = useState<Theme>(defaultTheme)
   const [themeVariant, setThemeVariant] = useState<ThemeVariants>(ThemeVariants.SYSTEM)
+  const [statusBarStyle, setStatusBarStyle] = useState<StatusBarStyle>('inverted')
 
   const toggleTheme = React.useCallback(() => {
     setThemeVariant((prevTheme: ThemeVariants) => {
@@ -35,7 +39,21 @@ export function ThemeProvider({ children }: { theme: Theme } & PropsWithChildren
     })
   }, [])
 
-  const contextValue = React.useMemo(() => ({ themeVariant, toggleTheme, setThemeVariant, theme }), [themeVariant, setThemeVariant, toggleTheme, theme])
+  const contextValue = React.useMemo(() => ({
+    themeVariant,
+    toggleTheme,
+    setThemeVariant,
+    theme,
+    statusBarStyle,
+    setStatusBarStyle,
+  }), [
+    themeVariant,
+    setThemeVariant,
+    toggleTheme,
+    theme,
+    statusBarStyle,
+    setStatusBarStyle,
+  ])
 
   return (
     <ThemeContext.Provider value={contextValue}>

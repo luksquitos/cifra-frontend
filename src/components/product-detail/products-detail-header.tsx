@@ -21,7 +21,9 @@ export function Header() {
       </TouchableOpacity>
       <HStack gap={theme.spacing['5xl']}>
         <Share color={theme.colors.darkBlue[700]} size={18} />
-        <FontAwesomeIcon color={theme.colors.darkBlue[700]} size={18} icon={faSearch} />
+        <TouchableOpacity onPress={() => router.push('/search')}>
+          <FontAwesomeIcon color={theme.colors.darkBlue[700]} size={18} icon={faSearch} />
+        </TouchableOpacity>
       </HStack>
     </HStack>
   )
