@@ -1,25 +1,34 @@
-import type { PropsWithChildren } from 'react'
+import type { Dispatch, PropsWithChildren } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 import { useLocalSearchParams } from 'expo-router'
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 
+import type { Pagination } from '@/@types/api/api'
 import type { EachProduct, ProductHistory, ProductsPaginated } from '@/@types/api/products'
 
 import { cifraApi } from '@/libs/rest-client'
 
 export type ProductDetailType = {
   productData?: EachProduct
-  productHistoryData?: ProductHistory[]
+  productHistoryData?: Pagination<ProductHistory>
   whereToBuyList: ProductsPaginated['results']
   isLoading: boolean
   isFetchingHistory: boolean
+  setStartAt: Dispatch<React.SetStateAction<Date | undefined>>
+  setEndAt: Dispatch<React.SetStateAction<Date | undefined>>
+  rangeInMonths: number | null
+  setRangeInMonths: Dispatch<React.SetStateAction<number | null>>
 }
 
 export const ProductDetailContext = createContext<ProductDetailType | undefined>(undefined)
 
 export function ProductDetailProvider({ children }: PropsWithChildren) {
   const { id }: { id: string } = useLocalSearchParams()
+
+  const [startAt, setStartAt] = useState<Date | undefined>(undefined)
+  const [endAt, setEndAt] = useState<Date | undefined>(undefined)
+  const [rangeInMonths, setRangeInMonths] = useState<number | null>(null)
 
   const { data: productData, isFetching } = useQuery({
     queryKey: ['product-detail', id],
@@ -35,17 +44,37 @@ export function ProductDetailProvider({ children }: PropsWithChildren) {
   )
 
   const { data: productHistoryData, isFetching: isFetchingHistory } = useQuery({
-    queryKey: ['product-history', id],
-    queryFn: async () => await productHistory({ id }),
-    enabled: !!productData,
+    queryKey: ['product-history', id, startAt, endAt],
+    queryFn: async () => await productHistory({ id, endAt, startAt }),
+    enabled: !!id && !!startAt && !!endAt,
   })
 
   const isLoading = isFetching || !productData || isFetchingWhereToBuy
 
   const value = React.useMemo(() => {
     const whereToBuyList = whereToBuyData ?? []
-    return { productData, isLoading, whereToBuyList, productHistoryData, isFetchingHistory }
-  }, [productData, isLoading, whereToBuyData, productHistoryData, isFetchingHistory])
+    return {
+      productData,
+      isLoading,
+      whereToBuyList,
+      productHistoryData,
+      isFetchingHistory,
+      setStartAt,
+      setEndAt,
+      rangeInMonths,
+      setRangeInMonths,
+    }
+  }, [
+    productData,
+    isLoading,
+    whereToBuyData,
+    productHistoryData,
+    isFetchingHistory,
+    setStartAt,
+    setEndAt,
+    rangeInMonths,
+    setRangeInMonths,
+  ])
 
   return (
     <ProductDetailContext.Provider value={value}>
@@ -86,10 +115,29 @@ async function retrieveWhereToBuy({ name }: { name: string }): Promise<EachProdu
   return sorted
 }
 
-async function productHistory({ id }: { id: string }) {
-  const { data } = await cifraApi.get<ProductHistory[]>('/api/stores/products/{id}/historic/', {
-    routeParams: { id },
-  })
+async function productHistory({
+  id,
+  startAt,
+  endAt,
+}: {
+  id: string
+  startAt?: Date
+  endAt?: Date
+}) {
+  if (!startAt || !endAt) {
+    throw new Error('startAt and endAt must be defined')
+  }
+
+  const { data } = await cifraApi.get<Pagination<ProductHistory>>(
+    `/api/stores/products/{product_pk}/historic/`,
+    {
+      routeParams: { product_pk: id },
+      params: {
+        start_at: startAt.toISOString(),
+        end_at: endAt.toISOString(),
+      },
+    },
+  )
 
   return data
 }

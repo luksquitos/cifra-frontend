@@ -7,18 +7,27 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { QueryProvider } from '@/providers/query-provider'
 
 import { defaultTheme } from '../constants/theme'
-import { ThemeProvider } from '../providers/theme-provider'
+import { ThemeProvider, useTheme } from '../providers/theme-provider'
 
 export default function RootLayout() {
   return (
     <SafeAreaProvider>
-      <StatusBar translucent style="inverted" />
+      <ThemeProvider theme={defaultTheme}>
+        <LayoutContent />
+      </ThemeProvider>
+    </SafeAreaProvider>
+  )
+}
+
+function LayoutContent() {
+  const { statusBarStyle } = useTheme()
+  return (
+    <>
+      <StatusBar translucent style={statusBarStyle} />
       <QueryProvider>
-        <ThemeProvider theme={defaultTheme}>
-          <Slot />
-        </ThemeProvider>
+        <Slot />
         <Link style={{ position: 'absolute', left: 0, bottom: 0 }} href="/_sitemap"><FontAwesomeIcon icon={faMap} /></Link>
       </QueryProvider>
-    </SafeAreaProvider>
+    </>
   )
 }

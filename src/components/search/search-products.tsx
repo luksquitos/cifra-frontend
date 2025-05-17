@@ -9,6 +9,7 @@ import { HStack, VStack } from '@/components/ui/view'
 import { cifraApi } from '@/libs/rest-client'
 import { useTheme } from '@/providers/theme-provider'
 
+import { Text } from '../ui/text'
 import { ProductCard } from './search-product-card'
 
 async function fetchProducts(query?: FetchProductsFilter): Promise<Pagination<EachProduct>> {
@@ -18,6 +19,7 @@ async function fetchProducts(query?: FetchProductsFilter): Promise<Pagination<Ea
 
 export function Products({ search }: { search?: string }) {
   const params = useSearchParams()
+
   const category = params.get('category') || ''
 
   const { theme } = useTheme()
@@ -25,13 +27,24 @@ export function Products({ search }: { search?: string }) {
   const query = useQuery({
     queryKey: ['products', search, category],
     queryFn: async () => { return await fetchProducts({ search, category }) },
+    enabled: (search?.length && search.length > 0) || category.length > 0,
   })
 
   const products = query.data?.results || []
 
   return (
-    <VStack gap={theme.spacing['4xl']}>
-
+    <VStack gap={theme.spacing['4xl']} marginTop={theme.spacing.xl}>
+      {!query.isLoading && category
+        ? (
+            <Text paddingHorizontal={theme.spacing['6xl']} fontWeight={400} fontSize={theme.font.size.md}>
+              Exibindo
+              {' '}
+              {query.data?.count}
+              {' '}
+              produto(s)
+            </Text>
+          )
+        : <></>}
       <HStack overflow="visible">
         <FlatList
           data={products}

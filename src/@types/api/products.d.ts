@@ -1,5 +1,7 @@
 import type { components, operations } from '@/@types/openapi'
 
+import { ProductHistory } from '@/@types/api/products'
+
 import type { Pagination } from './api'
 
 export type EachProduct = components['schemas']['Product']
@@ -9,3 +11,5 @@ export type ProductHistory = {
   price: string
   created_at: string
 }
+
+export type ProductHistoryQuery = operations['stores_products_historic_list']['parameters']['query']
