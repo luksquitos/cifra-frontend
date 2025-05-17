@@ -154,6 +154,7 @@ export function History() {
                 rulesColor={theme.colors.gray[400]}
                 xAxisColor={theme.colors.gray[400]}
                 pointerConfig={{
+                  activatePointersOnLongPress: true,
                   pointerStripColor: theme.colors.gray[700],
                   pointerStripWidth: 1,
                   persistPointer: true,
