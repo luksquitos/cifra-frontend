@@ -1,6 +1,4 @@
 import fallback from '@/assets/images/tinta.png'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { useRouter } from 'expo-router'
 import { Image, TouchableOpacity } from 'react-native'
 

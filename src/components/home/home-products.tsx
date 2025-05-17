@@ -8,7 +8,7 @@ import type { EachProduct } from '@/@types/api/products'
 import { Text } from '@/components/ui/text'
 import { HStack, VStack } from '@/components/ui/view'
 import { defaultTheme } from '@/constants/theme'
-import { cifraApi } from '@/libs/rest-client'
+import { cifraApi } from '@/libs/cifra-api'
 
 import { ProductCard } from './product-card'
 

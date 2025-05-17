@@ -1,19 +1,17 @@
-import { faMap } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { Link, Redirect, Slot, Stack } from 'expo-router'
+import { Redirect, Slot } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 
-import { useSession } from '@/providers/auth-provider'
 import { QueryProvider } from '@/providers/query-provider'
+import { useSession } from '@/providers/session-provider'
 import { useTheme } from '@/providers/theme-provider'
 
 export default function PrivateLayout() {
   const { statusBarStyle } = useTheme()
   const { session } = useSession()
 
-  //   if (!session) {
-  //     return <Redirect href="/(public)/greetings" />
-  //   }
+  if (!session) {
+    return <Redirect href="/(public)/greetings" />
+  }
 
   return (
     <>

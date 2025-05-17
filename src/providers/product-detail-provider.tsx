@@ -7,7 +7,7 @@ import React, { createContext, useContext, useState } from 'react'
 import type { Pagination } from '@/@types/api/api'
 import type { EachProduct, ProductHistory, ProductsPaginated } from '@/@types/api/products'
 
-import { cifraApi } from '@/libs/rest-client'
+import { cifraApi } from '@/libs/cifra-api'
 
 export type ProductDetailType = {
   productData?: EachProduct

@@ -7,7 +7,7 @@ import type { CategoriesPaginated, CategoriesQuery, EachCategory } from '@/@type
 import { Text } from '@/components/ui/text'
 import { HStack, VStack } from '@/components/ui/view'
 import { defaultTheme } from '@/constants/theme'
-import { cifraApi } from '@/libs/rest-client'
+import { cifraApi } from '@/libs/cifra-api'
 
 import { CategoryCard } from './home-category-card'
 

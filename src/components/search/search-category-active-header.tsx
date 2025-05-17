@@ -8,7 +8,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import type { EachCategory } from '@/@types/api/categories'
 
-import { cifraApi } from '@/libs/rest-client'
+import { cifraApi } from '@/libs/cifra-api'
 import { useTheme } from '@/providers/theme-provider'
 
 import { Text } from '../ui/text'
