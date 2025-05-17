@@ -1,1 +1,1 @@
-export const APPLICATION_KEY = '@ksi-tracking'
+export const APPLICATION_KEY = '@cifra'

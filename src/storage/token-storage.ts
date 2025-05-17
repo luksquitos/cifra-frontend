@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+import type { Tokens } from '@/@types/tokens'
+
 import { TOKEN_STORAGE_KEY } from '@/constants/storage/token-storage-key'
-import { type Tokens } from '@/@types/tokens'
 
 export async function storeTokens(tokens: Tokens): Promise<void> {
   await AsyncStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(tokens))

@@ -82,6 +82,11 @@ export const defaultTheme = {
       regular: 'Inter',
       bold: 'Inter_Bold',
     },
+    weight: {
+      regular: 400,
+      medium: 500,
+      bold: 700,
+    },
     size: {
       'xs': 10,
       'sm': 12,

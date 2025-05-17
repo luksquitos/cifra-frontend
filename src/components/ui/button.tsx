@@ -8,15 +8,20 @@ import { useTheme } from '@/providers/theme-provider'
 export type ButtonProps = {
   children: string | ReactNode
   variant: 'primary' | 'secondary' | 'ghost' | 'outlined'
+  height?: number
+  width?: number
 } & TouchableOpacityProps
 
-export function Button({ children, variant, style, ...props }: ButtonProps) {
+export function Button({ children, variant, style, height, width, ...props }: ButtonProps) {
   const { theme } = useTheme()
 
   const buttonStyles = StyleSheet.create({
     shared: {
       paddingHorizontal: 20,
       paddingVertical: 8,
+      height,
+      width,
+      justifyContent: 'center',
       borderRadius: 100,
     },
     primary: {
