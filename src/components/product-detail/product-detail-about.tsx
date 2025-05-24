@@ -1,9 +1,6 @@
 import { useMemo } from 'react'
 import { FlatList } from 'react-native'
 
-import type { ProductCaracteristics } from '@/@types/api/products'
-
-import { cifraApi } from '@/libs/cifra-api'
 import { useProductDetail } from '@/providers/product-detail-provider'
 import { useTheme } from '@/providers/theme-provider'
 

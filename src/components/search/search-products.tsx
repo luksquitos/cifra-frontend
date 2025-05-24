@@ -14,6 +14,7 @@ import { ProductCard } from './search-product-card'
 
 async function fetchProducts(query?: FetchProductsFilter): Promise<Pagination<EachProduct>> {
   const { data } = await cifraApi.get<ProductsPaginated>('/api/stores/products/', { params: query })
+
   return data
 }
 

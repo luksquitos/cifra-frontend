@@ -2,7 +2,6 @@ import type { AxiosError } from 'axios'
 
 import type { Tokens } from '@/@types/tokens'
 
-import { env } from '@/env'
 import { getTokens, storeTokens } from '@/storage/token-storage'
 import { ApplicationError } from '@/utils/application-error'
 
@@ -19,7 +18,7 @@ let failedQueued: Array<PromiseType> = []
 let isRefreshing = false
 
 export const cifraApi = new Rest({
-  baseURL: env.EXPO_PUBLIC_API_URL,
+  baseURL: process.env.EXPO_PUBLIC_API_URL,
   headers: {
     'Content-Type': 'application/json',
     'Cache-Control': 'no-cache',

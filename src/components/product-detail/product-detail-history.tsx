@@ -1,7 +1,5 @@
 import type { LineChartPropsType } from 'react-native-gifted-charts'
 
-import { faX } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { format, formatDate, subMonths } from 'date-fns'
 import { useEffect, useMemo } from 'react'
 import { ActivityIndicator, Dimensions, View } from 'react-native'
