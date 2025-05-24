@@ -1,6 +1,6 @@
-import { faMap } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { Link, Slot } from 'expo-router'
+import { Slot } from 'expo-router'
+import * as SplashScreen from 'expo-splash-screen'
+import { useEffect } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { SessionProvider } from '@/providers/session-provider'
@@ -8,7 +8,15 @@ import { SessionProvider } from '@/providers/session-provider'
 import { defaultTheme } from '../constants/theme'
 import { ThemeProvider } from '../providers/theme-provider'
 
+// Mantém a splash screen visível enquanto inicializamos
+SplashScreen.preventAutoHideAsync()
+
 export default function RootLayout() {
+  useEffect(() => {
+    // Esconde a splash screen após a inicialização
+    SplashScreen.hideAsync()
+  }, [])
+
   return (
     <SessionProvider>
       <SafeAreaProvider>
@@ -16,7 +24,6 @@ export default function RootLayout() {
           <Slot />
         </ThemeProvider>
       </SafeAreaProvider>
-      <Link style={{ position: 'absolute', left: 0, bottom: 0 }} href="/_sitemap"><FontAwesomeIcon icon={faMap} /></Link>
     </SessionProvider>
   )
 }
