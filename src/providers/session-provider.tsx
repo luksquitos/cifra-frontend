@@ -32,7 +32,7 @@ const SessionContext = createContext<SessionContextProps>(
 )
 
 export function SessionProvider({ children }: PropsWithChildren) {
-  const [session, setSession] = useState<User | null>(null)
+  const [session, setSession] = useState<User | string | null>('teste')
   const [tokens, setTokens] = useState<Tokens | null>(null)
   const [isLoadingSession, setIsLoadingSession] = useState(false)
 

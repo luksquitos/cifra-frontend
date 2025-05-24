@@ -1,7 +1,8 @@
-import { SESSION_STORAGE_KEY } from '@/constants/storage/session-storage-key'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import type { User } from '@/@types/user'
+
+import { SESSION_STORAGE_KEY } from '@/constants/storage/session-storage-key'
 
 export async function storeSession(session: User): Promise<void> {
   await AsyncStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(session))
