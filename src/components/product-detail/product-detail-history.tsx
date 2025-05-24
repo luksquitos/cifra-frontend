@@ -155,6 +155,7 @@ export function History() {
                   pointerStripColor: theme.colors.gray[700],
                   pointerStripWidth: 1,
                   persistPointer: true,
+                  activatePointersOnLongPress: true,
                   initialPointerIndex: productHistoryList.length !== 0 ? Math.floor(productHistoryList.length / 2) : undefined,
                   initialPointerAppearDelay: 4,
                   strokeDashArray: [4, 5],
