@@ -34,7 +34,7 @@ export function Products({ search }: { search?: string }) {
   const products = query.data?.results || []
 
   return (
-    <VStack gap={theme.spacing['4xl']} marginTop={theme.spacing.xl}>
+    <VStack gap={theme.spacing['4xl']} marginTop={theme.spacing.xl} flex={1}>
       {!query.isLoading && category
         ? (
             <Text paddingHorizontal={theme.spacing['6xl']} fontWeight={400} fontSize={theme.font.size.md}>
@@ -46,18 +46,15 @@ export function Products({ search }: { search?: string }) {
             </Text>
           )
         : <></>}
-      <HStack overflow="visible">
-        <FlatList
-          data={products}
-          keyExtractor={(item, _) => item.id.toString()}
-          ListEmptyComponent={<></>}
-          numColumns={2}
-          columnWrapperStyle={{ gap: theme.spacing['4xl'] }}
-          contentContainerStyle={{ gap: theme.spacing['4xl'], paddingHorizontal: theme.spacing['6xl'] }}
-          renderItem={({ item }) => <ProductCard {...item} />}
-        />
-      </HStack>
-
+      <FlatList
+        data={products}
+        keyExtractor={(item, _) => item.id.toString()}
+        ListEmptyComponent={<></>}
+        numColumns={2}
+        columnWrapperStyle={{ gap: theme.spacing['4xl'] }}
+        contentContainerStyle={{ gap: theme.spacing['4xl'], paddingHorizontal: theme.spacing['6xl'] }}
+        renderItem={({ item }) => <ProductCard {...item} />}
+      />
     </VStack>
   )
 }

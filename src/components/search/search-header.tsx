@@ -75,7 +75,7 @@ export function Header({ search, setSearch }: { search: string, setSearch: Debou
                     inputRef.current?.blur()
                     setSearch('')
                     setDisplaySearch('')
-                    router.push('/')
+                    router.back()
                   }}
                 >
                   <FontAwesomeIcon color={defaultTheme.colors.darkBlue[700]} icon={faChevronLeft} size={18} />

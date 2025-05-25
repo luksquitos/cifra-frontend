@@ -1,6 +1,6 @@
 {
   "name": "cifra-frontend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "main": "expo-router/entry",
   "scripts": {
@@ -31,6 +31,7 @@
     "@rn-primitives/tabs": "^1.1.0",
     "@tanstack/react-query": "^5.71.10",
     "axios": "^1.8.4",
+    "d3": "^7.9.0",
     "date-fns": "^4.1.0",
     "eas": "^0.1.0",
     "expo": "~52.0.46",
@@ -74,6 +75,7 @@
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "@eslint-react/eslint-plugin": "^1.40.1",
+    "@types/d3": "^7.4.3",
     "@types/jest": "^29.5.12",
     "@types/react": "~18.3.12",
     "@types/react-test-renderer": "^18.3.0",
