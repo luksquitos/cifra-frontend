@@ -109,11 +109,9 @@ async function retrieveProductById({ id }: { id: string }) {
 }
 
 async function retrieveWhereToBuy({ name }: { name: string }): Promise<EachProduct[]> {
-  const encodedName = encodeURIComponent(name)
-
   const { data } = await cifraApi.get<ProductsPaginated>('/api/stores/products/', {
     params: {
-      search: encodedName,
+      search: name,
     },
   })
 
