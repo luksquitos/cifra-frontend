@@ -18,6 +18,7 @@ let failedQueued: Array<PromiseType> = []
 let isRefreshing = false
 
 export const cifraApi = new Rest({
+  // eslint-disable-next-line node/no-process-env
   baseURL: process.env.EXPO_PUBLIC_API_URL,
   headers: {
     'Content-Type': 'application/json',

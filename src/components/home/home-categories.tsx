@@ -1,7 +1,7 @@
 import ContentLoader, { Rect } from 'react-content-loader/native'
 import { FlatList } from 'react-native'
 
-import type { CategoriesPaginated, EachCategory } from '@/@types/api/categories'
+import type { CategoriesPaginated } from '@/@types/api/categories'
 
 import { Text } from '@/components/ui/text'
 import { HStack, VStack } from '@/components/ui/view'

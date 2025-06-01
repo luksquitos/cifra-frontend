@@ -1,9 +1,8 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { RefreshControl, ScrollView } from 'react-native'
 
-import type { Pagination } from '@/@types/api/api'
-import type { CategoriesPaginated, CategoriesQuery, EachCategory } from '@/@types/api/categories'
+import type { EachCategory } from '@/@types/api/categories'
 import type { EachProduct } from '@/@types/api/products'
 
 import { Categories } from '@/components/home/home-categories'
