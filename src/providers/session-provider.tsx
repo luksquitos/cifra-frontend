@@ -48,7 +48,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
     session: User,
     { accessToken, refreshToken }: Tokens,
   ) {
-    setSession(session)
     await storeSession(session)
     await storeTokens({ accessToken, refreshToken })
   }
@@ -57,7 +56,11 @@ export function SessionProvider({ children }: PropsWithChildren) {
     setIsLoadingSession(true)
 
     await saveSessionAndToken(session.user, {
-      acessToken: session.access,
+      accessToken: session.access,
+      refreshToken: session.refresh,
+    })
+    await updateSessionAndToken(session.user, {
+      accessToken: session.access,
       refreshToken: session.refresh,
     })
     setIsLoadingSession(false)

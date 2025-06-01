@@ -101,7 +101,6 @@ cifraApi.axios.registerInterceptTokenManager = (singOut: SignOut) => {
               failedQueued.forEach((request) => {
                 request.onFailure(error)
               })
-
               singOut()
               reject(error)
             }

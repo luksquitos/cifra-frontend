@@ -1,11 +1,10 @@
-import type { AxiosError } from 'axios'
 import type { TextInput } from 'react-native'
 
 import { useForm } from '@tanstack/react-form'
 import { useMutation } from '@tanstack/react-query'
 import { Link, useRouter } from 'expo-router'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { ActivityIndicator, Alert, View } from 'react-native'
+import { useMemo, useRef, useState } from 'react'
+import { ActivityIndicator, Alert } from 'react-native'
 
 import type { SignInPayload, SignInResponse } from '@/@types/api/sign-in'
 import type { SignInSchemaType } from '@/validations/sign-in-schema'
@@ -22,7 +21,7 @@ import { signInSchema } from '@/validations/sign-in-schema'
 
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false)
-  const { signIn, isLoadingSession, session } = useSession()
+  const { signIn, isLoadingSession } = useSession()
   const { theme } = useTheme()
   const router = useRouter()
 
@@ -30,7 +29,7 @@ export default function SignIn() {
     mutationFn: (data: SignInSchemaType) => signInApi(data),
     onSuccess: async (data) => {
       await signIn(data)
-      router.replace('/(private)/(home)')
+      router.replace('/(private)/(tabs)/(home)')
     },
     onError: () => {
       Alert.alert(

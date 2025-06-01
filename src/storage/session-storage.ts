@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import type { User } from '@/@types/user'
+import type { User } from '@/@types/api/sign-in'
 
 import { SESSION_STORAGE_KEY } from '@/constants/storage/session-storage-key'
 

@@ -1,6 +1,6 @@
 import { FlatList } from 'react-native'
 
-import type { ProductByCategory } from '@/app/(private)/(home)'
+import type { ProductByCategory } from '@/app/(private)/(tabs)/(home)'
 
 import { Text } from '@/components/ui/text'
 import { HStack, VStack } from '@/components/ui/view'
