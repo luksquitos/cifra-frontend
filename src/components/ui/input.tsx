@@ -20,8 +20,7 @@ const styleSheet = StyleSheet.create({
     paddingHorizontal: defaultTheme.spacing['2xl'],
     paddingVertical: defaultTheme.spacing['4xl'],
     borderWidth: 1,
-    gap: 2,
-    flex: 1,
+    gap: 8,
   },
   input: {
     flex: 1,

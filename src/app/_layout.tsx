@@ -3,6 +3,7 @@ import * as SplashScreen from 'expo-splash-screen'
 import { useEffect } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
+import { QueryProvider } from '@/providers/query-provider'
 import { SessionProvider } from '@/providers/session-provider'
 
 import { defaultTheme } from '../constants/theme'
@@ -18,12 +19,14 @@ export default function RootLayout() {
   }, [])
 
   return (
-    <SessionProvider>
-      <SafeAreaProvider>
-        <ThemeProvider theme={defaultTheme}>
-          <Slot />
-        </ThemeProvider>
-      </SafeAreaProvider>
-    </SessionProvider>
+    <QueryProvider>
+      <SessionProvider>
+        <SafeAreaProvider>
+          <ThemeProvider theme={defaultTheme}>
+            <Slot />
+          </ThemeProvider>
+        </SafeAreaProvider>
+      </SessionProvider>
+    </QueryProvider>
   )
 }

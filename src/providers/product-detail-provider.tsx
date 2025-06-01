@@ -2,7 +2,7 @@ import type { Dispatch, PropsWithChildren } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 import { useLocalSearchParams } from 'expo-router'
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 
 import type { Pagination } from '@/@types/api/api'
 import type { EachProduct, ProductCaracteristics, ProductHistory, ProductsPaginated } from '@/@types/api/products'

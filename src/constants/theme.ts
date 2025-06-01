@@ -59,6 +59,7 @@ export const defaultTheme = {
     'xl': 12,
     '2xl': 16,
     '3xl': 24,
+    'full': 9999,
   },
   spacing: {
     'xs': 2,

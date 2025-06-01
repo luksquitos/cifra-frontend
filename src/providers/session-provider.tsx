@@ -5,11 +5,12 @@ import {
 
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from 'react'
 
+import type { SignInResponse, User } from '@/@types/api/sign-in'
 import type { Tokens } from '@/@types/tokens'
-import type { User } from '@/@types/user'
 
 import { cifraApi } from '@/libs/cifra-api'
 import {
@@ -24,7 +25,7 @@ type SessionContextProps = {
   tokens: Tokens | null
   isLoadingSession: boolean
   signOut: () => void
-  signIn: (tokens: Tokens, user: User) => void
+  signIn: (session: SignInResponse) => Promise<void>
 }
 
 const SessionContext = createContext<SessionContextProps>(
@@ -32,7 +33,7 @@ const SessionContext = createContext<SessionContextProps>(
 )
 
 export function SessionProvider({ children }: PropsWithChildren) {
-  const [session, setSession] = useState<User | string | null>('teste')
+  const [session, setSession] = useState<User | null>(null)
   const [tokens, setTokens] = useState<Tokens | null>(null)
   const [isLoadingSession, setIsLoadingSession] = useState(false)
 
@@ -47,15 +48,18 @@ export function SessionProvider({ children }: PropsWithChildren) {
     session: User,
     { accessToken, refreshToken }: Tokens,
   ) {
+    setSession(session)
     await storeSession(session)
     await storeTokens({ accessToken, refreshToken })
   }
 
-  async function signIn(tokens: Tokens, user: User) {
+  async function signIn(session: SignInResponse) {
     setIsLoadingSession(true)
 
-    saveSessionAndToken(user, tokens)
-    updateSessionAndToken(user, tokens)
+    await saveSessionAndToken(session.user, {
+      acessToken: session.access,
+      refreshToken: session.refresh,
+    })
     setIsLoadingSession(false)
   }
 
@@ -91,16 +95,19 @@ export function SessionProvider({ children }: PropsWithChildren) {
     }
   }, [])
 
+  const contextValue = useMemo(
+    () => ({
+      session,
+      tokens,
+      isLoadingSession,
+      signIn,
+      signOut,
+    }),
+    [session, tokens, isLoadingSession],
+  )
+
   return (
-    <SessionContext.Provider
-      value={{
-        session,
-        tokens,
-        isLoadingSession,
-        signIn,
-        signOut,
-      }}
-    >
+    <SessionContext.Provider value={contextValue}>
       {children}
     </SessionContext.Provider>
   )

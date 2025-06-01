@@ -1,7 +1,7 @@
 import { Redirect, Slot } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
+import { useEffect } from 'react'
 
-import { QueryProvider } from '@/providers/query-provider'
 import { useSession } from '@/providers/session-provider'
 import { useTheme } from '@/providers/theme-provider'
 
@@ -16,9 +16,8 @@ export default function PrivateLayout() {
   return (
     <>
       <StatusBar translucent style={statusBarStyle} />
-      <QueryProvider>
-        <Slot />
-      </QueryProvider>
+      <Slot />
+
     </>
   )
 }

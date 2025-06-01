@@ -8,11 +8,12 @@ import { useTheme } from '@/providers/theme-provider'
 export type ButtonProps = {
   children: string | ReactNode
   variant: 'primary' | 'secondary' | 'ghost' | 'outlined'
+  radius: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full'
   height?: number
   width?: number
 } & TouchableOpacityProps
 
-export function Button({ children, variant, style, height, width, ...props }: ButtonProps) {
+export function Button({ children, variant, style, height, width, radius = 'full', ...props }: ButtonProps) {
   const { theme } = useTheme()
 
   const buttonStyles = StyleSheet.create({
@@ -22,7 +23,7 @@ export function Button({ children, variant, style, height, width, ...props }: Bu
       height,
       width,
       justifyContent: 'center',
-      borderRadius: 100,
+      borderRadius: theme.radius[radius] ?? theme.radius.full,
     },
     primary: {
       backgroundColor: theme.colors.primary.dark,
