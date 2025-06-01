@@ -68,7 +68,7 @@ export default function SignIn() {
           {field => (
             <VStack gap={theme.spacing.xs}>
               <HStack gap={4} alignItems="center">
-                <Text>Email</Text>
+                <Text>E-mail</Text>
                 <Text color="red">*</Text>
               </HStack>
               <Input
@@ -109,7 +109,7 @@ export default function SignIn() {
             </VStack>
           )}
         </form.Field>
-        <Link href="/sign-in">Esqueci minha senha</Link>
+        <Link href="/(public)/sign-up">Esqueci minha senha</Link>
         <Button
           disabled={isLoading}
           onPress={() => form.handleSubmit()}
@@ -123,9 +123,9 @@ export default function SignIn() {
           <Text>
             Ainda não tem uma conta?
             {' '}
-            <Link href="/sign-in" style={{ color: theme.colors.darkBlue[700] }}>
+            <Text onPress={() => router.push('/(public)/sign-up')} style={{ color: theme.colors.darkBlue[700] }}>
               Cadastre-se
-            </Link>
+            </Text>
           </Text>
         </HStack>
       </VStack>

@@ -15,18 +15,18 @@ export class ApplicationError implements ApplicationErrorProps {
   responseMessage?: string
   errors?: string[]
 
-  constructor({ message, code, response }: AxiosError<ApiResponseError>) {
-    this.errorMessage = message
-    this.code = Number.isNaN(Number(code)) ? 500 : Number(code)
-    if (response) {
-      const returnedErrors = response.data.errors || []
+  constructor(error: AxiosError<ApiResponseError>) {
+    this.errorMessage = error.message
+    this.code = Number.isNaN(Number(error.code)) ? 500 : Number(error.code)
+    if (error.response) {
+      const returnedErrors = error.response.data.errors || []
 
-      this.errors = response.data.errors
+      this.errors = error.response.data.errors
 
       const errorsMessage
         = returnedErrors.length > 0 ? `: ${returnedErrors.join('\n•')}` : ''
 
-      this.responseMessage = `${response.data.message}${errorsMessage}`
+      this.responseMessage = `${error.response.data.message}${errorsMessage}`
     }
   }
 

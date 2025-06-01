@@ -1,4 +1,4 @@
-import type { AxiosError } from 'axios'
+import { AxiosError } from 'axios'
 
 import type { Tokens } from '@/@types/tokens'
 
@@ -114,10 +114,8 @@ cifraApi.axios.registerInterceptTokenManager = (singOut: SignOut) => {
         singOut()
       }
 
-      if (requestError.response && requestError.response.data) {
-        return Promise.reject(
-          new ApplicationError(requestError.response.data.message),
-        )
+      if (requestError instanceof AxiosError && requestError.response && requestError.response.data) {
+        throw new ApplicationError(requestError)
       }
       else {
         return Promise.reject(requestError)

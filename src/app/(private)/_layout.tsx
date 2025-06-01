@@ -1,6 +1,5 @@
 import { Redirect, Slot } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
-import { useEffect } from 'react'
 
 import { useSession } from '@/providers/session-provider'
 import { useTheme } from '@/providers/theme-provider'
