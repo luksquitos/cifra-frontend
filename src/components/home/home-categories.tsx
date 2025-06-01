@@ -1,32 +1,18 @@
-import { useQuery } from '@tanstack/react-query'
 import ContentLoader, { Rect } from 'react-content-loader/native'
 import { FlatList } from 'react-native'
 
-import type { CategoriesPaginated, CategoriesQuery, EachCategory } from '@/@types/api/categories'
+import type { CategoriesPaginated, EachCategory } from '@/@types/api/categories'
 
 import { Text } from '@/components/ui/text'
 import { HStack, VStack } from '@/components/ui/view'
 import { defaultTheme } from '@/constants/theme'
-import { cifraApi } from '@/libs/cifra-api'
 
 import { CategoryCard } from './home-category-card'
 
-async function fetchCategories(query?: CategoriesQuery) {
-  const { data } = await cifraApi.get<CategoriesPaginated>('/api/stores/categories/', { params: query })
-
-  return data
-}
-
-export function Categories() {
-  const categories = useQuery({
-    queryKey: ['categories'],
-    queryFn: async () => {
-      return await fetchCategories({ height: '20', width: '20', fill_path: '#FED641', fill_svg: '#FED641' })
-    },
-  })
-
-  const categoriesData = (categories.data ?? []) as EachCategory[]
-
+export function Categories({ data, isLoading }: {
+  data: CategoriesPaginated['results']
+  isLoading?: boolean
+}) {
   return (
     <VStack
       gap={defaultTheme.spacing['4xl']}
@@ -41,13 +27,13 @@ export function Categories() {
       </Text>
       <HStack>
         <FlatList
-          data={categoriesData}
+          data={data}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           keyExtractor={
             (item, idx) => item + idx.toString()
           }
-          scrollEnabled={!categories.isLoading}
+          scrollEnabled={isLoading}
           horizontal
           style={{
             gap: defaultTheme.spacing.lg,
@@ -56,7 +42,7 @@ export function Categories() {
           ItemSeparatorComponent={() => <HStack width={defaultTheme.spacing.lg} />}
           ListEmptyComponent={() => (
             <HStack gap={defaultTheme.spacing.lg}>
-              {categories.isLoading
+              {isLoading
                 ? (
                     Array.from({ length: 5 }).map((_, index) => (
                       <ContentLoader

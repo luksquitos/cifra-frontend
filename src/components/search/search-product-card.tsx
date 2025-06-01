@@ -20,7 +20,8 @@ export function ProductCard({ name, image, price, id }: EachProduct) {
       style={{
         backgroundColor: theme.colors.gray[0],
         borderRadius: theme.radius.xl,
-        width: '48%',
+        flexBasis: '48%',
+        marginBottom: theme.spacing['4xl'],
       }}
     >
       <HStack

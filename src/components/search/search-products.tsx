@@ -51,8 +51,15 @@ export function Products({ search }: { search?: string }) {
         keyExtractor={(item, _) => item.id.toString()}
         ListEmptyComponent={<></>}
         numColumns={2}
-        columnWrapperStyle={{ gap: theme.spacing['4xl'] }}
-        contentContainerStyle={{ gap: theme.spacing['4xl'], paddingHorizontal: theme.spacing['6xl'] }}
+        columnWrapperStyle={{
+          justifyContent: 'space-between',
+          marginBottom: theme.spacing['4xl'],
+          gap: theme.spacing['4xl']
+        }}
+        contentContainerStyle={{
+          paddingHorizontal: theme.spacing['6xl'],
+          paddingBottom: theme.spacing['6xl'],
+        }}
         renderItem={({ item }) => <ProductCard {...item} />}
       />
     </VStack>
