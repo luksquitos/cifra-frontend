@@ -1,33 +1,32 @@
-import { faMap } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { Link, Slot } from 'expo-router'
-import { StatusBar } from 'expo-status-bar'
+import { Slot } from 'expo-router'
+import * as SplashScreen from 'expo-splash-screen'
+import { useEffect } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { QueryProvider } from '@/providers/query-provider'
+import { SessionProvider } from '@/providers/session-provider'
 
 import { defaultTheme } from '../constants/theme'
-import { ThemeProvider, useTheme } from '../providers/theme-provider'
+import { ThemeProvider } from '../providers/theme-provider'
+
+// Mantém a splash screen visível enquanto inicializamos
+SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout() {
-  return (
-    <SafeAreaProvider>
-      <ThemeProvider theme={defaultTheme}>
-        <LayoutContent />
-      </ThemeProvider>
-    </SafeAreaProvider>
-  )
-}
+  useEffect(() => {
+    // Esconde a splash screen após a inicialização
+    SplashScreen.hideAsync()
+  }, [])
 
-function LayoutContent() {
-  const { statusBarStyle } = useTheme()
   return (
-    <>
-      <StatusBar translucent style={statusBarStyle} />
-      <QueryProvider>
-        <Slot />
-        <Link style={{ position: 'absolute', left: 0, bottom: 0 }} href="/_sitemap"><FontAwesomeIcon icon={faMap} /></Link>
-      </QueryProvider>
-    </>
+    <QueryProvider>
+      <SessionProvider>
+        <SafeAreaProvider>
+          <ThemeProvider theme={defaultTheme}>
+            <Slot />
+          </ThemeProvider>
+        </SafeAreaProvider>
+      </SessionProvider>
+    </QueryProvider>
   )
 }

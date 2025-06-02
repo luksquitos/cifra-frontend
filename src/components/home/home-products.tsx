@@ -1,61 +1,17 @@
-import { useQuery } from '@tanstack/react-query'
 import { FlatList } from 'react-native'
 
-import type { Pagination } from '@/@types/api/api'
-import type { EachCategory } from '@/@types/api/categories'
-import type { EachProduct } from '@/@types/api/products'
+import type { ProductByCategory } from '@/app/(private)/(tabs)/(home)'
 
 import { Text } from '@/components/ui/text'
 import { HStack, VStack } from '@/components/ui/view'
 import { defaultTheme } from '@/constants/theme'
-import { cifraApi } from '@/libs/rest-client'
 
 import { ProductCard } from './product-card'
 
-async function fetchProductsByCategories(): Promise<Pagination<ProductByCategory>> {
-  const { data: productsData } = await cifraApi.get('/api/stores/products/promotions/')
-  const { data: categoriesData } = await cifraApi.get<EachCategory[]>('/api/stores/categories/')
-
-  function segregateProductsByCategory(products: EachProduct[]) {
-    const productByCategory: ProductByCategory[] = []
-
-    categoriesData.forEach((category) => {
-      const productsByCategory = products.filter(product => product.category.id === category.id)
-      if (productsByCategory.length > 0) {
-        productByCategory.push({
-          category,
-          products: productsByCategory,
-        })
-      }
-    })
-
-    return productByCategory
-  }
-
-  const segregatedProducts = segregateProductsByCategory(productsData)
-
-  return {
-    ...productsData,
-    results: segregatedProducts,
-  }
-}
-
-type ProductByCategory = {
-  category: { id: number, name: string }
-  products: EachProduct[]
-}
-
-export function Products() {
-  const query = useQuery({
-    queryKey: ['products'],
-    queryFn: async () => { return await fetchProductsByCategories() },
-  })
-
-  const products = query.data?.results || []
-
+export function Products({ data }: { data: ProductByCategory[] }) {
   return (
     <VStack>
-      {products.map(item => (
+      {data.map(item => (
         <VStack
           key={item.category.id}
           gap={defaultTheme.spacing['4xl']}

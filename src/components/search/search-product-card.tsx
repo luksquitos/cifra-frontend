@@ -1,6 +1,4 @@
 import fallback from '@/assets/images/tinta.png'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { useRouter } from 'expo-router'
 import { Image, TouchableOpacity } from 'react-native'
 
@@ -22,7 +20,8 @@ export function ProductCard({ name, image, price, id }: EachProduct) {
       style={{
         backgroundColor: theme.colors.gray[0],
         borderRadius: theme.radius.xl,
-        width: '48%',
+        flexBasis: '48%',
+        marginBottom: theme.spacing['4xl'],
       }}
     >
       <HStack

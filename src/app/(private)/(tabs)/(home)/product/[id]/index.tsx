@@ -1,10 +1,10 @@
 import * as Tabs from '@rn-primitives/tabs'
 import { useState } from 'react'
 
+import { About } from '@/components/product-detail/product-detail-about'
 import { BuyOptions } from '@/components/product-detail/product-detail-buy-options'
 import { History } from '@/components/product-detail/product-detail-history'
 import { TabsTrigger } from '@/components/ui/tabs'
-import { Text } from '@/components/ui/text'
 import { useTheme } from '@/providers/theme-provider'
 
 const tabs = [{
@@ -20,7 +20,7 @@ const tabs = [{
 }, {
   label: 'Sobre o Produto',
   value: 'about',
-  content: <Text>Sobre o Produto</Text>,
+  content: <About />,
 }]
 
 export default function ProductDetail() {

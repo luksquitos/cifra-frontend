@@ -7,10 +7,7 @@ import { usePathname, useRouter } from 'expo-router'
 import { useSearchParams } from 'expo-router/build/hooks'
 import { useEffect, useRef, useState } from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
-import Animated, {
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated'
+import Animated from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { HStack } from '@/components/ui/view'
@@ -78,7 +75,7 @@ export function Header({ search, setSearch }: { search: string, setSearch: Debou
                     inputRef.current?.blur()
                     setSearch('')
                     setDisplaySearch('')
-                    router.push('/')
+                    router.back()
                   }}
                 >
                   <FontAwesomeIcon color={defaultTheme.colors.darkBlue[700]} icon={faChevronLeft} size={18} />

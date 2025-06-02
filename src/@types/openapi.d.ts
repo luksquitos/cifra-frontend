@@ -108,6 +108,40 @@ export type paths = {
     patch?: never
     trace?: never
   }
+  '/api/stores/products/{product_pk}/characteristics/': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** @description Endpoint que lida com as caraterísticas técnicas dos produtos */
+    get: operations['stores_products_characteristics_list']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/stores/products/{product_pk}/characteristics/{id}/': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** @description Endpoint que lida com as caraterísticas técnicas dos produtos */
+    get: operations['stores_products_characteristics_retrieve']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/stores/products/{product_pk}/historic/': {
     parameters: {
       query?: never
@@ -115,6 +149,7 @@ export type paths = {
       path?: never
       cookie?: never
     }
+    /** @description Endpoint que lida com os históricos de preços dos produtos */
     get: operations['stores_products_historic_list']
     put?: never
     post?: never
@@ -131,7 +166,25 @@ export type paths = {
       path?: never
       cookie?: never
     }
+    /** @description Endpoint que lida com os históricos de preços dos produtos */
     get: operations['stores_products_historic_retrieve']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/stores/products/{product_pk}/historic/last/': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** @description Retorna o preço atual do produto */
+    get: operations['stores_products_historic_last_retrieve']
     put?: never
     post?: never
     delete?: never
@@ -150,6 +203,23 @@ export type paths = {
     get: operations['stores_products_promotions_retrieve']
     put?: never
     post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/users/': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /** @description Cria um novo usuário do tipo cliente */
+    post: operations['users_create']
     delete?: never
     options?: never
     head?: never
@@ -199,10 +269,46 @@ export type components = {
     } & {
       [key: string]: unknown
     }
+    /** @description Serializer used to create a new Client */
+    CreateUser: {
+      confirm_password: string
+      password: string
+      /**
+       * E-mail
+       * Format: email
+       */
+      email?: string
+      /** Nome */
+      name: string
+    } & {
+      [key: string]: unknown
+    }
     Nested: {
       readonly id: number
       /** Nome */
       name: string
+      /** Endereço */
+      address?: string
+      cnpj?: string
+      /** Lojista */
+      user?: number | null
+    } & {
+      [key: string]: unknown
+    }
+    PaginatedPriceCharacteristicsList: {
+      /** @example 123 */
+      count?: number
+      /**
+       * Format: uri
+       * @example http://api.example.org/accounts/?offset=400&limit=100
+       */
+      next?: string | null
+      /**
+       * Format: uri
+       * @example http://api.example.org/accounts/?offset=200&limit=100
+       */
+      previous?: string | null
+      results?: components['schemas']['PriceCharacteristics'][]
     } & {
       [key: string]: unknown
     }
@@ -240,13 +346,24 @@ export type components = {
     } & {
       [key: string]: unknown
     }
+    PriceCharacteristics: {
+      /** Nome da Característica */
+      key: string
+      /** Característica */
+      value: string
+    } & {
+      [key: string]: unknown
+    }
     PriceHistory: {
       /**
        * Preço
        * Format: decimal
        */
       price: string
-      /** Format: date-time */
+      /**
+       * Criado em
+       * Format: date-time
+       */
       readonly created_at: string
     } & {
       [key: string]: unknown
@@ -256,16 +373,12 @@ export type components = {
       readonly category: components['schemas']['Category']
       /** Nome */
       name: string
-      /**
-       * Sobre
-       * @description Sobre o produto
-       */
-      about: string
       /** Quantidade disponível */
       quantity: number
       /**
        * Preço
        * Format: decimal
+       * @description Unidade
        */
       price: string
       /**
@@ -289,6 +402,12 @@ export type components = {
     } & {
       [key: string]: unknown
     }
+    /**
+     * @description * `logistic` - Lojista
+     *     `client` - Cliente
+     * @enum {string}
+     */
+    TypeUserEnum: 'logistic' | 'client'
     User: {
       readonly id: number
       /**
@@ -303,6 +422,8 @@ export type components = {
       email?: string
       /** Nome */
       name: string
+      /** Tipo de Usuário */
+      type_user?: components['schemas']['TypeUserEnum']
       /**
        * Data de registro
        * Format: date-time
@@ -470,16 +591,65 @@ export type operations = {
       }
     }
   }
+  stores_products_characteristics_list: {
+    parameters: {
+      query?: {
+        /** @description Number of results to return per page. */
+        limit?: number
+        /** @description The initial index from which to return the results. */
+        offset?: number
+      }
+      header?: never
+      path: {
+        product_pk: number
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['PaginatedPriceCharacteristicsList']
+        }
+      }
+    }
+  }
+  stores_products_characteristics_retrieve: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        /** @description A unique integer value identifying this Caracteristica Técnica do Produto. */
+        id: number
+        product_pk: number
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['PriceCharacteristics']
+        }
+      }
+    }
+  }
   stores_products_historic_list: {
     parameters: {
       query?: {
-        /** @description Filtrar por created at (com o lookup: lte) */
+        /** @description Filtrar por Criado em (com o lookup: lte) */
         end_at?: string
         /** @description Number of results to return per page. */
         limit?: number
         /** @description The initial index from which to return the results. */
         offset?: number
-        /** @description Filtrar por created at (com o lookup: gte) */
+        /** @description Filtrar por Criado em (com o lookup: gte) */
         start_at?: string
       }
       header?: never
@@ -523,6 +693,27 @@ export type operations = {
       }
     }
   }
+  stores_products_historic_last_retrieve: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        product_pk: number
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['PriceHistory']
+        }
+      }
+    }
+  }
   stores_products_promotions_retrieve: {
     parameters: {
       query?: never
@@ -538,6 +729,31 @@ export type operations = {
         }
         content: {
           'application/json': components['schemas']['Product']
+        }
+      }
+    }
+  }
+  users_create: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateUser']
+        'application/x-www-form-urlencoded': components['schemas']['CreateUser']
+        'multipart/form-data': components['schemas']['CreateUser']
+      }
+    }
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['CreateUser']
         }
       }
     }

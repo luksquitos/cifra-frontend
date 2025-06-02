@@ -5,14 +5,15 @@ import { useLocalSearchParams } from 'expo-router'
 import React, { createContext, useContext, useState } from 'react'
 
 import type { Pagination } from '@/@types/api/api'
-import type { EachProduct, ProductHistory, ProductsPaginated } from '@/@types/api/products'
+import type { EachProduct, ProductCaracteristics, ProductHistory, ProductsPaginated } from '@/@types/api/products'
 
-import { cifraApi } from '@/libs/rest-client'
+import { cifraApi } from '@/libs/cifra-api'
 
 export type ProductDetailType = {
   productData?: EachProduct
   productHistoryData?: Pagination<ProductHistory>
   whereToBuyList: ProductsPaginated['results']
+  productCharacteristicsData?: Pagination<ProductCaracteristics>
   isLoading: boolean
   isFetchingHistory: boolean
   setStartAt: Dispatch<React.SetStateAction<Date | undefined>>
@@ -49,7 +50,13 @@ export function ProductDetailProvider({ children }: PropsWithChildren) {
     enabled: !!id && !!startAt && !!endAt,
   })
 
-  const isLoading = isFetching || !productData || isFetchingWhereToBuy
+  const { data: productCharacteristicsData, isFetching: isFetchingCharacteristics } = useQuery({
+    queryKey: ['product-characteristics', id],
+    queryFn: async () => await productCharacteristics(id),
+    enabled: !!id,
+  })
+
+  const isLoading = isFetching || !productData || isFetchingWhereToBuy || isFetchingCharacteristics
 
   const value = React.useMemo(() => {
     const whereToBuyList = whereToBuyData ?? []
@@ -62,6 +69,7 @@ export function ProductDetailProvider({ children }: PropsWithChildren) {
       setStartAt,
       setEndAt,
       rangeInMonths,
+      productCharacteristicsData,
       setRangeInMonths,
     }
   }, [
@@ -74,6 +82,7 @@ export function ProductDetailProvider({ children }: PropsWithChildren) {
     setEndAt,
     rangeInMonths,
     setRangeInMonths,
+    productCharacteristicsData,
   ])
 
   return (
@@ -114,7 +123,6 @@ async function retrieveWhereToBuy({ name }: { name: string }): Promise<EachProdu
 
   return sorted
 }
-
 async function productHistory({
   id,
   startAt,
@@ -135,6 +143,19 @@ async function productHistory({
       params: {
         start_at: startAt.toISOString(),
         end_at: endAt.toISOString(),
+      },
+    },
+  )
+
+  return data
+}
+
+async function productCharacteristics(id: string) {
+  const { data } = await cifraApi.get<Pagination<ProductCaracteristics>>(
+    '/api/stores/products/{product_pk}/characteristics/',
+    {
+      routeParams: {
+        product_pk: id,
       },
     },
   )

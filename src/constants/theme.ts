@@ -59,6 +59,7 @@ export const defaultTheme = {
     'xl': 12,
     '2xl': 16,
     '3xl': 24,
+    'full': 9999,
   },
   spacing: {
     'xs': 2,
@@ -81,6 +82,11 @@ export const defaultTheme = {
     family: {
       regular: 'Inter',
       bold: 'Inter_Bold',
+    },
+    weight: {
+      regular: 400,
+      medium: 500,
+      bold: 700,
     },
     size: {
       'xs': 10,

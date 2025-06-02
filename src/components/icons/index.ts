@@ -7,6 +7,13 @@ export type SvgIconProps = {
   color?: string
 } & React.ComponentProps<typeof Svg>
 
+export * from './eye'
+export * from './form'
+export * from './lock'
 export * from './magnifying-dolar'
+export * from './mail'
 export * from './map-marker'
+export * from './search'
 export * from './share'
+export * from './user'
+export * from './user-two'
