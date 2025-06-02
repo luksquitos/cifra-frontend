@@ -100,7 +100,7 @@ export default function SignIn() {
                 append={<Eye onPress={() => setShowPassword(value => !value)} />}
                 value={field.state.value as never}
                 onChangeText={field.handleChange}
-                secureTextEntry={showPassword}
+                secureTextEntry={!showPassword}
                 returnKeyType="done"
               />
               {!field.state.meta.isValid && (
