@@ -28,7 +28,7 @@ export function ListCard({ list }: ListCardProps) {
 
   const handleNavigateToList = () => {
     router.navigate({
-      pathname: '/(private)/(tabs)/lists/[id]/add-products',
+      pathname: '/(private)/(tabs)/lists/[id]/manage',
       params: { id: String(list.id) },
     })
   }

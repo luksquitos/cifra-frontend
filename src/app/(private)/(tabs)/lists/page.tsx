@@ -125,6 +125,8 @@ export default function Lists() {
                   alignItems: 'stretch',
                 }}
                 renderItem={({ item }) => <ListCard list={item} />}
+                onRefresh={() => listsQuery.refetch()}
+                refreshing={listsQuery.isPending || listsQuery.isLoading}
               />
             )}
       </VStack>

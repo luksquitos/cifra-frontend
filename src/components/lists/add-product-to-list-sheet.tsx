@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Image } from 'react-native';
+import { useGlobalSearchParams } from 'expo-router';
+import { useMutation } from '@tanstack/react-query';
+import { Alert, Image } from 'react-native';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetView } from '@gorhom/bottom-sheet';
 import { EachProduct } from '@/@types/api/products';
 import { HStack, VStack } from '../ui/view';
@@ -8,6 +10,19 @@ import fallback from '@/assets/images/tinta.png'
 import { useTheme } from '@/providers/theme-provider';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
+import { cifraApi } from '@/libs/cifra-api';
+
+async function addProductToList(listId: string | number, name: string, quantity: number) {
+  const { data } = await cifraApi.post<{ id: number }>('/api/lists/{list_pk}/products/', {
+    name,
+    quantity,
+  }, {
+    routeParams: {
+      list_pk: String(listId),
+    }
+  })
+  return data
+}
 
 export const AddProductToListSheet = ({
   product,
@@ -16,6 +31,7 @@ export const AddProductToListSheet = ({
   product: EachProduct,
   onClose: () => void,
 }) => {
+  const params = useGlobalSearchParams<{ id: string }>();
   const { theme } = useTheme();
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [quantity, setQuantity] = useState(1);
@@ -30,6 +46,21 @@ export const AddProductToListSheet = ({
     bottomSheetRef.current?.snapToIndex(0);
     setQuantity(1);
   }, [product]);
+
+  const addToListMutation = useMutation({
+    mutationFn: (data) => {
+      return addProductToList(params.id, product.name, quantity);
+    },
+    onSuccess: async ({ id }) => {
+      bottomSheetRef.current?.close();
+    },
+    onError: () => {
+      Alert.alert(
+        'Erro ao adicionar produto',
+        'Tente novamente mais tarde ou verifique os dados informados.',
+      )
+    },
+  })
 
   const renderBackdrop = useCallback(
 		(props: BottomSheetBackdropProps) => (
@@ -97,7 +128,7 @@ export const AddProductToListSheet = ({
                     ? theme.colors.gray[200]
                     : theme.colors.yellow[300]
                 }}
-                disabled={quantity <= 1}
+                disabled={quantity <= 1 || addToListMutation.isPending}
                 onPress={() => setQuantity((q) => q - 1)}
               >
                 <Text color={theme.colors.gray[50]}>-</Text>
@@ -122,15 +153,26 @@ export const AddProductToListSheet = ({
                   marginLeft: 10,
                 }}
                 onPress={() => setQuantity((q) => q + 1)}
+                disabled={addToListMutation.isPending}
               >
                 <Text color={theme.colors.gray[50]}>+</Text>
               </Button>
             </HStack>
 
-            <Button variant="secondary" radius='md'>
+            <Button
+              variant="secondary"
+              radius='md'
+              disabled={addToListMutation.isPending}
+              onPress={() => addToListMutation.mutate()}
+            >
               <Text textAlign="center">Adicionar e ver mais produtos</Text>
             </Button>
-            <Button variant="ghost" radius='md'>
+            <Button
+              variant="ghost"
+              radius='md'
+              disabled={addToListMutation.isPending}
+              onPress={() => addToListMutation.mutate()}
+            >
               <Text
                 textAlign="center"
                 color={theme.colors.darkBlue[700]}

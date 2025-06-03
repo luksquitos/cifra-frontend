@@ -13,7 +13,7 @@ import { TouchableOpacity } from "react-native";
 import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 
-async function getList(id: number | string): Promise<EachList> {
+export async function getList(id: number | string): Promise<EachList> {
   const { data } = await cifraApi.get<EachList>('/api/lists/{id}/', {
     routeParams: { id: String(id) },
   })
@@ -26,7 +26,7 @@ export default function ListProductsPage() {
   const { theme } = useTheme();
   const params = useGlobalSearchParams<{ id: string }>();
   const productQuery = useQuery({
-    queryKey: ['product-by-id', params.id],
+    queryKey: ['list-by-id', params.id],
     queryFn: () => getList(params.id),
   })
 
