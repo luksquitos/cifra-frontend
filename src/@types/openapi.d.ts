@@ -3,778 +3,1287 @@
  * Do not make direct changes to the file.
  */
 
-export type paths = {
-  '/api/auth/token/': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /**
-     * @description Takes a set of user credentials and returns an access and refresh JSON web
-     *     token pair to prove the authentication of those credentials.
-     */
-    post: operations['auth_token_create']
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/auth/token/refresh/': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /**
-     * @description Takes a refresh type JSON web token and returns an access type JSON web
-     *     token if the refresh token is valid.
-     */
-    post: operations['auth_token_refresh_create']
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/stores/categories/': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get: operations['stores_categories_list']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/stores/categories/{id}/': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get: operations['stores_categories_retrieve']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/stores/products/': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get: operations['stores_products_list']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/stores/products/{id}/': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get: operations['stores_products_retrieve']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/stores/products/{product_pk}/characteristics/': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /** @description Endpoint que lida com as caraterísticas técnicas dos produtos */
-    get: operations['stores_products_characteristics_list']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/stores/products/{product_pk}/characteristics/{id}/': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /** @description Endpoint que lida com as caraterísticas técnicas dos produtos */
-    get: operations['stores_products_characteristics_retrieve']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/stores/products/{product_pk}/historic/': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /** @description Endpoint que lida com os históricos de preços dos produtos */
-    get: operations['stores_products_historic_list']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/stores/products/{product_pk}/historic/{id}/': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /** @description Endpoint que lida com os históricos de preços dos produtos */
-    get: operations['stores_products_historic_retrieve']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/stores/products/{product_pk}/historic/last/': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /** @description Retorna o preço atual do produto */
-    get: operations['stores_products_historic_last_retrieve']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/stores/products/promotions/': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get: operations['stores_products_promotions_retrieve']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/users/': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /** @description Cria um novo usuário do tipo cliente */
-    post: operations['users_create']
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/users/me/': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /** @description Obtem os dados do usuário logado */
-    get: operations['users_me_retrieve']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
+export interface paths {
+    "/api/auth/token/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Takes a set of user credentials and returns an access and refresh JSON web
+         *     token pair to prove the authentication of those credentials. */
+        post: operations["auth_token_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/auth/token/refresh/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Takes a refresh type JSON web token and returns an access type JSON web
+         *     token if the refresh token is valid. */
+        post: operations["auth_token_refresh_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/lists/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["lists_list"];
+        put?: never;
+        post: operations["lists_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/lists/{list_pk}/products/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["lists_products_list"];
+        put?: never;
+        post: operations["lists_products_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/lists/{list_pk}/products/{id}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["lists_products_retrieve"];
+        put: operations["lists_products_update"];
+        post?: never;
+        delete: operations["lists_products_destroy"];
+        options?: never;
+        head?: never;
+        patch: operations["lists_products_partial_update"];
+        trace?: never;
+    };
+    "/api/lists/{id}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["lists_retrieve"];
+        put: operations["lists_update"];
+        post?: never;
+        delete: operations["lists_destroy"];
+        options?: never;
+        head?: never;
+        patch: operations["lists_partial_update"];
+        trace?: never;
+    };
+    "/api/lists/{id}/calculate/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** @description Endpoint para calcular, ou recalcular, valor total de lista de usuário. */
+        put: operations["lists_calculate_update"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/stores/categories/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["stores_categories_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/stores/categories/{id}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["stores_categories_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/stores/products/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["stores_products_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/stores/products/{id}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["stores_products_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/stores/products/{product_pk}/characteristics/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Endpoint que lida com as caraterísticas técnicas dos produtos */
+        get: operations["stores_products_characteristics_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/stores/products/{product_pk}/characteristics/{id}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Endpoint que lida com as caraterísticas técnicas dos produtos */
+        get: operations["stores_products_characteristics_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/stores/products/{product_pk}/historic/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Endpoint que lida com os históricos de preços dos produtos */
+        get: operations["stores_products_historic_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/stores/products/{product_pk}/historic/{id}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Endpoint que lida com os históricos de preços dos produtos */
+        get: operations["stores_products_historic_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/stores/products/{product_pk}/historic/last/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Retorna o preço atual do produto */
+        get: operations["stores_products_historic_last_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/stores/products/promotions/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["stores_products_promotions_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/users/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Cria um novo usuário do tipo cliente */
+        post: operations["users_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/users/me/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Obtem os dados do usuário logado */
+        get: operations["users_me_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
-export type webhooks = Record<string, never>
-export type components = {
-  schemas: {
-    AuthTokenResponseSchema: {
-      refresh: string
-      access: string
-      user: components['schemas']['User']
-    } & {
-      [key: string]: unknown
-    }
-    Category: {
-      readonly id: number
-      /** Nome */
-      name: string
-    } & {
-      [key: string]: unknown
-    }
-    CategorySvg: {
-      readonly id: number
-      readonly svg: string
-      /** Nome */
-      name: string
-    } & {
-      [key: string]: unknown
-    }
-    /** @description Serializer used to create a new Client */
-    CreateUser: {
-      confirm_password: string
-      password: string
-      /**
-       * E-mail
-       * Format: email
-       */
-      email?: string
-      /** Nome */
-      name: string
-    } & {
-      [key: string]: unknown
-    }
-    Nested: {
-      readonly id: number
-      /** Nome */
-      name: string
-      /** Endereço */
-      address?: string
-      cnpj?: string
-      /** Lojista */
-      user?: number | null
-    } & {
-      [key: string]: unknown
-    }
-    PaginatedPriceCharacteristicsList: {
-      /** @example 123 */
-      count?: number
-      /**
-       * Format: uri
-       * @example http://api.example.org/accounts/?offset=400&limit=100
-       */
-      next?: string | null
-      /**
-       * Format: uri
-       * @example http://api.example.org/accounts/?offset=200&limit=100
-       */
-      previous?: string | null
-      results?: components['schemas']['PriceCharacteristics'][]
-    } & {
-      [key: string]: unknown
-    }
-    PaginatedPriceHistoryList: {
-      /** @example 123 */
-      count?: number
-      /**
-       * Format: uri
-       * @example http://api.example.org/accounts/?offset=400&limit=100
-       */
-      next?: string | null
-      /**
-       * Format: uri
-       * @example http://api.example.org/accounts/?offset=200&limit=100
-       */
-      previous?: string | null
-      results?: components['schemas']['PriceHistory'][]
-    } & {
-      [key: string]: unknown
-    }
-    PaginatedProductList: {
-      /** @example 123 */
-      count?: number
-      /**
-       * Format: uri
-       * @example http://api.example.org/accounts/?offset=400&limit=100
-       */
-      next?: string | null
-      /**
-       * Format: uri
-       * @example http://api.example.org/accounts/?offset=200&limit=100
-       */
-      previous?: string | null
-      results?: components['schemas']['Product'][]
-    } & {
-      [key: string]: unknown
-    }
-    PriceCharacteristics: {
-      /** Nome da Característica */
-      key: string
-      /** Característica */
-      value: string
-    } & {
-      [key: string]: unknown
-    }
-    PriceHistory: {
-      /**
-       * Preço
-       * Format: decimal
-       */
-      price: string
-      /**
-       * Criado em
-       * Format: date-time
-       */
-      readonly created_at: string
-    } & {
-      [key: string]: unknown
-    }
-    Product: {
-      readonly id: number
-      readonly category: components['schemas']['Category']
-      /** Nome */
-      name: string
-      /** Quantidade disponível */
-      quantity: number
-      /**
-       * Preço
-       * Format: decimal
-       * @description Unidade
-       */
-      price: string
-      /**
-       * Imagem
-       * Format: uri
-       */
-      image?: string | null
-      readonly store: components['schemas']['Nested']
-    } & {
-      [key: string]: unknown
-    }
-    TokenObtainPair: {
-      email: string
-      password: string
-    } & {
-      [key: string]: unknown
-    }
-    TokenRefresh: {
-      readonly access: string
-      refresh: string
-    } & {
-      [key: string]: unknown
-    }
-    /**
-     * @description * `logistic` - Lojista
-     *     `client` - Cliente
-     * @enum {string}
-     */
-    TypeUserEnum: 'logistic' | 'client'
-    User: {
-      readonly id: number
-      /**
-       * Último login
-       * Format: date-time
-       */
-      last_login?: string | null
-      /**
-       * E-mail
-       * Format: email
-       */
-      email?: string
-      /** Nome */
-      name: string
-      /** Tipo de Usuário */
-      type_user?: components['schemas']['TypeUserEnum']
-      /**
-       * Data de registro
-       * Format: date-time
-       */
-      date_joined?: string
-    } & {
-      [key: string]: unknown
-    }
-  }
-  responses: never
-  parameters: never
-  requestBodies: never
-  headers: never
-  pathItems: never
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        AuthTokenResponseSchema: {
+            refresh: string;
+            access: string;
+            user: components["schemas"]["User"];
+        } & {
+            [key: string]: unknown;
+        };
+        Category: {
+            readonly id: number;
+            /** Nome */
+            name: string;
+        } & {
+            [key: string]: unknown;
+        };
+        CategorySvg: {
+            readonly id: number;
+            readonly svg: string;
+            /** Nome */
+            name: string;
+        } & {
+            [key: string]: unknown;
+        };
+        /** @description Serializer used to create a new Client */
+        CreateUser: {
+            confirm_password: string;
+            password: string;
+            /**
+             * E-mail
+             * Format: email
+             */
+            email?: string;
+            /** Nome */
+            name: string;
+        } & {
+            [key: string]: unknown;
+        };
+        List: {
+            readonly id: number;
+            /** Nome */
+            name: string;
+            /**
+             * Preço total
+             * Format: decimal
+             * @description Valor total dos produtos do melhor local de compra
+             */
+            readonly total_price: string | null;
+            /**
+             * Última atualização
+             * Format: date-time
+             */
+            readonly last_update: string | null;
+            /** Melhor Loja */
+            readonly best_store: number | null;
+        } & {
+            [key: string]: unknown;
+        };
+        Nested: {
+            readonly id: number;
+            /** Nome */
+            name: string;
+            /** Endereço */
+            address?: string;
+            cnpj?: string;
+            /** Lojista */
+            user?: number | null;
+        } & {
+            [key: string]: unknown;
+        };
+        PaginatedListList: {
+            /** @example 123 */
+            count?: number;
+            /**
+             * Format: uri
+             * @example http://api.example.org/accounts/?offset=400&limit=100
+             */
+            next?: string | null;
+            /**
+             * Format: uri
+             * @example http://api.example.org/accounts/?offset=200&limit=100
+             */
+            previous?: string | null;
+            results?: components["schemas"]["List"][];
+        } & {
+            [key: string]: unknown;
+        };
+        PaginatedPriceCharacteristicsList: {
+            /** @example 123 */
+            count?: number;
+            /**
+             * Format: uri
+             * @example http://api.example.org/accounts/?offset=400&limit=100
+             */
+            next?: string | null;
+            /**
+             * Format: uri
+             * @example http://api.example.org/accounts/?offset=200&limit=100
+             */
+            previous?: string | null;
+            results?: components["schemas"]["PriceCharacteristics"][];
+        } & {
+            [key: string]: unknown;
+        };
+        PaginatedPriceHistoryList: {
+            /** @example 123 */
+            count?: number;
+            /**
+             * Format: uri
+             * @example http://api.example.org/accounts/?offset=400&limit=100
+             */
+            next?: string | null;
+            /**
+             * Format: uri
+             * @example http://api.example.org/accounts/?offset=200&limit=100
+             */
+            previous?: string | null;
+            results?: components["schemas"]["PriceHistory"][];
+        } & {
+            [key: string]: unknown;
+        };
+        PaginatedProductList: {
+            /** @example 123 */
+            count?: number;
+            /**
+             * Format: uri
+             * @example http://api.example.org/accounts/?offset=400&limit=100
+             */
+            next?: string | null;
+            /**
+             * Format: uri
+             * @example http://api.example.org/accounts/?offset=200&limit=100
+             */
+            previous?: string | null;
+            results?: components["schemas"]["Product"][];
+        } & {
+            [key: string]: unknown;
+        };
+        PaginatedProductListList: {
+            /** @example 123 */
+            count?: number;
+            /**
+             * Format: uri
+             * @example http://api.example.org/accounts/?offset=400&limit=100
+             */
+            next?: string | null;
+            /**
+             * Format: uri
+             * @example http://api.example.org/accounts/?offset=200&limit=100
+             */
+            previous?: string | null;
+            results?: components["schemas"]["ProductList"][];
+        } & {
+            [key: string]: unknown;
+        };
+        PatchedList: {
+            readonly id?: number;
+            /** Nome */
+            name?: string;
+            /**
+             * Preço total
+             * Format: decimal
+             * @description Valor total dos produtos do melhor local de compra
+             */
+            readonly total_price?: string | null;
+            /**
+             * Última atualização
+             * Format: date-time
+             */
+            readonly last_update?: string | null;
+            /** Melhor Loja */
+            readonly best_store?: number | null;
+        } & {
+            [key: string]: unknown;
+        };
+        PatchedProductList: {
+            readonly id?: number;
+            /** Nome */
+            name?: string;
+            /** Quantidade de itens */
+            quantity?: number;
+            /**
+             * Preço
+             * Format: decimal
+             * @description Valor do produto no melhor local de compra
+             */
+            price?: string | null;
+            /**
+             * Preço total
+             * Format: decimal
+             * @description Valor total dos produtos do melhor local de compra baseado na quantidade
+             */
+            total_price?: string | null;
+        } & {
+            [key: string]: unknown;
+        };
+        PriceCharacteristics: {
+            /** Nome da Característica */
+            key: string;
+            /** Característica */
+            value: string;
+        } & {
+            [key: string]: unknown;
+        };
+        PriceHistory: {
+            /**
+             * Preço
+             * Format: decimal
+             */
+            price: string;
+            /**
+             * Criado em
+             * Format: date-time
+             */
+            readonly created_at: string;
+        } & {
+            [key: string]: unknown;
+        };
+        Product: {
+            readonly id: number;
+            readonly category: components["schemas"]["Category"];
+            /** Nome */
+            name: string;
+            /** Quantidade disponível */
+            quantity: number;
+            /**
+             * Preço
+             * Format: decimal
+             * @description Unidade
+             */
+            price: string;
+            /**
+             * Imagem
+             * Format: uri
+             */
+            image?: string | null;
+            readonly store: components["schemas"]["Nested"];
+        } & {
+            [key: string]: unknown;
+        };
+        ProductList: {
+            readonly id: number;
+            /** Nome */
+            name: string;
+            /** Quantidade de itens */
+            quantity: number;
+            /**
+             * Preço
+             * Format: decimal
+             * @description Valor do produto no melhor local de compra
+             */
+            price?: string | null;
+            /**
+             * Preço total
+             * Format: decimal
+             * @description Valor total dos produtos do melhor local de compra baseado na quantidade
+             */
+            total_price?: string | null;
+        } & {
+            [key: string]: unknown;
+        };
+        TokenObtainPair: {
+            email: string;
+            password: string;
+        } & {
+            [key: string]: unknown;
+        };
+        TokenRefresh: {
+            readonly access: string;
+            refresh: string;
+        } & {
+            [key: string]: unknown;
+        };
+        /**
+         * @description * `logistic` - Lojista
+         *     * `client` - Cliente
+         * @enum {string}
+         */
+        TypeUserEnum: "logistic" | "client";
+        User: {
+            readonly id: number;
+            /**
+             * Último login
+             * Format: date-time
+             */
+            last_login?: string | null;
+            /**
+             * E-mail
+             * Format: email
+             */
+            email?: string;
+            /** Nome */
+            name: string;
+            /** Tipo de Usuário */
+            type_user?: components["schemas"]["TypeUserEnum"];
+            /**
+             * Data de registro
+             * Format: date-time
+             */
+            date_joined?: string;
+        } & {
+            [key: string]: unknown;
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
-export type $defs = Record<string, never>
-export type operations = {
-  auth_token_create: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['TokenObtainPair']
-        'application/x-www-form-urlencoded': components['schemas']['TokenObtainPair']
-        'multipart/form-data': components['schemas']['TokenObtainPair']
-      }
-    }
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['AuthTokenResponseSchema']
-        }
-      }
-    }
-  }
-  auth_token_refresh_create: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['TokenRefresh']
-        'application/x-www-form-urlencoded': components['schemas']['TokenRefresh']
-        'multipart/form-data': components['schemas']['TokenRefresh']
-      }
-    }
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['TokenRefresh']
-        }
-      }
-    }
-  }
-  stores_categories_list: {
-    parameters: {
-      query?: {
-        /** @description Cor do path do SVG */
-        fill_path?: string
-        /** @description Cor do SVG */
-        fill_svg?: string
-        /** @description Altura do SVG */
-        height?: string
-        /** @description Largura do SVG */
-        width?: string
-      }
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['CategorySvg'][]
-        }
-      }
-    }
-  }
-  stores_categories_retrieve: {
-    parameters: {
-      query?: never
-      header?: never
-      path: {
-        /** @description A unique integer value identifying this Categoria. */
-        id: number
-      }
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['CategorySvg']
-        }
-      }
-    }
-  }
-  stores_products_list: {
-    parameters: {
-      query?: {
-        /** @description Filtrar por Categoria */
-        category?: string
-        /** @description Number of results to return per page. */
-        limit?: number
-        /** @description The initial index from which to return the results. */
-        offset?: number
-        /** @description A search term. */
-        search?: string
-      }
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['PaginatedProductList']
-        }
-      }
-    }
-  }
-  stores_products_retrieve: {
-    parameters: {
-      query?: never
-      header?: never
-      path: {
-        /** @description A unique integer value identifying this Produto. */
-        id: number
-      }
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['Product']
-        }
-      }
-    }
-  }
-  stores_products_characteristics_list: {
-    parameters: {
-      query?: {
-        /** @description Number of results to return per page. */
-        limit?: number
-        /** @description The initial index from which to return the results. */
-        offset?: number
-      }
-      header?: never
-      path: {
-        product_pk: number
-      }
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['PaginatedPriceCharacteristicsList']
-        }
-      }
-    }
-  }
-  stores_products_characteristics_retrieve: {
-    parameters: {
-      query?: never
-      header?: never
-      path: {
-        /** @description A unique integer value identifying this Caracteristica Técnica do Produto. */
-        id: number
-        product_pk: number
-      }
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['PriceCharacteristics']
-        }
-      }
-    }
-  }
-  stores_products_historic_list: {
-    parameters: {
-      query?: {
-        /** @description Filtrar por Criado em (com o lookup: lte) */
-        end_at?: string
-        /** @description Number of results to return per page. */
-        limit?: number
-        /** @description The initial index from which to return the results. */
-        offset?: number
-        /** @description Filtrar por Criado em (com o lookup: gte) */
-        start_at?: string
-      }
-      header?: never
-      path: {
-        product_pk: number
-      }
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['PaginatedPriceHistoryList']
-        }
-      }
-    }
-  }
-  stores_products_historic_retrieve: {
-    parameters: {
-      query?: never
-      header?: never
-      path: {
-        /** @description A unique integer value identifying this Histórico de preço de produto. */
-        id: number
-        product_pk: number
-      }
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['PriceHistory']
-        }
-      }
-    }
-  }
-  stores_products_historic_last_retrieve: {
-    parameters: {
-      query?: never
-      header?: never
-      path: {
-        product_pk: number
-      }
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['PriceHistory']
-        }
-      }
-    }
-  }
-  stores_products_promotions_retrieve: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['Product']
-        }
-      }
-    }
-  }
-  users_create: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['CreateUser']
-        'application/x-www-form-urlencoded': components['schemas']['CreateUser']
-        'multipart/form-data': components['schemas']['CreateUser']
-      }
-    }
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['CreateUser']
-        }
-      }
-    }
-  }
-  users_me_retrieve: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['User']
-        }
-      }
-    }
-  }
+export type $defs = Record<string, never>;
+export interface operations {
+    auth_token_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TokenObtainPair"];
+                "application/x-www-form-urlencoded": components["schemas"]["TokenObtainPair"];
+                "multipart/form-data": components["schemas"]["TokenObtainPair"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuthTokenResponseSchema"];
+                };
+            };
+        };
+    };
+    auth_token_refresh_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TokenRefresh"];
+                "application/x-www-form-urlencoded": components["schemas"]["TokenRefresh"];
+                "multipart/form-data": components["schemas"]["TokenRefresh"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TokenRefresh"];
+                };
+            };
+        };
+    };
+    lists_list: {
+        parameters: {
+            query?: {
+                /** @description Number of results to return per page. */
+                limit?: number;
+                /** @description The initial index from which to return the results. */
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedListList"];
+                };
+            };
+        };
+    };
+    lists_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["List"];
+                "application/x-www-form-urlencoded": components["schemas"]["List"];
+                "multipart/form-data": components["schemas"]["List"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["List"];
+                };
+            };
+        };
+    };
+    lists_products_list: {
+        parameters: {
+            query?: {
+                /** @description Number of results to return per page. */
+                limit?: number;
+                /** @description The initial index from which to return the results. */
+                offset?: number;
+            };
+            header?: never;
+            path: {
+                list_pk: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedProductListList"];
+                };
+            };
+        };
+    };
+    lists_products_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                list_pk: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ProductList"];
+                "application/x-www-form-urlencoded": components["schemas"]["ProductList"];
+                "multipart/form-data": components["schemas"]["ProductList"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductList"];
+                };
+            };
+        };
+    };
+    lists_products_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+                list_pk: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductList"];
+                };
+            };
+        };
+    };
+    lists_products_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+                list_pk: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ProductList"];
+                "application/x-www-form-urlencoded": components["schemas"]["ProductList"];
+                "multipart/form-data": components["schemas"]["ProductList"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductList"];
+                };
+            };
+        };
+    };
+    lists_products_destroy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+                list_pk: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    lists_products_partial_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+                list_pk: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["PatchedProductList"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedProductList"];
+                "multipart/form-data": components["schemas"]["PatchedProductList"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductList"];
+                };
+            };
+        };
+    };
+    lists_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["List"];
+                };
+            };
+        };
+    };
+    lists_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["List"];
+                "application/x-www-form-urlencoded": components["schemas"]["List"];
+                "multipart/form-data": components["schemas"]["List"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["List"];
+                };
+            };
+        };
+    };
+    lists_destroy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    lists_partial_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["PatchedList"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedList"];
+                "multipart/form-data": components["schemas"]["PatchedList"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["List"];
+                };
+            };
+        };
+    };
+    lists_calculate_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    stores_categories_list: {
+        parameters: {
+            query?: {
+                /** @description Cor do path do SVG */
+                fill_path?: string;
+                /** @description Cor do SVG */
+                fill_svg?: string;
+                /** @description Altura do SVG */
+                height?: string;
+                /** @description Largura do SVG */
+                width?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CategorySvg"][];
+                };
+            };
+        };
+    };
+    stores_categories_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this Categoria. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CategorySvg"];
+                };
+            };
+        };
+    };
+    stores_products_list: {
+        parameters: {
+            query?: {
+                /** @description Filtrar por Categoria */
+                category?: string;
+                /** @description Number of results to return per page. */
+                limit?: number;
+                /** @description The initial index from which to return the results. */
+                offset?: number;
+                /** @description A search term. */
+                search?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedProductList"];
+                };
+            };
+        };
+    };
+    stores_products_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this Produto. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Product"];
+                };
+            };
+        };
+    };
+    stores_products_characteristics_list: {
+        parameters: {
+            query?: {
+                /** @description Number of results to return per page. */
+                limit?: number;
+                /** @description The initial index from which to return the results. */
+                offset?: number;
+            };
+            header?: never;
+            path: {
+                product_pk: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedPriceCharacteristicsList"];
+                };
+            };
+        };
+    };
+    stores_products_characteristics_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this Caracteristica Técnica do Produto. */
+                id: number;
+                product_pk: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PriceCharacteristics"];
+                };
+            };
+        };
+    };
+    stores_products_historic_list: {
+        parameters: {
+            query?: {
+                /** @description Filtrar por Criado em (com o lookup: lte) */
+                end_at?: string;
+                /** @description Number of results to return per page. */
+                limit?: number;
+                /** @description The initial index from which to return the results. */
+                offset?: number;
+                /** @description Filtrar por Criado em (com o lookup: gte) */
+                start_at?: string;
+            };
+            header?: never;
+            path: {
+                product_pk: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedPriceHistoryList"];
+                };
+            };
+        };
+    };
+    stores_products_historic_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this Histórico de preço de produto. */
+                id: number;
+                product_pk: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PriceHistory"];
+                };
+            };
+        };
+    };
+    stores_products_historic_last_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                product_pk: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PriceHistory"];
+                };
+            };
+        };
+    };
+    stores_products_promotions_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Product"];
+                };
+            };
+        };
+    };
+    users_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateUser"];
+                "application/x-www-form-urlencoded": components["schemas"]["CreateUser"];
+                "multipart/form-data": components["schemas"]["CreateUser"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CreateUser"];
+                };
+            };
+        };
+    };
+    users_me_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["User"];
+                };
+            };
+        };
+    };
 }

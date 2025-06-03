@@ -7,6 +7,7 @@ export type SvgIconProps = {
   color?: string
 } & React.ComponentProps<typeof Svg>
 
+export * from './chevron-right'
 export * from './eye'
 export * from './form'
 export * from './list'
