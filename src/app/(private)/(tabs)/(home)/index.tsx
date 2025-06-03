@@ -21,7 +21,7 @@ export type ProductByCategoryAndCategories = {
   categoriesData: EachCategory[]
 }
 
-async function fetchProductsByCategories(): Promise<ProductByCategoryAndCategories> {
+export async function fetchProductsByCategories(): Promise<ProductByCategoryAndCategories> {
   const { data: productsArray } = await cifraApi.get<EachProduct[]>('/api/stores/products/promotions/')
   const { data: categoriesData } = await cifraApi.get<EachCategory[]>('/api/stores/categories/')
 

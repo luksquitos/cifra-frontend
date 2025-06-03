@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import type { ListsPaginated } from '@/@types/api/lists'
 
-import { ListIcon } from '@/components/icons'
+import { FormIcon } from '@/components/icons'
 import { ListCard } from '@/components/lists/list-card'
 import { Button } from '@/components/ui/button'
 import { Text } from '@/components/ui/text'
@@ -19,16 +19,40 @@ function ListEmpty() {
 
   return (
     <VStack paddingHorizontal={20} alignItems="center" justifyContent="center">
-      <ListIcon color={theme.colors.darkBlue[700]} style={{ marginBottom: theme.spacing['11xl'] }} />
-      <Text fontWeight={theme.font.weight.bold} fontSize={theme.font.size.lg} textAlign="center" marginTop={theme.spacing['11xl']} color={theme.colors.gray[600]}>Você ainda não tem nenhuma lista</Text>
-      <Text fontWeight={theme.font.weight.regular} fontSize={theme.font.size.md} textAlign="center" marginTop={theme.spacing['3xl']} marginBottom={theme.spacing['6xl']} color={theme.colors.gray[500]}>Crie uma lista com os materiais de sua escolha e compare o valor total entre as lojas.</Text>
+      <FormIcon
+        color={theme.colors.darkBlue[700]}
+        style={{ marginBottom: theme.spacing['11xl'] }}
+      />
+      <Text
+        fontWeight={theme.font.weight.bold}
+        fontSize={theme.font.size.lg}
+        textAlign="center"
+        marginTop={theme.spacing['11xl']}
+        color={theme.colors.gray[600]}
+      >
+        Você ainda não tem nenhuma lista
+      </Text>
+      <Text
+        fontWeight={theme.font.weight.regular}
+        fontSize={theme.font.size.md}
+        textAlign="center"
+        marginTop={theme.spacing['3xl']}
+        marginBottom={theme.spacing['6xl']}
+        color={theme.colors.gray[500]}
+      >
+        Crie uma lista com os materiais de sua escolha e compare o valor total entre as lojas.
+      </Text>
       <Button
         onPress={() => router.push('/lists/create-list')}
         style={{ width: '100%', alignItems: 'center', paddingVertical: theme.spacing['3xl'] }}
         radius="lg"
         variant="secondary"
       >
-        <Text fontSize={theme.font.size.md} fontWeight={theme.font.weight.medium} color={theme.colors.gray[600]}>
+        <Text
+          fontSize={theme.font.size.md}
+          fontWeight={theme.font.weight.medium}
+          color={theme.colors.gray[600]}
+        >
           +
           {'  '}
           Criar lista
@@ -97,7 +121,6 @@ export default function Lists() {
                 }}
                 onEndReachedThreshold={0.5}
                 contentContainerStyle={{
-                  paddingHorizontal: theme.spacing['2xl'],
                   paddingVertical: theme.spacing['6xl'],
                   alignItems: 'stretch',
                 }}

@@ -12,7 +12,7 @@ import { useTheme } from '@/providers/theme-provider'
 import { Text } from '../ui/text'
 import { ProductCard } from './search-product-card'
 
-async function fetchProducts({ pageParam = 0, search, category }: {
+export async function fetchProducts({ pageParam = 0, search, category }: {
   pageParam?: number
   search?: string
   category?: string

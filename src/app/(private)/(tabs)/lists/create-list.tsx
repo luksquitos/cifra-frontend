@@ -23,7 +23,7 @@ export default function CreateListPage() {
     mutationFn: (data: CreateListSchemaType) => createList(data),
     onSuccess: async ({ id }) => {
       router.replace({
-        pathname: '/(private)/(tabs)/lists/[id]/products',
+        pathname: '/(private)/(tabs)/lists/[id]/add-products',
         params: { id: String(id) },
       })
     },
@@ -46,9 +46,7 @@ export default function CreateListPage() {
   })
 
   return (
-
     <VStack flex={1}>
-
       <VStack
         width="100%"
         paddingTop={top + 10}

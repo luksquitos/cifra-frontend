@@ -10,7 +10,6 @@ export type SvgIconProps = {
 export * from './chevron-right'
 export * from './eye'
 export * from './form'
-export * from './list'
 export * from './lock'
 export * from './magnifying-dolar'
 export * from './mail'
