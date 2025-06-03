@@ -1,6 +1,6 @@
+import { format } from 'date-fns'
 import { useRouter } from 'expo-router'
 import { TouchableOpacity } from 'react-native'
-import { format } from 'date-fns'
 
 import type { EachList } from '@/@types/api/lists'
 
@@ -19,12 +19,12 @@ export function ListCard({ list }: ListCardProps) {
   const router = useRouter()
   const { theme } = useTheme()
 
-  const floatedPrice = Number.parseFloat(String(list.total_price || 0));
-  const displayPrice = `R$ ${floatedPrice.toFixed(2).replace('.', ',')}`;
+  const floatedPrice = Number.parseFloat(String(list.total_price || 0))
+  const displayPrice = `R$ ${floatedPrice.toFixed(2).replace('.', ',')}`
   const displayDate = format(
     list.last_update || new Date(),
-    "dd/MM/yyyy' às 'HH:mm"
-  );
+    'dd/MM/yyyy\' às \'HH:mm',
+  )
 
   const handleNavigateToList = () => {
     router.navigate({
@@ -69,7 +69,9 @@ export function ListCard({ list }: ListCardProps) {
             fontSize={theme.font.size.sm}
             paddingTop={theme.spacing['3xl']}
           >
-            Última atualização em {displayDate}
+            Última atualização em
+            {' '}
+            {displayDate}
           </Text>
         </VStack>
         <HStack>
