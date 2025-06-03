@@ -1,15 +1,18 @@
-import { router, useGlobalSearchParams } from "expo-router";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
-import { getList } from "./add-products"
-import { HStack, VStack } from "@/components/ui/view";
-import { Text } from "@/components/ui/text";
-import { useTheme } from "@/providers/theme-provider";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { FlatList, TouchableOpacity } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faChevronLeft, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { cifraApi } from "@/libs/cifra-api";
-import { EachListProduct, ListProductPaginated } from "@/@types/api/lists";
+import { faChevronLeft, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import { router, useGlobalSearchParams } from 'expo-router'
+import { FlatList, TouchableOpacity } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+
+import type { EachListProduct, ListProductPaginated } from '@/@types/api/lists'
+
+import { Text } from '@/components/ui/text'
+import { HStack, VStack } from '@/components/ui/view'
+import { cifraApi } from '@/libs/cifra-api'
+import { useTheme } from '@/providers/theme-provider'
+
+import { getList } from './add-products'
 
 async function fetchListProducts(list: number | string, page: number) {
   const { data } = await cifraApi.get<ListProductPaginated>('/api/lists/{list_pk}/products/', {
@@ -22,8 +25,8 @@ async function fetchListProducts(list: number | string, page: number) {
   return data
 }
 
-const ListSavedProductCard = ({ name, quantity, price, total_price }: EachListProduct) => {
-  const { theme } = useTheme();
+function ListSavedProductCard({ name, quantity, price, total_price }: EachListProduct) {
+  const { theme } = useTheme()
 
   return (
     <TouchableOpacity>
@@ -49,7 +52,9 @@ const ListSavedProductCard = ({ name, quantity, price, total_price }: EachListPr
               fontWeight={theme.font.weight.regular}
               fontSize={theme.font.size.sm}
             >
-              Qtd: {quantity}
+              Qtd:
+              {' '}
+              {quantity}
             </Text>
             {price && (
               <Text
@@ -57,7 +62,9 @@ const ListSavedProductCard = ({ name, quantity, price, total_price }: EachListPr
                 fontWeight={theme.font.weight.regular}
                 fontSize={theme.font.size.sm}
               >
-                Unidade: R$ {parseFloat(String(price)).toFixed(2).replace('.', ',')}
+                Unidade: R$
+                {' '}
+                {Number.parseFloat(String(price)).toFixed(2).replace('.', ',')}
               </Text>
             )}
             {total_price && (
@@ -66,7 +73,9 @@ const ListSavedProductCard = ({ name, quantity, price, total_price }: EachListPr
                 fontWeight={theme.font.weight.regular}
                 fontSize={theme.font.size.sm}
               >
-                Total: R$ {parseFloat(String(total_price)).toFixed(2).replace('.', ',')}
+                Total: R$
+                {' '}
+                {Number.parseFloat(String(total_price)).toFixed(2).replace('.', ',')}
               </Text>
             )}
           </VStack>
@@ -87,9 +96,9 @@ const ListSavedProductCard = ({ name, quantity, price, total_price }: EachListPr
 }
 
 export default function ManageListPage() {
-  const { theme } = useTheme();
-  const { top } = useSafeAreaInsets();
-  const params = useGlobalSearchParams<{ id: string }>();
+  const { theme } = useTheme()
+  const { top } = useSafeAreaInsets()
+  const params = useGlobalSearchParams<{ id: string }>()
   const listQuery = useQuery({
     queryKey: ['list-by-id', params.id],
     queryFn: () => getList(params.id),
@@ -134,7 +143,7 @@ export default function ManageListPage() {
           color={theme.colors.gray[700]}
           textAlign="center"
         >
-          {listQuery.data?.name ||  'Carregando...'}
+          {listQuery.data?.name || 'Carregando...'}
         </Text>
       </HStack>
 

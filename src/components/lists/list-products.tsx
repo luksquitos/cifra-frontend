@@ -1,18 +1,21 @@
-import { fetchProductsByCategories } from "@/app/(private)/(tabs)/(home)"
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
-import { RefreshControl, ScrollView } from "react-native"
-import { Products } from "./list-products-category"
-import { fetchProducts } from "../search/search-products"
-import { useState } from "react"
-import { EachProduct } from "@/@types/api/products"
-import { AddProductToListSheet } from './add-product-to-list-sheet';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
+import { RefreshControl, ScrollView } from 'react-native'
 
-const ListAllProducsts = () => {
+import type { EachProduct } from '@/@types/api/products'
+
+import { fetchProductsByCategories } from '@/app/(private)/(tabs)/(home)'
+
+import { fetchProducts } from '../search/search-products'
+import { AddProductToListSheet } from './add-product-to-list-sheet'
+import { Products } from './list-products-category'
+
+function ListAllProducsts() {
   const productQuery = useQuery({
     queryKey: ['products'],
     queryFn: fetchProductsByCategories,
   })
-  const [buyingItem, setBuyingItem] = useState<EachProduct | null>(null);
+  const [buyingItem, setBuyingItem] = useState<EachProduct | null>(null)
 
   const productByCategory = productQuery.data?.productsData ?? []
   const isLoading = productQuery.isLoading || productQuery.isFetching
@@ -30,7 +33,7 @@ const ListAllProducsts = () => {
       >
         <Products
           data={productByCategory}
-          onBuy={(product) => setBuyingItem(product)}
+          onBuy={product => setBuyingItem(product)}
         />
       </ScrollView>
       {buyingItem && (
@@ -43,7 +46,7 @@ const ListAllProducsts = () => {
   )
 }
 
-const ListSearchProducts = ({ search }: { search: string }) => {
+function ListSearchProducts({ search }: { search: string }) {
   const query = useInfiniteQuery({
     queryKey: ['list-search-products', search],
     queryFn: async ({ pageParam }) => {
@@ -58,7 +61,7 @@ const ListSearchProducts = ({ search }: { search: string }) => {
   const products = query.data?.pages.flatMap(page => page.results) || []
   const isLoading = query.isLoading || query.isFetching
 
-  const [buyingItem, setBuyingItem] = useState<EachProduct | null>(null);
+  const [buyingItem, setBuyingItem] = useState<EachProduct | null>(null)
 
   function handleRefresh() {
     query.refetch()
@@ -76,12 +79,12 @@ const ListSearchProducts = ({ search }: { search: string }) => {
             {
               category: {
                 id: 1,
-                name: 'Resultados da busca'
+                name: 'Resultados da busca',
               },
-              products
-            }
+              products,
+            },
           ]}
-          onBuy={(product) => setBuyingItem(product)}
+          onBuy={product => setBuyingItem(product)}
         />
       </ScrollView>
       {buyingItem && (
@@ -94,7 +97,7 @@ const ListSearchProducts = ({ search }: { search: string }) => {
   )
 }
 
-export const ListProducts = ({ search }: { search: string }) => {
+export function ListProducts({ search }: { search: string }) {
   if (!search) {
     return <ListAllProducsts />
   }

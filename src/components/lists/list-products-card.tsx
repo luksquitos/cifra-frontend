@@ -5,16 +5,15 @@ import type { EachProduct } from '@/@types/api/products'
 
 import { defaultTheme } from '@/constants/theme'
 
+import { Button } from '../ui/button'
 import { Text } from '../ui/text'
 import { HStack, VStack } from '../ui/view'
-import { Button } from '../ui/button'
 
 type ProductCardProps = EachProduct & {
-  onBuy: () => void;
-};
+  onBuy: () => void
+}
 
 export function ProductCard({ name, image, onBuy }: ProductCardProps) {
-
   return (
     <TouchableOpacity
       style={{

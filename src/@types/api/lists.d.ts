@@ -4,6 +4,6 @@ export type EachList = components['schemas']['List']
 
 export type ListsPaginated = Pagination<EachList>
 
-export type EachListProduct = components['schemas']['ProductList'];
+export type EachListProduct = components['schemas']['ProductList']
 
-export type ListProductPaginated = Pagination<EachListProduct>;
+export type ListProductPaginated = Pagination<EachListProduct>

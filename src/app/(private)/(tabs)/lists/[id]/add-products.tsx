@@ -1,17 +1,19 @@
-import { EachList } from "@/@types/api/lists";
-import { ListProducts } from "@/components/lists/list-products";
-import { VStack } from "@/components/ui/view";
-import { cifraApi } from "@/libs/cifra-api";
-import { Text } from '@/components/ui/text'
-import { useTheme } from "@/providers/theme-provider";
-import { useQuery } from "@tanstack/react-query";
-import { useGlobalSearchParams } from "expo-router";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useDebounceValue } from "usehooks-ts";
-import { Input } from "@/components/ui/input";
-import { TouchableOpacity } from "react-native";
 import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { useQuery } from '@tanstack/react-query'
+import { useGlobalSearchParams } from 'expo-router'
+import { TouchableOpacity } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useDebounceValue } from 'usehooks-ts'
+
+import type { EachList } from '@/@types/api/lists'
+
+import { ListProducts } from '@/components/lists/list-products'
+import { Input } from '@/components/ui/input'
+import { Text } from '@/components/ui/text'
+import { VStack } from '@/components/ui/view'
+import { cifraApi } from '@/libs/cifra-api'
+import { useTheme } from '@/providers/theme-provider'
 
 export async function getList(id: number | string): Promise<EachList> {
   const { data } = await cifraApi.get<EachList>('/api/lists/{id}/', {
@@ -23,8 +25,8 @@ export async function getList(id: number | string): Promise<EachList> {
 export default function ListProductsPage() {
   const [search, setSearch] = useDebounceValue('', 500)
   const { top } = useSafeAreaInsets()
-  const { theme } = useTheme();
-  const params = useGlobalSearchParams<{ id: string }>();
+  const { theme } = useTheme()
+  const params = useGlobalSearchParams<{ id: string }>()
   const productQuery = useQuery({
     queryKey: ['list-by-id', params.id],
     queryFn: () => getList(params.id),
@@ -49,7 +51,7 @@ export default function ListProductsPage() {
 
         <Input
           value={search}
-          onChangeText={(e) => setSearch(e)}
+          onChangeText={e => setSearch(e)}
           append={search.length > 0
             ? (
                 <TouchableOpacity onPress={() => setSearch('')}>
@@ -60,12 +62,12 @@ export default function ListProductsPage() {
                 </TouchableOpacity>
               )
             : null}
-          preppend={
+          preppend={(
             <FontAwesomeIcon
               icon={faMagnifyingGlass}
               color={theme.colors.gray[300]}
             />
-          }
+          )}
           placeholder="Procure por..."
         />
       </VStack>

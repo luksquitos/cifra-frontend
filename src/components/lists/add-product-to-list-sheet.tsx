@@ -1,16 +1,21 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useGlobalSearchParams } from 'expo-router';
-import { useMutation } from '@tanstack/react-query';
-import { Alert, Image } from 'react-native';
-import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetView } from '@gorhom/bottom-sheet';
-import { EachProduct } from '@/@types/api/products';
-import { HStack, VStack } from '../ui/view';
-import { Text } from '../ui/text';
+import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet'
+
 import fallback from '@/assets/images/tinta.png'
-import { useTheme } from '@/providers/theme-provider';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { cifraApi } from '@/libs/cifra-api';
+import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet'
+import { useMutation } from '@tanstack/react-query'
+import { useGlobalSearchParams } from 'expo-router'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { Alert, Image } from 'react-native'
+
+import type { EachProduct } from '@/@types/api/products'
+
+import { cifraApi } from '@/libs/cifra-api'
+import { useTheme } from '@/providers/theme-provider'
+
+import { Button } from '../ui/button'
+import { Input } from '../ui/input'
+import { Text } from '../ui/text'
+import { HStack, VStack } from '../ui/view'
 
 async function addProductToList(listId: string | number, name: string, quantity: number) {
   const { data } = await cifraApi.post<{ id: number }>('/api/lists/{list_pk}/products/', {
@@ -19,40 +24,41 @@ async function addProductToList(listId: string | number, name: string, quantity:
   }, {
     routeParams: {
       list_pk: String(listId),
-    }
+    },
   })
   return data
 }
 
-export const AddProductToListSheet = ({
+export function AddProductToListSheet({
   product,
   onClose,
 }: {
-  product: EachProduct,
-  onClose: () => void,
-}) => {
-  const params = useGlobalSearchParams<{ id: string }>();
-  const { theme } = useTheme();
-  const bottomSheetRef = useRef<BottomSheet>(null);
-  const [quantity, setQuantity] = useState(1);
+  product: EachProduct
+  onClose: () => void
+}) {
+  const params = useGlobalSearchParams<{ id: string }>()
+  const { theme } = useTheme()
+  const bottomSheetRef = useRef<BottomSheet>(null)
+  const [quantity, setQuantity] = useState(1)
 
   const handleSheetChanges = useCallback((index: number) => {
-    if (index == -1) {
-      onClose();
+    if (index === -1) {
+      onClose()
     }
-  }, [onClose]);
+  }, [onClose])
 
   useEffect(() => {
-    bottomSheetRef.current?.snapToIndex(0);
-    setQuantity(1);
-  }, [product]);
+    bottomSheetRef.current?.snapToIndex(0)
+    setQuantity(1)
+  }, [product])
 
   const addToListMutation = useMutation({
-    mutationFn: (data) => {
-      return addProductToList(params.id, product.name, quantity);
+    mutationFn: () => {
+      return addProductToList(params.id, product.name, quantity)
     },
     onSuccess: async ({ id }) => {
-      bottomSheetRef.current?.close();
+      console.log(id);
+      bottomSheetRef.current?.close()
     },
     onError: () => {
       Alert.alert(
@@ -63,16 +69,16 @@ export const AddProductToListSheet = ({
   })
 
   const renderBackdrop = useCallback(
-		(props: BottomSheetBackdropProps) => (
-			<BottomSheetBackdrop
-				{...props}
-				disappearsOnIndex={-1}
-				appearsOnIndex={0}
+    (props: BottomSheetBackdropProps) => (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={-1}
+        appearsOnIndex={0}
         opacity={0.2}
-			/>
-		),
-		[]
-	);
+      />
+    ),
+    [],
+  )
 
   return (
 
@@ -126,10 +132,10 @@ export const AddProductToListSheet = ({
                   marginRight: 10,
                   backgroundColor: quantity <= 1
                     ? theme.colors.gray[200]
-                    : theme.colors.yellow[300]
+                    : theme.colors.yellow[300],
                 }}
                 disabled={quantity <= 1 || addToListMutation.isPending}
-                onPress={() => setQuantity((q) => q - 1)}
+                onPress={() => setQuantity(q => q - 1)}
               >
                 <Text color={theme.colors.gray[50]}>-</Text>
               </Button>
@@ -152,7 +158,7 @@ export const AddProductToListSheet = ({
                   paddingHorizontal: 0,
                   marginLeft: 10,
                 }}
-                onPress={() => setQuantity((q) => q + 1)}
+                onPress={() => setQuantity(q => q + 1)}
                 disabled={addToListMutation.isPending}
               >
                 <Text color={theme.colors.gray[50]}>+</Text>
@@ -161,7 +167,7 @@ export const AddProductToListSheet = ({
 
             <Button
               variant="secondary"
-              radius='md'
+              radius="md"
               disabled={addToListMutation.isPending}
               onPress={() => addToListMutation.mutate()}
             >
@@ -169,7 +175,7 @@ export const AddProductToListSheet = ({
             </Button>
             <Button
               variant="ghost"
-              radius='md'
+              radius="md"
               disabled={addToListMutation.isPending}
               onPress={() => addToListMutation.mutate()}
             >

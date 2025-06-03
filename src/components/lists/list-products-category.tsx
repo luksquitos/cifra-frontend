@@ -1,5 +1,6 @@
 import { FlatList } from 'react-native'
 
+import type { EachProduct } from '@/@types/api/products'
 import type { ProductByCategory } from '@/app/(private)/(tabs)/(home)'
 
 import { Text } from '@/components/ui/text'
@@ -7,14 +8,13 @@ import { HStack, VStack } from '@/components/ui/view'
 import { defaultTheme } from '@/constants/theme'
 
 import { ProductCard } from './list-products-card'
-import { EachProduct } from '@/@types/api/products'
 
 export function Products({
   data,
   onBuy,
 }: {
-  data: ProductByCategory[],
-  onBuy: (product: EachProduct) => void,
+  data: ProductByCategory[]
+  onBuy: (product: EachProduct) => void
 }) {
   return (
     <VStack>
