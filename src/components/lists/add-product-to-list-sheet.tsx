@@ -57,7 +57,7 @@ export function AddProductToListSheet({
       return addProductToList(params.id, product.name, quantity)
     },
     onSuccess: async ({ id }) => {
-      console.log(id);
+      console.log(id)
       bottomSheetRef.current?.close()
     },
     onError: () => {
