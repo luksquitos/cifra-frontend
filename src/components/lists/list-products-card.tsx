@@ -9,7 +9,11 @@ import { Text } from '../ui/text'
 import { HStack, VStack } from '../ui/view'
 import { Button } from '../ui/button'
 
-export function ProductCard({ name, image, price, id }: EachProduct) {
+type ProductCardProps = EachProduct & {
+  onBuy: () => void;
+};
+
+export function ProductCard({ name, image, onBuy }: ProductCardProps) {
 
   return (
     <TouchableOpacity
@@ -43,6 +47,7 @@ export function ProductCard({ name, image, price, id }: EachProduct) {
           variant="outlined"
           radius="md"
           style={{ borderColor: defaultTheme.colors.darkBlue[700] }}
+          onPress={onBuy}
         >
           <Text
             textAlign="center"

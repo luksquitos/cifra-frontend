@@ -69,9 +69,7 @@ export default function ListProductsPage() {
           placeholder="Procure por..."
         />
       </VStack>
-      <VStack flex={1}>
-        <ListProducts search={search} />
-      </VStack>
+      <ListProducts search={search} />
     </VStack>
   )
 }

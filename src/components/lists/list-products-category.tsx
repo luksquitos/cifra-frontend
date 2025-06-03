@@ -7,8 +7,15 @@ import { HStack, VStack } from '@/components/ui/view'
 import { defaultTheme } from '@/constants/theme'
 
 import { ProductCard } from './list-products-card'
+import { EachProduct } from '@/@types/api/products'
 
-export function Products({ data }: { data: ProductByCategory[] }) {
+export function Products({
+  data,
+  onBuy,
+}: {
+  data: ProductByCategory[],
+  onBuy: (product: EachProduct) => void,
+}) {
   return (
     <VStack>
       {data.map(item => (
@@ -35,7 +42,7 @@ export function Products({ data }: { data: ProductByCategory[] }) {
               renderItem={
                 ({ item }) =>
                   (
-                    <ProductCard {...item} />
+                    <ProductCard onBuy={() => onBuy(item)} {...item} />
                   )
               }
             />

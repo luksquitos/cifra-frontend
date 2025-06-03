@@ -3,12 +3,16 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
 import { RefreshControl, ScrollView } from "react-native"
 import { Products } from "./list-products-category"
 import { fetchProducts } from "../search/search-products"
+import { useState } from "react"
+import { EachProduct } from "@/@types/api/products"
+import { AddProductToListSheet } from './add-product-to-list-sheet';
 
 const ListAllProducsts = () => {
   const productQuery = useQuery({
     queryKey: ['products'],
     queryFn: fetchProductsByCategories,
   })
+  const [buyingItem, setBuyingItem] = useState<EachProduct | null>(null);
 
   const productByCategory = productQuery.data?.productsData ?? []
   const isLoading = productQuery.isLoading || productQuery.isFetching
@@ -18,13 +22,24 @@ const ListAllProducsts = () => {
   }
 
   return (
-    <ScrollView
-      refreshControl={
-        <RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />
-      }
-    >
-      <Products data={productByCategory} />
-    </ScrollView>
+    <>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />
+        }
+      >
+        <Products
+          data={productByCategory}
+          onBuy={(product) => setBuyingItem(product)}
+        />
+      </ScrollView>
+      {buyingItem && (
+        <AddProductToListSheet
+          product={buyingItem}
+          onClose={() => setBuyingItem(null)}
+        />
+      )}
+    </>
   )
 }
 
@@ -41,19 +56,41 @@ const ListSearchProducts = ({ search }: { search: string }) => {
     initialPageParam: 0,
   })
   const products = query.data?.pages.flatMap(page => page.results) || []
+  const isLoading = query.isLoading || query.isFetching
+
+  const [buyingItem, setBuyingItem] = useState<EachProduct | null>(null);
+
+  function handleRefresh() {
+    query.refetch()
+  }
 
   return (
-    <Products
-      data={[
-        {
-          category: {
-            id: 1,
-            name: 'Resultados da busca'
-          },
-          products
+    <>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />
         }
-      ]}
-    />
+      >
+        <Products
+          data={[
+            {
+              category: {
+                id: 1,
+                name: 'Resultados da busca'
+              },
+              products
+            }
+          ]}
+          onBuy={(product) => setBuyingItem(product)}
+        />
+      </ScrollView>
+      {buyingItem && (
+        <AddProductToListSheet
+          product={buyingItem}
+          onClose={() => setBuyingItem(null)}
+        />
+      )}
+    </>
   )
 }
 
