@@ -1,7 +1,7 @@
 import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet'
 
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useGlobalSearchParams } from 'expo-router'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, Alert } from 'react-native'
@@ -44,6 +44,7 @@ export function EditProductOnListSheet({
   const { theme } = useTheme()
   const bottomSheetRef = useRef<BottomSheet>(null)
   const [quantity, setQuantity] = useState(product.quantity || 1)
+  const queryClient = useQueryClient()
 
   const handleSheetChanges = useCallback((index: number) => {
     if (index === -1) {
@@ -62,6 +63,8 @@ export function EditProductOnListSheet({
     },
     onSuccess: async () => {
       bottomSheetRef.current?.close()
+      queryClient.invalidateQueries({ queryKey: ['lists'] })
+      queryClient.invalidateQueries({ queryKey: ['list-by-id', params.id] })
     },
     onError: () => {
       Alert.alert(

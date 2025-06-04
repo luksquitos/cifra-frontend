@@ -1,4 +1,4 @@
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { router, useGlobalSearchParams } from 'expo-router'
@@ -82,6 +82,17 @@ export default function ManageListPage() {
         >
           {listQuery.data?.name || 'Carregando...'}
         </Text>
+        <TouchableOpacity
+          style={{ alignItems: 'center', justifyContent: 'center', height: 30, width: 30 }}
+          onPress={() => {
+            router.navigate({
+              pathname: '/lists/[id]/settings',
+              params: { id: String(params.id) },
+            })
+          }}
+        >
+          <FontAwesomeIcon color={theme.colors.darkBlue[700]} icon={faCog} size={18} />
+        </TouchableOpacity>
       </HStack>
 
       <VStack flex={1} alignItems="stretch">

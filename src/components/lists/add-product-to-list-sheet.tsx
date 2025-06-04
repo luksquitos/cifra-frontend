@@ -2,7 +2,7 @@ import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet'
 
 import fallback from '@/assets/images/tinta.png'
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useGlobalSearchParams, useRouter } from 'expo-router'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Alert, Image } from 'react-native'
@@ -51,6 +51,7 @@ export function AddProductToListSheet({
   const { theme } = useTheme()
   const bottomSheetRef = useRef<BottomSheet>(null)
   const [quantity, setQuantity] = useState(1)
+  const queryClient = useQueryClient()
 
   const handleSheetChanges = useCallback((index: number) => {
     if (index === -1) {
@@ -72,6 +73,8 @@ export function AddProductToListSheet({
       return { id }
     },
     onSuccess: async (_, { redirect }) => {
+      queryClient.invalidateQueries({ queryKey: ['lists'] })
+      queryClient.invalidateQueries({ queryKey: ['list-by-id', params.id] })
       bottomSheetRef.current?.close()
       if (redirect) {
         router.replace('/lists/page')
