@@ -30,8 +30,12 @@ export default function ListRenamePage() {
   const params = useGlobalSearchParams<{ id: string }>()
   const router = useRouter()
   const { top } = useSafeAreaInsets()
-  const { theme } = useTheme()
+  const { theme, setStatusBarStyle } = useTheme()
   const queryClient = useQueryClient()
+
+  useEffect(() => {
+    setStatusBarStyle('dark')
+  }, [])
 
   const { data: list } = useQuery({
     queryKey: ['list-by-id', params.id],

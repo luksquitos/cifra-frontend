@@ -1,7 +1,7 @@
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { useGlobalSearchParams, useRouter } from 'expo-router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -14,9 +14,13 @@ export default function ListSettingsPage() {
   const params = useGlobalSearchParams<{ id: string }>()
   const router = useRouter()
   const { top } = useSafeAreaInsets()
-  const { theme } = useTheme()
+  const { theme, setStatusBarStyle } = useTheme()
 
   const [isDeleting, setIsDeleting] = useState(false)
+
+  useEffect(() => {
+    setStatusBarStyle('dark')
+  }, [])
 
   return (
     <VStack flex={1} alignItems="stretch">

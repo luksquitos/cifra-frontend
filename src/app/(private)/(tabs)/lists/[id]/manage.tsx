@@ -1,8 +1,8 @@
-import { faChevronLeft, faCog } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faCog, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { router, useGlobalSearchParams } from 'expo-router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FlatList, TouchableOpacity } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -31,7 +31,7 @@ async function fetchListProducts(list: number | string, page: number) {
 }
 
 export default function ManageListPage() {
-  const { theme } = useTheme()
+  const { theme, setStatusBarStyle } = useTheme()
   const { top } = useSafeAreaInsets()
   const params = useGlobalSearchParams<{ id: string }>()
   const listQuery = useQuery({
@@ -55,6 +55,10 @@ export default function ManageListPage() {
 
   const [deletingItem, setDeletingItem] = useState<EachListProduct | null>(null)
   const [editingItem, setEditingItem] = useState<EachListProduct | null>(null)
+
+  useEffect(() => {
+    setStatusBarStyle('dark')
+  }, [])
 
   return (
     <VStack flex={1} alignItems="stretch">
@@ -122,19 +126,54 @@ export default function ManageListPage() {
         />
       </VStack>
 
-      <VStack alignItems="stretch" padding={theme.spacing['3xl']}>
-        <Button
-          variant="secondary"
-          radius="md"
-          style={{ marginTop: theme.spacing['3xl'] }}
-          onPress={() => router.push({
-            pathname: '/(private)/(tabs)/lists/[id]/add-products',
-            params: { id: params.id },
-          })}
+      <VStack
+        alignItems="stretch"
+        padding={theme.spacing['3xl']}
+        backgroundColor="#fff"
+      >
+        <Text
+          color={theme.colors.gray[400]}
+          fontSize={theme.font.size.md}
+          fontWeight={theme.font.weight.medium}
         >
-          <Text textAlign="center">Adicionar produtos</Text>
-        </Button>
+          Total
+        </Text>
+        <Text
+          color={theme.colors.gray[600]}
+          fontSize={theme.font.size.lg}
+          fontWeight={theme.font.weight.bold}
+        >
+          R$
+          {' '}
+          {Number.parseFloat(String(listQuery.data?.total_price || 0)).toFixed(2).replace('.', ',')}
+        </Text>
       </VStack>
+
+      <Button
+        variant="secondary"
+        radius="full"
+        width={60}
+        height={60}
+        style={{
+          position: 'absolute',
+          right: 20,
+          bottom: 20,
+          paddingHorizontal: 0,
+          paddingVertical: 0,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        onPress={() => router.push({
+          pathname: '/(private)/(tabs)/lists/[id]/add-products',
+          params: { id: params.id },
+        })}
+      >
+        <FontAwesomeIcon
+          color={theme.colors.gray[600]}
+          icon={faPlus}
+          size={14}
+        />
+      </Button>
 
       {deletingItem && (
         <RemoveProductFromListSheet

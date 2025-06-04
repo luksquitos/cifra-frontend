@@ -2,7 +2,7 @@ import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { useQuery } from '@tanstack/react-query'
 import { useGlobalSearchParams } from 'expo-router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useDebounceValue } from 'usehooks-ts'
@@ -28,12 +28,16 @@ export default function ListProductsPage() {
   const [displaySearch, setDisplaySearch] = useState('')
 
   const { top } = useSafeAreaInsets()
-  const { theme } = useTheme()
+  const { theme, setStatusBarStyle } = useTheme()
   const params = useGlobalSearchParams<{ id: string }>()
   const productQuery = useQuery({
     queryKey: ['list-by-id', params.id],
     queryFn: () => getList(params.id),
   })
+
+  useEffect(() => {
+    setStatusBarStyle('dark')
+  }, [])
 
   return (
     <VStack flex={1}>

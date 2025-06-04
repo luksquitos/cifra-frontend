@@ -1,5 +1,8 @@
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useRouter } from 'expo-router'
+import { useEffect } from 'react'
 import { FlatList } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -15,19 +18,24 @@ import { useTheme } from '@/providers/theme-provider'
 
 function ListEmpty() {
   const router = useRouter()
-  const { theme } = useTheme()
+  const { theme, setStatusBarStyle } = useTheme()
+
+  useEffect(() => {
+    setStatusBarStyle('dark')
+  }, [])
 
   return (
     <VStack paddingHorizontal={20} alignItems="center" justifyContent="center">
       <FormIcon
         color={theme.colors.darkBlue[700]}
-        style={{ marginBottom: theme.spacing['11xl'] }}
+        style={{ marginBottom: theme.spacing['2xl'] }}
+        size={48}
       />
       <Text
         fontWeight={theme.font.weight.bold}
         fontSize={theme.font.size.lg}
         textAlign="center"
-        marginTop={theme.spacing['11xl']}
+        marginTop={theme.spacing['2xl']}
         color={theme.colors.gray[600]}
       >
         Você ainda não tem nenhuma lista
@@ -151,7 +159,11 @@ export default function Lists() {
         }}
         onPress={() => router.navigate('/lists/create-list')}
       >
-        <Text textAlign="center" fontSize={24}>+</Text>
+        <FontAwesomeIcon
+          color={theme.colors.gray[600]}
+          icon={faPlus}
+          size={14}
+        />
       </Button>
     </VStack>
   )

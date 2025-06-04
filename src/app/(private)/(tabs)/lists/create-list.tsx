@@ -1,6 +1,7 @@
 import { useForm } from '@tanstack/react-form'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'expo-router'
+import { useEffect } from 'react'
 import { ActivityIndicator, Alert } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -16,8 +17,13 @@ import { createListSchema } from '@/validations/create-list-schema'
 
 export default function CreateListPage() {
   const router = useRouter()
-  const { theme } = useTheme()
+  const { theme, setStatusBarStyle } = useTheme()
+
   const { top } = useSafeAreaInsets()
+
+  useEffect(() => {
+    setStatusBarStyle('dark')
+  }, [])
 
   const createListMutation = useMutation({
     mutationFn: (data: CreateListSchemaType) => createList(data),

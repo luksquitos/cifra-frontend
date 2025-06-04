@@ -3,7 +3,7 @@ import type { TextInput } from 'react-native'
 import { useForm } from '@tanstack/react-form'
 import { useMutation } from '@tanstack/react-query'
 import { Link, useRouter } from 'expo-router'
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { ActivityIndicator, Alert } from 'react-native'
 
 import type { SignInPayload, SignInResponse } from '@/@types/api/sign-in'
@@ -22,8 +22,12 @@ import { signInSchema } from '@/validations/sign-in-schema'
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false)
   const { signIn, isLoadingSession } = useSession()
-  const { theme } = useTheme()
+  const { theme, setStatusBarStyle } = useTheme()
   const router = useRouter()
+
+  useEffect(() => {
+    setStatusBarStyle('dark')
+  }, [])
 
   const signInMutation = useMutation({
     mutationFn: (data: SignInSchemaType) => signInApi(data),

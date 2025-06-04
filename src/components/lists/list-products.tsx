@@ -108,18 +108,17 @@ function ListAllProducsts() {
 
 function ListSearchProducts({ search }: { search: string }) {
   const { theme } = useTheme()
-  const query = useInfiniteQuery({
+  const query = useQuery({
     queryKey: ['list-search-products', search],
-    queryFn: async ({ pageParam }) => {
-      return fetchProducts({ pageParam, search })
+    queryFn: async () => {
+      const data = await fetchProducts({ pageParam: 0, search })
+      return {
+        ...data,
+        results: data.results.filter((_, index) => index === 0),
+      }
     },
-    getNextPageParam: (lastPage, allPages) => {
-      const totalFetched = allPages.reduce((acc, page) => acc + page.results.length, 0)
-      return totalFetched < lastPage.count ? totalFetched : undefined
-    },
-    initialPageParam: 0,
   })
-  const products = query.data?.pages.flatMap(page => page.results) || []
+  const products = query.data?.results || []
   const isLoading = query.isLoading || query.isFetching
 
   const recalculateMutation = useRecalculateValuesMutation()

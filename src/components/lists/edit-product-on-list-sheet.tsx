@@ -1,12 +1,13 @@
+import type { EachListProduct } from '@/@types/api/lists'
 import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet'
 
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useGlobalSearchParams } from 'expo-router'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, Alert } from 'react-native'
-
-import type { EachListProduct } from '@/@types/api/lists'
 
 import { cifraApi } from '@/libs/cifra-api'
 import { useTheme } from '@/providers/theme-provider'
@@ -143,12 +144,16 @@ export function EditProductOnListSheet({
                 disabled={quantity <= 1 || editOnListMutation.isPending}
                 onPress={() => setQuantity(q => q - 1)}
               >
-                <Text color={theme.colors.gray[50]}>-</Text>
+                <FontAwesomeIcon
+                  color={theme.colors.gray[600]}
+                  icon={faMinus}
+                  size={14}
+                />
               </Button>
 
               <Input
                 value={String(quantity)}
-                style={{ maxWidth: 30 }}
+                style={{ maxWidth: 80, width: 80 }}
                 textAlign="center"
                 readOnly
               />
@@ -167,7 +172,11 @@ export function EditProductOnListSheet({
                 onPress={() => setQuantity(q => q + 1)}
                 disabled={editOnListMutation.isPending}
               >
-                <Text color={theme.colors.gray[50]}>+</Text>
+                <FontAwesomeIcon
+                  color={theme.colors.gray[600]}
+                  icon={faPlus}
+                  size={14}
+                />
               </Button>
             </HStack>
 

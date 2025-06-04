@@ -1,6 +1,8 @@
 import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet'
 
 import fallback from '@/assets/images/tinta.png'
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useGlobalSearchParams, useRouter } from 'expo-router'
@@ -158,12 +160,16 @@ export function AddProductToListSheet({
                 disabled={quantity <= 1 || addToListMutation.isPending}
                 onPress={() => setQuantity(q => q - 1)}
               >
-                <Text color={theme.colors.gray[50]}>-</Text>
+                <FontAwesomeIcon
+                  color={theme.colors.gray[600]}
+                  icon={faMinus}
+                  size={14}
+                />
               </Button>
 
               <Input
                 value={String(quantity)}
-                style={{ maxWidth: 30 }}
+                style={{ maxWidth: 80, width: 80 }}
                 textAlign="center"
                 readOnly
               />
@@ -182,7 +188,11 @@ export function AddProductToListSheet({
                 onPress={() => setQuantity(q => q + 1)}
                 disabled={addToListMutation.isPending}
               >
-                <Text color={theme.colors.gray[50]}>+</Text>
+                <FontAwesomeIcon
+                  color={theme.colors.gray[600]}
+                  icon={faPlus}
+                  size={14}
+                />
               </Button>
             </HStack>
 
