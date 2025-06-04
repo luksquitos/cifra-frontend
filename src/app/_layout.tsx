@@ -1,6 +1,7 @@
 import { Slot } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import { useEffect } from 'react'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { QueryProvider } from '@/providers/query-provider'
@@ -19,14 +20,16 @@ export default function RootLayout() {
   }, [])
 
   return (
-    <QueryProvider>
-      <SessionProvider>
-        <SafeAreaProvider>
-          <ThemeProvider theme={defaultTheme}>
-            <Slot />
-          </ThemeProvider>
-        </SafeAreaProvider>
-      </SessionProvider>
-    </QueryProvider>
+    <GestureHandlerRootView>
+      <QueryProvider>
+        <SessionProvider>
+          <SafeAreaProvider>
+            <ThemeProvider theme={defaultTheme}>
+              <Slot />
+            </ThemeProvider>
+          </SafeAreaProvider>
+        </SessionProvider>
+      </QueryProvider>
+    </GestureHandlerRootView>
   )
 }

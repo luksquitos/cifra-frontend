@@ -44,6 +44,87 @@ export type paths = {
     patch?: never
     trace?: never
   }
+  '/api/lists/': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: operations['lists_list']
+    put?: never
+    post: operations['lists_create']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/lists/{list_pk}/products/': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: operations['lists_products_list']
+    put?: never
+    post: operations['lists_products_create']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/lists/{list_pk}/products/{id}/': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: operations['lists_products_retrieve']
+    put: operations['lists_products_update']
+    post?: never
+    delete: operations['lists_products_destroy']
+    options?: never
+    head?: never
+    patch: operations['lists_products_partial_update']
+    trace?: never
+  }
+  '/api/lists/{id}/': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: operations['lists_retrieve']
+    put: operations['lists_update']
+    post?: never
+    delete: operations['lists_destroy']
+    options?: never
+    head?: never
+    patch: operations['lists_partial_update']
+    trace?: never
+  }
+  '/api/lists/{id}/calculate/': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    /** @description Endpoint para calcular, ou recalcular, valor total de lista de usuário. */
+    put: operations['lists_calculate_update']
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/stores/categories/': {
     parameters: {
       query?: never
@@ -283,6 +364,26 @@ export type components = {
     } & {
       [key: string]: unknown
     }
+    List: {
+      readonly id: number
+      /** Nome */
+      name: string
+      /**
+       * Preço total
+       * Format: decimal
+       * @description Valor total dos produtos do melhor local de compra
+       */
+      readonly total_price: string | null
+      /**
+       * Última atualização
+       * Format: date-time
+       */
+      readonly last_update: string | null
+      /** Melhor Loja */
+      readonly best_store: number | null
+    } & {
+      [key: string]: unknown
+    }
     Nested: {
       readonly id: number
       /** Nome */
@@ -292,6 +393,23 @@ export type components = {
       cnpj?: string
       /** Lojista */
       user?: number | null
+    } & {
+      [key: string]: unknown
+    }
+    PaginatedListList: {
+      /** @example 123 */
+      count?: number
+      /**
+       * Format: uri
+       * @example http://api.example.org/accounts/?offset=400&limit=100
+       */
+      next?: string | null
+      /**
+       * Format: uri
+       * @example http://api.example.org/accounts/?offset=200&limit=100
+       */
+      previous?: string | null
+      results?: components['schemas']['List'][]
     } & {
       [key: string]: unknown
     }
@@ -346,6 +464,64 @@ export type components = {
     } & {
       [key: string]: unknown
     }
+    PaginatedProductListList: {
+      /** @example 123 */
+      count?: number
+      /**
+       * Format: uri
+       * @example http://api.example.org/accounts/?offset=400&limit=100
+       */
+      next?: string | null
+      /**
+       * Format: uri
+       * @example http://api.example.org/accounts/?offset=200&limit=100
+       */
+      previous?: string | null
+      results?: components['schemas']['ProductList'][]
+    } & {
+      [key: string]: unknown
+    }
+    PatchedList: {
+      readonly id?: number
+      /** Nome */
+      name?: string
+      /**
+       * Preço total
+       * Format: decimal
+       * @description Valor total dos produtos do melhor local de compra
+       */
+      readonly total_price?: string | null
+      /**
+       * Última atualização
+       * Format: date-time
+       */
+      readonly last_update?: string | null
+      /** Melhor Loja */
+      readonly best_store?: number | null
+    } & {
+      [key: string]: unknown
+    }
+    PatchedProductList: {
+      readonly id?: number
+      /** Nome */
+      name?: string
+      /** Quantidade de itens */
+      quantity?: number
+      /**
+       * Preço
+       * Format: decimal
+       * @description Valor do produto no melhor local de compra
+       */
+      price?: string | null
+      /**
+       * Preço total
+       * Format: decimal
+       * @description Valor total dos produtos do melhor local de compra baseado na quantidade
+       */
+      total_price?: string | null
+    } & {
+      [key: string]: unknown
+    }
     PriceCharacteristics: {
       /** Nome da Característica */
       key: string
@@ -387,6 +563,27 @@ export type components = {
        */
       image?: string | null
       readonly store: components['schemas']['Nested']
+    } & {
+      [key: string]: unknown
+    }
+    ProductList: {
+      readonly id: number
+      /** Nome */
+      name: string
+      /** Quantidade de itens */
+      quantity: number
+      /**
+       * Preço
+       * Format: decimal
+       * @description Valor do produto no melhor local de compra
+       */
+      price?: string | null
+      /**
+       * Preço total
+       * Format: decimal
+       * @description Valor total dos produtos do melhor local de compra baseado na quantidade
+       */
+      total_price?: string | null
     } & {
       [key: string]: unknown
     }
@@ -488,6 +685,322 @@ export type operations = {
         content: {
           'application/json': components['schemas']['TokenRefresh']
         }
+      }
+    }
+  }
+  lists_list: {
+    parameters: {
+      query?: {
+        /** @description Number of results to return per page. */
+        limit?: number
+        /** @description The initial index from which to return the results. */
+        offset?: number
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['PaginatedListList']
+        }
+      }
+    }
+  }
+  lists_create: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['List']
+        'application/x-www-form-urlencoded': components['schemas']['List']
+        'multipart/form-data': components['schemas']['List']
+      }
+    }
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['List']
+        }
+      }
+    }
+  }
+  lists_products_list: {
+    parameters: {
+      query?: {
+        /** @description Number of results to return per page. */
+        limit?: number
+        /** @description The initial index from which to return the results. */
+        offset?: number
+      }
+      header?: never
+      path: {
+        list_pk: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['PaginatedProductListList']
+        }
+      }
+    }
+  }
+  lists_products_create: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        list_pk: string
+      }
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ProductList']
+        'application/x-www-form-urlencoded': components['schemas']['ProductList']
+        'multipart/form-data': components['schemas']['ProductList']
+      }
+    }
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ProductList']
+        }
+      }
+    }
+  }
+  lists_products_retrieve: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: string
+        list_pk: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ProductList']
+        }
+      }
+    }
+  }
+  lists_products_update: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: string
+        list_pk: string
+      }
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ProductList']
+        'application/x-www-form-urlencoded': components['schemas']['ProductList']
+        'multipart/form-data': components['schemas']['ProductList']
+      }
+    }
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ProductList']
+        }
+      }
+    }
+  }
+  lists_products_destroy: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: string
+        list_pk: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description No response body */
+      204: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  lists_products_partial_update: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: string
+        list_pk: string
+      }
+      cookie?: never
+    }
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['PatchedProductList']
+        'application/x-www-form-urlencoded': components['schemas']['PatchedProductList']
+        'multipart/form-data': components['schemas']['PatchedProductList']
+      }
+    }
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ProductList']
+        }
+      }
+    }
+  }
+  lists_retrieve: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['List']
+        }
+      }
+    }
+  }
+  lists_update: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: string
+      }
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['List']
+        'application/x-www-form-urlencoded': components['schemas']['List']
+        'multipart/form-data': components['schemas']['List']
+      }
+    }
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['List']
+        }
+      }
+    }
+  }
+  lists_destroy: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description No response body */
+      204: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  lists_partial_update: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: string
+      }
+      cookie?: never
+    }
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['PatchedList']
+        'application/x-www-form-urlencoded': components['schemas']['PatchedList']
+        'multipart/form-data': components['schemas']['PatchedList']
+      }
+    }
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['List']
+        }
+      }
+    }
+  }
+  lists_calculate_update: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description No response body */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
       }
     }
   }
