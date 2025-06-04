@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import { useRouter } from 'expo-router'
 import { ActivityIndicator, Alert, TouchableOpacity } from 'react-native'
@@ -5,13 +6,12 @@ import { ActivityIndicator, Alert, TouchableOpacity } from 'react-native'
 import type { EachList } from '@/@types/api/lists'
 
 import { HStack, VStack } from '@/components/ui/view'
+import { cifraApi } from '@/libs/cifra-api'
 import { useTheme } from '@/providers/theme-provider'
 
 import { ChevronRight, MagnifyingDollar } from '../icons'
 import { Button } from '../ui/button'
 import { Text } from '../ui/text'
-import { cifraApi } from '@/libs/cifra-api'
-import { useMutation } from '@tanstack/react-query'
 
 async function recalculate(listId: string | number) {
   const { data } = await cifraApi.put<{ id: number }>('/api/lists/{id}/calculate/', {
@@ -24,8 +24,8 @@ async function recalculate(listId: string | number) {
 }
 
 export type ListCardProps = {
-  list: EachList;
-  onRefresh?: () => void;
+  list: EachList
+  onRefresh?: () => void
 }
 
 export function ListCard({ list, onRefresh }: ListCardProps) {
@@ -38,9 +38,9 @@ export function ListCard({ list, onRefresh }: ListCardProps) {
     },
     onSuccess: async () => {
       if (!onRefresh) {
-        return;
+        return
       }
-      onRefresh();
+      onRefresh()
     },
     onError: () => {
       Alert.alert(
@@ -113,15 +113,17 @@ export function ListCard({ list, onRefresh }: ListCardProps) {
             onPress={() => recalculateMutation.mutate()}
             disabled={recalculateMutation.isPending}
           >
-            {recalculateMutation.isPending ? <ActivityIndicator /> : (
-              <Text
-                numberOfLines={1}
-                fontSize={theme.font.size.md}
-                color={theme.colors.darkBlue[700]}
-              >
-                Recalcular preço
-              </Text>
-            )}
+            {recalculateMutation.isPending
+              ? <ActivityIndicator />
+              : (
+                  <Text
+                    numberOfLines={1}
+                    fontSize={theme.font.size.md}
+                    color={theme.colors.darkBlue[700]}
+                  >
+                    Recalcular preço
+                  </Text>
+                )}
           </Button>
           <Button
             variant="outlined"

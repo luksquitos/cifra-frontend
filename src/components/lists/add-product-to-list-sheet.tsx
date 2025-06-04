@@ -46,7 +46,7 @@ export function AddProductToListSheet({
   product: EachProduct
   onClose: () => void
 }) {
-  const router = useRouter();
+  const router = useRouter()
   const params = useGlobalSearchParams<{ id: string }>()
   const { theme } = useTheme()
   const bottomSheetRef = useRef<BottomSheet>(null)
@@ -67,14 +67,14 @@ export function AddProductToListSheet({
     mutationFn: async ({ redirect }: { redirect: boolean }) => {
       const { id } = await addProductToList(params.id, product.name, quantity)
       if (redirect) {
-        await recalculate(params.id);
+        await recalculate(params.id)
       }
-      return { id };
+      return { id }
     },
     onSuccess: async (_, { redirect }) => {
       bottomSheetRef.current?.close()
       if (redirect) {
-        router.replace('/lists/page');
+        router.replace('/lists/page')
       }
     },
     onError: () => {

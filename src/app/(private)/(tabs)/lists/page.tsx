@@ -75,7 +75,7 @@ async function fetchLists(page: number): Promise<ListsPaginated> {
 export default function Lists() {
   const { theme } = useTheme()
   const { top } = useSafeAreaInsets()
-  const router = useRouter();
+  const router = useRouter()
 
   const listsQuery = useInfiniteQuery({
     queryKey: ['lists'],
