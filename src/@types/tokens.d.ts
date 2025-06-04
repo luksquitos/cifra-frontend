@@ -1,3 +1,4 @@
-import type { components } from './openapi'
-
-export type Tokens = components['schemas']['AuthTokens']
+export type Tokens = {
+  accessToken: string
+  refreshToken: string
+}
