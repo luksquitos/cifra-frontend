@@ -3,7 +3,7 @@ import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet'
 import fallback from '@/assets/images/tinta.png'
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet'
 import { useMutation } from '@tanstack/react-query'
-import { useGlobalSearchParams } from 'expo-router'
+import { useGlobalSearchParams, useRouter } from 'expo-router'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Alert, Image } from 'react-native'
 
@@ -29,6 +29,16 @@ async function addProductToList(listId: string | number, name: string, quantity:
   return data
 }
 
+async function recalculate(listId: string | number) {
+  const { data } = await cifraApi.put<{ id: number }>('/api/lists/{id}/calculate/', {
+  }, {
+    routeParams: {
+      id: String(listId),
+    },
+  })
+  return data
+}
+
 export function AddProductToListSheet({
   product,
   onClose,
@@ -36,6 +46,7 @@ export function AddProductToListSheet({
   product: EachProduct
   onClose: () => void
 }) {
+  const router = useRouter();
   const params = useGlobalSearchParams<{ id: string }>()
   const { theme } = useTheme()
   const bottomSheetRef = useRef<BottomSheet>(null)
@@ -53,12 +64,18 @@ export function AddProductToListSheet({
   }, [product])
 
   const addToListMutation = useMutation({
-    mutationFn: () => {
-      return addProductToList(params.id, product.name, quantity)
+    mutationFn: async ({ redirect }: { redirect: boolean }) => {
+      const { id } = await addProductToList(params.id, product.name, quantity)
+      if (redirect) {
+        await recalculate(params.id);
+      }
+      return { id };
     },
-    onSuccess: async ({ id }) => {
-      console.log(id)
+    onSuccess: async (_, { redirect }) => {
       bottomSheetRef.current?.close()
+      if (redirect) {
+        router.replace('/lists/page');
+      }
     },
     onError: () => {
       Alert.alert(
@@ -86,6 +103,7 @@ export function AddProductToListSheet({
       ref={bottomSheetRef}
       onChange={handleSheetChanges}
       backdropComponent={renderBackdrop}
+      style={{ zIndex: 600 }}
     >
       <BottomSheetView
         style={{
@@ -169,7 +187,7 @@ export function AddProductToListSheet({
               variant="secondary"
               radius="md"
               disabled={addToListMutation.isPending}
-              onPress={() => addToListMutation.mutate()}
+              onPress={() => addToListMutation.mutate({ redirect: false })}
             >
               <Text textAlign="center">Adicionar e ver mais produtos</Text>
             </Button>
@@ -177,7 +195,7 @@ export function AddProductToListSheet({
               variant="ghost"
               radius="md"
               disabled={addToListMutation.isPending}
-              onPress={() => addToListMutation.mutate()}
+              onPress={() => addToListMutation.mutate({ redirect: true })}
             >
               <Text
                 textAlign="center"

@@ -1,9 +1,9 @@
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query'
 import { router, useGlobalSearchParams } from 'expo-router'
 import { useState } from 'react'
-import { FlatList, TouchableOpacity } from 'react-native'
+import { ActivityIndicator, Alert, FlatList, TouchableOpacity } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import type { EachListProduct, ListProductPaginated } from '@/@types/api/lists'
@@ -17,6 +17,7 @@ import { cifraApi } from '@/libs/cifra-api'
 import { useTheme } from '@/providers/theme-provider'
 
 import { getList } from './add-products'
+import { Button } from '@/components/ui/button'
 
 async function fetchListProducts(list: number | string, page: number) {
   const { data } = await cifraApi.get<ListProductPaginated>('/api/lists/{list_pk}/products/', {
@@ -108,6 +109,20 @@ export default function ManageListPage() {
           onRefresh={() => productsQuery.refetch()}
           refreshing={productsQuery.isPending || productsQuery.isLoading}
         />
+      </VStack>
+
+      <VStack alignItems="stretch" padding={theme.spacing['3xl']}>
+        <Button
+          variant="secondary"
+          radius="md"
+          style={{ marginTop: theme.spacing['3xl'] }}
+          onPress={() => router.push({
+            pathname: '/(private)/(tabs)/lists/[id]/add-products',
+            params: { id: params.id }
+          })}
+        >
+          <Text textAlign="center">Adicionar produtos</Text>
+        </Button>
       </VStack>
 
       {deletingItem && (

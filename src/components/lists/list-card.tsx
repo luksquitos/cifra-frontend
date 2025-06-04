@@ -1,6 +1,6 @@
 import { format } from 'date-fns'
 import { useRouter } from 'expo-router'
-import { TouchableOpacity } from 'react-native'
+import { ActivityIndicator, Alert, TouchableOpacity } from 'react-native'
 
 import type { EachList } from '@/@types/api/lists'
 
@@ -10,14 +10,45 @@ import { useTheme } from '@/providers/theme-provider'
 import { ChevronRight, MagnifyingDollar } from '../icons'
 import { Button } from '../ui/button'
 import { Text } from '../ui/text'
+import { cifraApi } from '@/libs/cifra-api'
+import { useMutation } from '@tanstack/react-query'
 
-export type ListCardProps = {
-  list: EachList
+async function recalculate(listId: string | number) {
+  const { data } = await cifraApi.put<{ id: number }>('/api/lists/{id}/calculate/', {
+  }, {
+    routeParams: {
+      id: String(listId),
+    },
+  })
+  return data
 }
 
-export function ListCard({ list }: ListCardProps) {
+export type ListCardProps = {
+  list: EachList;
+  onRefresh?: () => void;
+}
+
+export function ListCard({ list, onRefresh }: ListCardProps) {
   const router = useRouter()
   const { theme } = useTheme()
+
+  const recalculateMutation = useMutation({
+    mutationFn: () => {
+      return recalculate(list.id)
+    },
+    onSuccess: async () => {
+      if (!onRefresh) {
+        return;
+      }
+      onRefresh();
+    },
+    onError: () => {
+      Alert.alert(
+        'Erro ao recalcular os preços',
+        'Tente novamente mais tarde ou verifique os dados informados.',
+      )
+    },
+  })
 
   const floatedPrice = Number.parseFloat(String(list.total_price || 0))
   const displayPrice = `R$ ${floatedPrice.toFixed(2).replace('.', ',')}`
@@ -75,14 +106,22 @@ export function ListCard({ list }: ListCardProps) {
           </Text>
         </VStack>
         <HStack>
-          <Button variant="ghost" radius="sm" style={{ flex: 1 }}>
-            <Text
-              numberOfLines={1}
-              fontSize={theme.font.size.md}
-              color={theme.colors.darkBlue[700]}
-            >
-              Recalcular preço
-            </Text>
+          <Button
+            variant="ghost"
+            radius="sm"
+            style={{ flex: 1 }}
+            onPress={() => recalculateMutation.mutate()}
+            disabled={recalculateMutation.isPending}
+          >
+            {recalculateMutation.isPending ? <ActivityIndicator /> : (
+              <Text
+                numberOfLines={1}
+                fontSize={theme.font.size.md}
+                color={theme.colors.darkBlue[700]}
+              >
+                Recalcular preço
+              </Text>
+            )}
           </Button>
           <Button
             variant="outlined"

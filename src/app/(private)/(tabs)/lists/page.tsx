@@ -75,6 +75,7 @@ async function fetchLists(page: number): Promise<ListsPaginated> {
 export default function Lists() {
   const { theme } = useTheme()
   const { top } = useSafeAreaInsets()
+  const router = useRouter();
 
   const listsQuery = useInfiniteQuery({
     queryKey: ['lists'],
@@ -124,12 +125,35 @@ export default function Lists() {
                   paddingVertical: theme.spacing['6xl'],
                   alignItems: 'stretch',
                 }}
-                renderItem={({ item }) => <ListCard list={item} />}
+                renderItem={({ item }) => (
+                  <ListCard
+                    list={item}
+                    onRefresh={() => listsQuery.refetch()}
+                  />
+                )}
                 onRefresh={() => listsQuery.refetch()}
                 refreshing={listsQuery.isPending || listsQuery.isLoading}
               />
             )}
       </VStack>
+      <Button
+        variant="secondary"
+        radius="full"
+        width={60}
+        height={60}
+        style={{
+          position: 'absolute',
+          right: 20,
+          bottom: 20,
+          paddingHorizontal: 0,
+          paddingVertical: 0,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        onPress={() => router.navigate('/lists/create-list')}
+      >
+        <Text textAlign="center" fontSize={24}>+</Text>
+      </Button>
     </VStack>
   )
 }

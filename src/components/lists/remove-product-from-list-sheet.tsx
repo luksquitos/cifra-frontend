@@ -22,6 +22,11 @@ async function removeProductFromList(listId: string | number, id: number) {
       id: String(id),
     },
   })
+  await cifraApi.put<{ id: number }>('/api/lists/{id}/calculate/', {}, {
+    routeParams: {
+      id: String(listId),
+    },
+  })
 }
 
 export function RemoveProductFromListSheet({

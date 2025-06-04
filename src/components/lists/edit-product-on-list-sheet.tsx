@@ -25,6 +25,11 @@ async function editProductOnList(listId: string | number, id: string | number, q
       id: String(id),
     },
   })
+  await cifraApi.put<{ id: number }>('/api/lists/{id}/calculate/', {}, {
+    routeParams: {
+      id: String(listId),
+    },
+  })
   return data
 }
 

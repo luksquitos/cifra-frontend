@@ -1,6 +1,6 @@
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
-import { RefreshControl, ScrollView } from 'react-native'
+import { ActivityIndicator, Alert, RefreshControl, ScrollView } from 'react-native'
 
 import type { EachProduct } from '@/@types/api/products'
 
@@ -9,8 +9,47 @@ import { fetchProductsByCategories } from '@/app/(private)/(tabs)/(home)'
 import { fetchProducts } from '../search/search-products'
 import { AddProductToListSheet } from './add-product-to-list-sheet'
 import { Products } from './list-products-category'
+import { VStack } from '../ui/view'
+import { Button } from '../ui/button'
+import { Text } from '../ui/text'
+import { cifraApi } from '@/libs/cifra-api'
+import { router, useGlobalSearchParams } from 'expo-router'
+import { useTheme } from '@/providers/theme-provider'
+
+async function recalculate(listId: string | number) {
+  const { data } = await cifraApi.put<{ id: number }>('/api/lists/{id}/calculate/', {
+  }, {
+    routeParams: {
+      id: String(listId),
+    },
+  })
+  return data
+}
+
+const useRecalculateValuesMutation = () => {
+  const params = useGlobalSearchParams<{ id: string }>()
+  return useMutation({
+    mutationFn: () => {
+      return recalculate(params.id)
+    },
+    onSuccess: async () => {
+      router.replace({
+        pathname: '/(private)/(tabs)/lists/[id]/manage',
+        params: { id: String(params.id) }
+      });
+    },
+    onError: () => {
+      Alert.alert(
+        'Erro ao atualizar os preços',
+        'Tente novamente mais tarde ou verifique os dados informados.',
+      )
+    },
+  })
+}
 
 function ListAllProducsts() {
+  const { theme } = useTheme();
+
   const productQuery = useQuery({
     queryKey: ['products'],
     queryFn: fetchProductsByCategories,
@@ -19,6 +58,8 @@ function ListAllProducsts() {
 
   const productByCategory = productQuery.data?.productsData ?? []
   const isLoading = productQuery.isLoading || productQuery.isFetching
+
+  const recalculateMutation = useRecalculateValuesMutation();
 
   function handleRefresh() {
     productQuery.refetch()
@@ -36,6 +77,23 @@ function ListAllProducsts() {
           onBuy={product => setBuyingItem(product)}
         />
       </ScrollView>
+      <VStack
+        width="100%"
+        padding={theme.spacing['3xl']}
+        alignItems="stretch"
+        zIndex={0}
+      >
+        <Button
+          variant="secondary"
+          radius="md"
+          disabled={recalculateMutation.isPending}
+          onPress={() => recalculateMutation.mutate()}
+        >
+          {recalculateMutation.isPending ? <ActivityIndicator /> : (
+            <Text textAlign="center">Salvar</Text>
+          )}
+        </Button>
+      </VStack>
       {buyingItem && (
         <AddProductToListSheet
           product={buyingItem}
@@ -47,6 +105,7 @@ function ListAllProducsts() {
 }
 
 function ListSearchProducts({ search }: { search: string }) {
+  const { theme } = useTheme();
   const query = useInfiniteQuery({
     queryKey: ['list-search-products', search],
     queryFn: async ({ pageParam }) => {
@@ -60,6 +119,8 @@ function ListSearchProducts({ search }: { search: string }) {
   })
   const products = query.data?.pages.flatMap(page => page.results) || []
   const isLoading = query.isLoading || query.isFetching
+
+  const recalculateMutation = useRecalculateValuesMutation();
 
   const [buyingItem, setBuyingItem] = useState<EachProduct | null>(null)
 
@@ -87,6 +148,23 @@ function ListSearchProducts({ search }: { search: string }) {
           onBuy={product => setBuyingItem(product)}
         />
       </ScrollView>
+      <VStack
+        width="100%"
+        padding={theme.spacing['3xl']}
+        alignItems="stretch"
+        zIndex={0}
+      >
+        <Button
+          variant="secondary"
+          radius="md"
+          disabled={recalculateMutation.isPending}
+          onPress={() => recalculateMutation.mutate()}
+        >
+          {recalculateMutation.isPending ? <ActivityIndicator /> : (
+            <Text textAlign="center">Salvar</Text>
+          )}
+        </Button>
+      </VStack>
       {buyingItem && (
         <AddProductToListSheet
           product={buyingItem}
