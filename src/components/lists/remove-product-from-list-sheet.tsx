@@ -1,20 +1,19 @@
 import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet'
 
-import fallback from '@/assets/images/tinta.png'
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet'
 import { useMutation } from '@tanstack/react-query'
 import { useGlobalSearchParams } from 'expo-router'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { ActivityIndicator, Alert } from 'react-native'
 
+import type { EachListProduct } from '@/@types/api/lists'
+
 import { cifraApi } from '@/libs/cifra-api'
 import { useTheme } from '@/providers/theme-provider'
 
 import { Button } from '../ui/button'
-import { Input } from '../ui/input'
 import { Text } from '../ui/text'
-import { HStack, VStack } from '../ui/view'
-import { EachListProduct } from '@/@types/api/lists'
+import { VStack } from '../ui/view'
 
 async function removeProductFromList(listId: string | number, id: number) {
   await cifraApi.delete('/api/lists/{list_pk}/products/{id}/', {
@@ -108,7 +107,7 @@ export function RemoveProductFromListSheet({
               fontWeight={theme.font.weight.regular}
               marginBottom={theme.spacing['4xl']}
             >
-              Ao confirmar, o produto será removido da lista. 
+              Ao confirmar, o produto será removido da lista.
             </Text>
 
             <Button
@@ -117,9 +116,11 @@ export function RemoveProductFromListSheet({
               disabled={removeFromListMutation.isPending}
               onPress={() => removeFromListMutation.mutate()}
             >
-              {removeFromListMutation.isPending ? <ActivityIndicator /> : (
-                <Text textAlign="center">Confirmar</Text>
-              )}
+              {removeFromListMutation.isPending
+                ? <ActivityIndicator />
+                : (
+                    <Text textAlign="center">Confirmar</Text>
+                  )}
             </Button>
             <Button
               variant="ghost"

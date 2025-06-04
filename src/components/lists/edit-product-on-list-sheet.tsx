@@ -1,13 +1,12 @@
 import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet'
 
-import fallback from '@/assets/images/tinta.png'
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet'
 import { useMutation } from '@tanstack/react-query'
 import { useGlobalSearchParams } from 'expo-router'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ActivityIndicator, Alert, Image } from 'react-native'
+import { ActivityIndicator, Alert } from 'react-native'
 
-import type { EachProduct } from '@/@types/api/products'
+import type { EachListProduct } from '@/@types/api/lists'
 
 import { cifraApi } from '@/libs/cifra-api'
 import { useTheme } from '@/providers/theme-provider'
@@ -16,7 +15,6 @@ import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { Text } from '../ui/text'
 import { HStack, VStack } from '../ui/view'
-import { EachListProduct } from '@/@types/api/lists'
 
 async function editProductOnList(listId: string | number, id: string | number, quantity: number) {
   const { data } = await cifraApi.patch<{ id: number }>('/api/lists/{list_pk}/products/{id}/', {
@@ -95,10 +93,10 @@ export function EditProductOnListSheet({
       >
         <VStack flex={1} alignItems="stretch">
           <HStack padding={theme.spacing['4xl']}>
-            {/*<Image
+            {/* <Image
               source={product.image ? { uri: product.image, width: 120, height: 120 } : fallback}
               resizeMode="contain"
-            />*/}
+            /> */}
             <VStack flex={1} alignItems="stretch" justifyContent="center">
               <Text
                 paddingLeft={10}
@@ -171,9 +169,11 @@ export function EditProductOnListSheet({
               disabled={editOnListMutation.isPending}
               onPress={() => editOnListMutation.mutate()}
             >
-              {editOnListMutation.isPending ? <ActivityIndicator /> : (
-                <Text textAlign="center">Salvar</Text>
-              )}
+              {editOnListMutation.isPending
+                ? <ActivityIndicator />
+                : (
+                    <Text textAlign="center">Salvar</Text>
+                  )}
             </Button>
           </VStack>
         </VStack>

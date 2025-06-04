@@ -1,22 +1,22 @@
-import { faChevronLeft, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { router, useGlobalSearchParams } from 'expo-router'
+import { useState } from 'react'
 import { FlatList, TouchableOpacity } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import type { EachListProduct, ListProductPaginated } from '@/@types/api/lists'
 
+import { EditProductOnListSheet } from '@/components/lists/edit-product-on-list-sheet'
+import { ListSavedProductCard } from '@/components/lists/list-saved-product-card'
+import { RemoveProductFromListSheet } from '@/components/lists/remove-product-from-list-sheet'
 import { Text } from '@/components/ui/text'
 import { HStack, VStack } from '@/components/ui/view'
 import { cifraApi } from '@/libs/cifra-api'
 import { useTheme } from '@/providers/theme-provider'
 
 import { getList } from './add-products'
-import { ListSavedProductCard } from '@/components/lists/list-saved-product-card'
-import { useState } from 'react'
-import { RemoveProductFromListSheet } from '@/components/lists/remove-product-from-list-sheet'
-import { EditProductOnListSheet } from '@/components/lists/edit-product-on-list-sheet'
 
 async function fetchListProducts(list: number | string, page: number) {
   const { data } = await cifraApi.get<ListProductPaginated>('/api/lists/{list_pk}/products/', {
@@ -36,7 +36,7 @@ export default function ManageListPage() {
   const listQuery = useQuery({
     queryKey: ['list-by-id', params.id],
     queryFn: () => getList(params.id),
-  });
+  })
   const productsQuery = useInfiniteQuery({
     queryKey: ['lists'],
     queryFn: async ({ pageParam }) => {
@@ -52,8 +52,8 @@ export default function ManageListPage() {
   })
   const products = productsQuery.data?.pages.flatMap(page => page.results) || []
 
-  const [deletingItem, setDeletingItem] = useState<EachListProduct | null>(null);
-  const [editingItem, setEditingItem] = useState<EachListProduct | null>(null);
+  const [deletingItem, setDeletingItem] = useState<EachListProduct | null>(null)
+  const [editingItem, setEditingItem] = useState<EachListProduct | null>(null)
 
   return (
     <VStack flex={1} alignItems="stretch">
@@ -114,8 +114,8 @@ export default function ManageListPage() {
         <RemoveProductFromListSheet
           product={deletingItem}
           onClose={async () => {
-            setDeletingItem(null);
-            await productsQuery.refetch();
+            setDeletingItem(null)
+            await productsQuery.refetch()
           }}
         />
       )}
@@ -124,8 +124,8 @@ export default function ManageListPage() {
         <EditProductOnListSheet
           product={editingItem}
           onClose={async () => {
-            setEditingItem(null);
-            await productsQuery.refetch();
+            setEditingItem(null)
+            await productsQuery.refetch()
           }}
         />
       )}

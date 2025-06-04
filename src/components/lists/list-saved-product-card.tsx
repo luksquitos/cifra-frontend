@@ -9,8 +9,8 @@ import { HStack, VStack } from '@/components/ui/view'
 import { useTheme } from '@/providers/theme-provider'
 
 export type ListSavedProductCardProps = EachListProduct & {
-  onDelete: () => void;
-  onEdit: () => void;
+  onDelete: () => void
+  onEdit: () => void
 }
 
 export function ListSavedProductCard({
