@@ -39,7 +39,7 @@ export default function ManageListPage() {
     queryFn: () => getList(params.id),
   })
   const productsQuery = useInfiniteQuery({
-    queryKey: ['lists'],
+    queryKey: ['list-products'],
     queryFn: async ({ pageParam }) => {
       return fetchListProducts(params.id, pageParam)
     },

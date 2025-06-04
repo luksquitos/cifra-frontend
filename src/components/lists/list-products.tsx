@@ -51,7 +51,7 @@ function ListAllProducsts() {
   const { theme } = useTheme();
 
   const productQuery = useQuery({
-    queryKey: ['products'],
+    queryKey: ['list-all-products'],
     queryFn: fetchProductsByCategories,
   })
   const [buyingItem, setBuyingItem] = useState<EachProduct | null>(null)
