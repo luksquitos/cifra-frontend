@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { router, useGlobalSearchParams } from 'expo-router'
 import { useState } from 'react'
 import { ActivityIndicator, Alert, RefreshControl, ScrollView } from 'react-native'

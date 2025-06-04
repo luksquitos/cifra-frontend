@@ -1,4 +1,3 @@
-import type { EachListProduct } from '@/@types/api/lists'
 import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet'
 
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet'
@@ -7,6 +6,8 @@ import { useGlobalSearchParams } from 'expo-router'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { ActivityIndicator, Alert } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+
+import type { EachListProduct } from '@/@types/api/lists'
 
 import { cifraApi } from '@/libs/cifra-api'
 import { useTheme } from '@/providers/theme-provider'
