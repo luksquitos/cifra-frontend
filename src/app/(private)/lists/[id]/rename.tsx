@@ -29,7 +29,7 @@ async function renameList(id: string | number, input: Pick<CreateListSchemaType,
 export default function ListRenamePage() {
   const params = useGlobalSearchParams<{ id: string }>()
   const router = useRouter()
-  const { top } = useSafeAreaInsets()
+  const { top, bottom } = useSafeAreaInsets()
   const { theme, setStatusBarStyle } = useTheme()
   const queryClient = useQueryClient()
 
@@ -77,7 +77,7 @@ export default function ListRenamePage() {
   }, [list, form])
 
   return (
-    <VStack flex={1} alignItems="stretch">
+    <VStack flex={1} alignItems="stretch" paddingBottom={bottom}>
       <HStack
         backgroundColor={theme.colors.gray[0]}
         paddingTop={top + theme.spacing['2xl']}

@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useGlobalSearchParams, useRouter } from 'expo-router'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Alert, Image } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import type { EachProduct } from '@/@types/api/products'
 
@@ -51,6 +52,7 @@ export function AddProductToListSheet({
   const router = useRouter()
   const params = useGlobalSearchParams<{ id: string }>()
   const { theme } = useTheme()
+  const { bottom } = useSafeAreaInsets()
   const bottomSheetRef = useRef<BottomSheet>(null)
   const [quantity, setQuantity] = useState(1)
   const queryClient = useQueryClient()
@@ -79,7 +81,7 @@ export function AddProductToListSheet({
       queryClient.invalidateQueries({ queryKey: ['list-by-id', params.id] })
       bottomSheetRef.current?.close()
       if (redirect) {
-        router.replace('/lists/page')
+        router.replace('/(private)/(tabs)/lists-display/page')
       }
     },
     onError: () => {
@@ -116,7 +118,7 @@ export function AddProductToListSheet({
           alignItems: 'stretch',
         }}
       >
-        <VStack flex={1} alignItems="stretch">
+        <VStack flex={1} alignItems="stretch" paddingBottom={bottom}>
           <HStack padding={theme.spacing['4xl']}>
             <Image
               source={product.image ? { uri: product.image, width: 120, height: 120 } : fallback}

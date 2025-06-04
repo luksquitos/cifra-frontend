@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useGlobalSearchParams } from 'expo-router'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, Alert } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { cifraApi } from '@/libs/cifra-api'
 import { useTheme } from '@/providers/theme-provider'
@@ -46,6 +47,7 @@ export function EditProductOnListSheet({
   const bottomSheetRef = useRef<BottomSheet>(null)
   const [quantity, setQuantity] = useState(product.quantity || 1)
   const queryClient = useQueryClient()
+  const { bottom } = useSafeAreaInsets()
 
   const handleSheetChanges = useCallback((index: number) => {
     if (index === -1) {
@@ -100,7 +102,7 @@ export function EditProductOnListSheet({
           alignItems: 'stretch',
         }}
       >
-        <VStack flex={1} alignItems="stretch">
+        <VStack flex={1} alignItems="stretch" paddingBottom={bottom}>
           <HStack padding={theme.spacing['4xl']}>
             {/* <Image
               source={product.image ? { uri: product.image, width: 120, height: 120 } : fallback}

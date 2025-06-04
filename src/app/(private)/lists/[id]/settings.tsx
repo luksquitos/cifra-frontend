@@ -13,7 +13,7 @@ import { useTheme } from '@/providers/theme-provider'
 export default function ListSettingsPage() {
   const params = useGlobalSearchParams<{ id: string }>()
   const router = useRouter()
-  const { top } = useSafeAreaInsets()
+  const { top, bottom } = useSafeAreaInsets()
   const { theme, setStatusBarStyle } = useTheme()
 
   const [isDeleting, setIsDeleting] = useState(false)
@@ -23,7 +23,7 @@ export default function ListSettingsPage() {
   }, [])
 
   return (
-    <VStack flex={1} alignItems="stretch">
+    <VStack flex={1} alignItems="stretch" paddingBottom={bottom}>
       <HStack
         backgroundColor={theme.colors.gray[0]}
         paddingTop={top + theme.spacing['2xl']}

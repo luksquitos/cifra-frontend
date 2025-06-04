@@ -32,7 +32,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="lists"
+        name="lists-display/page"
         options={{
           title: 'Listas',
           tabBarIcon: ({ color }) => <FormIcon size={20} color={color} />,

@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useGlobalSearchParams, useRouter } from 'expo-router'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { ActivityIndicator, Alert } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { cifraApi } from '@/libs/cifra-api'
 import { useTheme } from '@/providers/theme-provider'
@@ -31,6 +32,7 @@ export function DeleteListSheet({
   const { theme } = useTheme()
   const bottomSheetRef = useRef<BottomSheet>(null)
   const queryClient = useQueryClient()
+  const { bottom } = useSafeAreaInsets()
 
   const handleSheetChanges = useCallback((index: number) => {
     if (index === -1) {
@@ -49,7 +51,7 @@ export function DeleteListSheet({
     onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: ['lists'] })
       bottomSheetRef.current?.close()
-      router.replace('/lists/page')
+      router.replace('/(private)/(tabs)/lists-display/page')
     },
     onError: () => {
       Alert.alert(
@@ -84,7 +86,7 @@ export function DeleteListSheet({
           alignItems: 'stretch',
         }}
       >
-        <VStack flex={1} alignItems="stretch">
+        <VStack flex={1} alignItems="stretch" paddingBottom={bottom}>
           <VStack
             padding={theme.spacing['4xl']}
             alignItems="stretch"

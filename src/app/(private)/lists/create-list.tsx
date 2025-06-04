@@ -2,7 +2,7 @@ import { useForm } from '@tanstack/react-form'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'expo-router'
 import { useEffect } from 'react'
-import { ActivityIndicator, Alert } from 'react-native'
+import { ActivityIndicator, Alert, SafeAreaView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import type { CreateListSchemaType } from '@/validations/create-list-schema'
@@ -19,7 +19,7 @@ export default function CreateListPage() {
   const router = useRouter()
   const { theme, setStatusBarStyle } = useTheme()
 
-  const { top } = useSafeAreaInsets()
+  const { top, bottom } = useSafeAreaInsets()
 
   useEffect(() => {
     setStatusBarStyle('dark')
@@ -29,7 +29,7 @@ export default function CreateListPage() {
     mutationFn: (data: CreateListSchemaType) => createList(data),
     onSuccess: async ({ id }) => {
       router.replace({
-        pathname: '/(private)/(tabs)/lists/[id]/add-products',
+        pathname: '/(private)/lists/[id]/add-products',
         params: { id: String(id) },
       })
     },
@@ -52,7 +52,7 @@ export default function CreateListPage() {
   })
 
   return (
-    <VStack flex={1}>
+    <VStack flex={1} paddingBottom={bottom}>
       <VStack
         width="100%"
         paddingTop={top + 10}

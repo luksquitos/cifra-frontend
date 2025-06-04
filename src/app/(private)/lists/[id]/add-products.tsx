@@ -27,7 +27,7 @@ export default function ListProductsPage() {
   const [search, setSearch] = useDebounceValue('', 500)
   const [displaySearch, setDisplaySearch] = useState('')
 
-  const { top } = useSafeAreaInsets()
+  const { top, bottom } = useSafeAreaInsets()
   const { theme, setStatusBarStyle } = useTheme()
   const params = useGlobalSearchParams<{ id: string }>()
   const productQuery = useQuery({
@@ -40,7 +40,7 @@ export default function ListProductsPage() {
   }, [])
 
   return (
-    <VStack flex={1}>
+    <VStack flex={1} paddingBottom={bottom}>
       <VStack
         width="100%"
         paddingTop={top + 10}

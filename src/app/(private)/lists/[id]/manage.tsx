@@ -32,7 +32,7 @@ async function fetchListProducts(list: number | string, page: number) {
 
 export default function ManageListPage() {
   const { theme, setStatusBarStyle } = useTheme()
-  const { top } = useSafeAreaInsets()
+  const { top, bottom } = useSafeAreaInsets()
   const params = useGlobalSearchParams<{ id: string }>()
   const listQuery = useQuery({
     queryKey: ['list-by-id', params.id],
@@ -61,7 +61,7 @@ export default function ManageListPage() {
   }, [])
 
   return (
-    <VStack flex={1} alignItems="stretch">
+    <VStack flex={1} alignItems="stretch" paddingBottom={bottom}>
       <HStack
         backgroundColor={theme.colors.gray[0]}
         paddingTop={top + theme.spacing['2xl']}
@@ -157,14 +157,14 @@ export default function ManageListPage() {
         style={{
           position: 'absolute',
           right: 20,
-          bottom: 20,
+          bottom: 80,
           paddingHorizontal: 0,
           paddingVertical: 0,
           alignItems: 'center',
           justifyContent: 'center',
         }}
         onPress={() => router.push({
-          pathname: '/(private)/(tabs)/lists/[id]/add-products',
+          pathname: '/(private)/lists/[id]/add-products',
           params: { id: params.id },
         })}
       >

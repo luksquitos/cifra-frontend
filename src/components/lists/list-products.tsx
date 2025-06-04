@@ -34,7 +34,7 @@ function useRecalculateValuesMutation() {
     },
     onSuccess: async () => {
       router.replace({
-        pathname: '/(private)/(tabs)/lists/[id]/manage',
+        pathname: '/(private)/lists/[id]/manage',
         params: { id: String(params.id) },
       })
     },

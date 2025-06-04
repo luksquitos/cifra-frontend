@@ -1,3 +1,4 @@
+import type { EachListProduct } from '@/@types/api/lists'
 import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet'
 
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet'
@@ -5,8 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useGlobalSearchParams } from 'expo-router'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { ActivityIndicator, Alert } from 'react-native'
-
-import type { EachListProduct } from '@/@types/api/lists'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { cifraApi } from '@/libs/cifra-api'
 import { useTheme } from '@/providers/theme-provider'
@@ -40,6 +40,7 @@ export function RemoveProductFromListSheet({
   const { theme } = useTheme()
   const bottomSheetRef = useRef<BottomSheet>(null)
   const queryClient = useQueryClient()
+  const { bottom } = useSafeAreaInsets()
 
   const handleSheetChanges = useCallback((index: number) => {
     if (index === -1) {
@@ -93,7 +94,7 @@ export function RemoveProductFromListSheet({
           alignItems: 'stretch',
         }}
       >
-        <VStack flex={1} alignItems="stretch">
+        <VStack flex={1} alignItems="stretch" paddingBottom={bottom}>
           <VStack
             padding={theme.spacing['4xl']}
             alignItems="stretch"

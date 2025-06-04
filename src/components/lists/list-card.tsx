@@ -1,9 +1,9 @@
+import type { EachList } from '@/@types/api/lists'
+
 import { useMutation } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import { useRouter } from 'expo-router'
 import { ActivityIndicator, Alert, TouchableOpacity } from 'react-native'
-
-import type { EachList } from '@/@types/api/lists'
 
 import { HStack, VStack } from '@/components/ui/view'
 import { cifraApi } from '@/libs/cifra-api'
@@ -59,7 +59,7 @@ export function ListCard({ list, onRefresh }: ListCardProps) {
 
   const handleNavigateToList = () => {
     router.navigate({
-      pathname: '/(private)/(tabs)/lists/[id]/manage',
+      pathname: '/(private)/lists/[id]/manage',
       params: { id: String(list.id) },
     })
   }
