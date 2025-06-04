@@ -1,8 +1,6 @@
 import { AxiosError } from 'axios'
 
-import type { Tokens } from '@/@types/tokens'
-
-import { getTokens, storeTokens } from '@/storage/token-storage'
+import { getTokens, storeAccessToken } from '@/storage/token-storage'
 import { ApplicationError } from '@/utils/application-error'
 
 import type { SignOut } from './rest-client'
@@ -34,11 +32,9 @@ cifraApi.axios.registerInterceptTokenManager = (singOut: SignOut) => {
     async (requestError: any) => {
       if (requestError.response?.status === 401) {
         if (
-          requestError.response.data?.statusCode === '401'
-          || requestError.response.data?.message === 'Unauthorized'
+          requestError.response?.status === 401
         ) {
           const { refreshToken } = await getTokens()
-
           if (!refreshToken) {
             singOut()
             return Promise.reject(requestError)
@@ -67,17 +63,14 @@ cifraApi.axios.registerInterceptTokenManager = (singOut: SignOut) => {
           // eslint-disable-next-line no-async-promise-executor
           return new Promise(async (resolve, reject) => {
             try {
-              const { data } = await cifraApi.post<Tokens>(
+              const { data } = await cifraApi.post(
                 '/api/auth/token/refresh/',
                 {
-                  refreshToken,
+                  refresh: refreshToken,
                 },
               )
 
-              await storeTokens({
-                accessToken: data.accessToken,
-                refreshToken: data.refreshToken,
-              })
+              await storeAccessToken(data.access)
 
               if (originalRequestConfig.data) {
                 originalRequestConfig.data = JSON.parse(
@@ -86,13 +79,13 @@ cifraApi.axios.registerInterceptTokenManager = (singOut: SignOut) => {
               }
 
               originalRequestConfig.headers = {
-                Authorization: `Bearer ${data.accessToken}`,
+                Authorization: `Bearer ${data.access}`,
               }
               cifraApi.axios.defaults.headers.common.Authorization
-                = `Bearer ${data.accessToken}`
+                = `Bearer ${data.access}`
 
               failedQueued.forEach((request) => {
-                request.onSuccess(data.accessToken)
+                request.onSuccess(data.access)
               })
 
               resolve(cifraApi.axios(originalRequestConfig))
