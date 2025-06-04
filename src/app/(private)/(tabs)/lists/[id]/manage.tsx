@@ -13,6 +13,10 @@ import { cifraApi } from '@/libs/cifra-api'
 import { useTheme } from '@/providers/theme-provider'
 
 import { getList } from './add-products'
+import { ListSavedProductCard } from '@/components/lists/list-saved-product-card'
+import { useState } from 'react'
+import { RemoveProductFromListSheet } from '@/components/lists/remove-product-from-list-sheet'
+import { EditProductOnListSheet } from '@/components/lists/edit-product-on-list-sheet'
 
 async function fetchListProducts(list: number | string, page: number) {
   const { data } = await cifraApi.get<ListProductPaginated>('/api/lists/{list_pk}/products/', {
@@ -25,76 +29,6 @@ async function fetchListProducts(list: number | string, page: number) {
   return data
 }
 
-function ListSavedProductCard({ name, quantity, price, total_price }: EachListProduct) {
-  const { theme } = useTheme()
-
-  return (
-    <TouchableOpacity>
-      <VStack
-        marginBottom={theme.spacing['4xl']}
-        padding={theme.spacing['6xl']}
-        backgroundColor="#fff"
-        borderRadius={10}
-        width="100%"
-      >
-        <HStack alignItems="stretch">
-          <VStack flex={1}>
-            <Text
-              color={theme.colors.gray[600]}
-              fontWeight={theme.font.weight.bold}
-              fontSize={theme.font.size.sm}
-              marginBottom={theme.spacing['2xl']}
-            >
-              {name}
-            </Text>
-            <Text
-              color={theme.colors.gray[600]}
-              fontWeight={theme.font.weight.regular}
-              fontSize={theme.font.size.sm}
-            >
-              Qtd:
-              {' '}
-              {quantity}
-            </Text>
-            {price && (
-              <Text
-                color={theme.colors.gray[600]}
-                fontWeight={theme.font.weight.regular}
-                fontSize={theme.font.size.sm}
-              >
-                Unidade: R$
-                {' '}
-                {Number.parseFloat(String(price)).toFixed(2).replace('.', ',')}
-              </Text>
-            )}
-            {total_price && (
-              <Text
-                color={theme.colors.gray[600]}
-                fontWeight={theme.font.weight.regular}
-                fontSize={theme.font.size.sm}
-              >
-                Total: R$
-                {' '}
-                {Number.parseFloat(String(total_price)).toFixed(2).replace('.', ',')}
-              </Text>
-            )}
-          </VStack>
-
-          <VStack justifyContent="flex-start">
-            <TouchableOpacity>
-              <FontAwesomeIcon
-                color={theme.colors.gray[500]}
-                icon={faTrash}
-                size={18}
-              />
-            </TouchableOpacity>
-          </VStack>
-        </HStack>
-      </VStack>
-    </TouchableOpacity>
-  )
-}
-
 export default function ManageListPage() {
   const { theme } = useTheme()
   const { top } = useSafeAreaInsets()
@@ -102,8 +36,7 @@ export default function ManageListPage() {
   const listQuery = useQuery({
     queryKey: ['list-by-id', params.id],
     queryFn: () => getList(params.id),
-  })
-
+  });
   const productsQuery = useInfiniteQuery({
     queryKey: ['lists'],
     queryFn: async ({ pageParam }) => {
@@ -119,6 +52,9 @@ export default function ManageListPage() {
   })
   const products = productsQuery.data?.pages.flatMap(page => page.results) || []
 
+  const [deletingItem, setDeletingItem] = useState<EachListProduct | null>(null);
+  const [editingItem, setEditingItem] = useState<EachListProduct | null>(null);
+
   return (
     <VStack flex={1} alignItems="stretch">
       <HStack
@@ -132,7 +68,7 @@ export default function ManageListPage() {
       >
         <TouchableOpacity
           style={{ alignItems: 'center', justifyContent: 'center', height: 30, width: 30 }}
-          onPress={() => router.canGoBack}
+          onPress={() => router.back()}
         >
           <FontAwesomeIcon color={theme.colors.darkBlue[700]} icon={faChevronLeft} size={18} />
         </TouchableOpacity>
@@ -162,11 +98,37 @@ export default function ManageListPage() {
             paddingHorizontal: theme.spacing['6xl'],
             alignItems: 'stretch',
           }}
-          renderItem={({ item }) => <ListSavedProductCard {...item} />}
+          renderItem={({ item }) => (
+            <ListSavedProductCard
+              onDelete={() => setDeletingItem(item)}
+              onEdit={() => setEditingItem(item)}
+              {...item}
+            />
+          )}
           onRefresh={() => productsQuery.refetch()}
           refreshing={productsQuery.isPending || productsQuery.isLoading}
         />
       </VStack>
+
+      {deletingItem && (
+        <RemoveProductFromListSheet
+          product={deletingItem}
+          onClose={async () => {
+            setDeletingItem(null);
+            await productsQuery.refetch();
+          }}
+        />
+      )}
+
+      {editingItem && (
+        <EditProductOnListSheet
+          product={editingItem}
+          onClose={async () => {
+            setEditingItem(null);
+            await productsQuery.refetch();
+          }}
+        />
+      )}
     </VStack>
   )
 }
