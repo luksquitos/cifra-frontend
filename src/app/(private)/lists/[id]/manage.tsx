@@ -157,7 +157,7 @@ export default function ManageListPage() {
         style={{
           position: 'absolute',
           right: 20,
-          bottom: 80,
+          bottom: 80 + bottom,
           paddingHorizontal: 0,
           paddingVertical: 0,
           alignItems: 'center',

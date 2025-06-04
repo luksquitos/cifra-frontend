@@ -50,22 +50,24 @@ function ListEmpty() {
       >
         Crie uma lista com os materiais de sua escolha e compare o valor total entre as lojas.
       </Text>
-      <Button
-        onPress={() => router.push('/lists/create-list')}
-        style={{ width: '100%', alignItems: 'center', paddingVertical: theme.spacing['3xl'] }}
-        radius="lg"
-        variant="secondary"
-      >
-        <Text
-          fontSize={theme.font.size.md}
-          fontWeight={theme.font.weight.medium}
-          color={theme.colors.gray[600]}
+      <VStack alignItems="center">
+        <Button
+          onPress={() => router.push('/lists/create-list')}
+          style={{ width: '100%', alignItems: 'center', paddingVertical: theme.spacing['3xl'] }}
+          radius="lg"
+          variant="secondary"
         >
-          +
-          {'  '}
-          Criar lista
-        </Text>
-      </Button>
+          <Text
+            fontSize={theme.font.size.md}
+            fontWeight={theme.font.weight.medium}
+            color={theme.colors.gray[600]}
+          >
+            +
+            {'  '}
+            Criar lista
+          </Text>
+        </Button>
+      </VStack>
     </VStack>
   )
 }
@@ -143,28 +145,30 @@ export default function Lists() {
               />
             )}
       </VStack>
-      <Button
-        variant="secondary"
-        radius="full"
-        width={60}
-        height={60}
-        style={{
-          position: 'absolute',
-          right: 20,
-          bottom: 20,
-          paddingHorizontal: 0,
-          paddingVertical: 0,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-        onPress={() => router.navigate('/lists/create-list')}
-      >
-        <FontAwesomeIcon
-          color={theme.colors.gray[600]}
-          icon={faPlus}
-          size={14}
-        />
-      </Button>
+      {lists.length > 0 && (
+        <Button
+          variant="secondary"
+          radius="full"
+          width={60}
+          height={60}
+          style={{
+            position: 'absolute',
+            right: 20,
+            bottom: 20,
+            paddingHorizontal: 0,
+            paddingVertical: 0,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onPress={() => router.navigate('/lists/create-list')}
+        >
+          <FontAwesomeIcon
+            color={theme.colors.gray[600]}
+            icon={faPlus}
+            size={14}
+          />
+        </Button>
+      )}
     </VStack>
   )
 }
