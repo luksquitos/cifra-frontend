@@ -93,7 +93,6 @@ export default function Lists() {
   const lists = listsQuery.data?.pages.flatMap(page => page.results) || []
 
   return (
-
     <VStack flex={1}>
       <VStack
         width="100%"

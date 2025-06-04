@@ -2,6 +2,7 @@ import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { useQuery } from '@tanstack/react-query'
 import { useGlobalSearchParams } from 'expo-router'
+import { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useDebounceValue } from 'usehooks-ts'
@@ -24,6 +25,8 @@ export async function getList(id: number | string): Promise<EachList> {
 
 export default function ListProductsPage() {
   const [search, setSearch] = useDebounceValue('', 500)
+  const [displaySearch, setDisplaySearch] = useState('')
+
   const { top } = useSafeAreaInsets()
   const { theme } = useTheme()
   const params = useGlobalSearchParams<{ id: string }>()
@@ -50,11 +53,19 @@ export default function ListProductsPage() {
         </Text>
 
         <Input
-          value={search}
-          onChangeText={e => setSearch(e)}
+          value={displaySearch}
+          onChangeText={(e) => {
+            setDisplaySearch(e)
+            setSearch(e)
+          }}
           append={search.length > 0
             ? (
-                <TouchableOpacity onPress={() => setSearch('')}>
+                <TouchableOpacity
+                  onPress={() => {
+                    setDisplaySearch('')
+                    setSearch('')
+                  }}
+                >
                   <FontAwesomeIcon
                     icon={faXmark}
                     color={theme.colors.gray[500]}
