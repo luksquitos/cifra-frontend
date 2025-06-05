@@ -7,13 +7,13 @@ import { useTheme } from '@/providers/theme-provider'
 
 export type ButtonProps = {
   children: string | ReactNode
-  variant: 'primary' | 'secondary' | 'ghost' | 'outlined'
-  radius: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full'
+  variant?: 'primary' | 'secondary' | 'ghost' | 'outlined'
+  radius?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full'
   height?: number
   width?: number
 } & TouchableOpacityProps
 
-export function Button({ children, variant, style, height, width, radius = 'full', ...props }: ButtonProps) {
+export function Button({ children, variant = 'primary', style, height, width, radius = 'full', ...props }: ButtonProps) {
   const { theme } = useTheme()
 
   const buttonStyles = StyleSheet.create({

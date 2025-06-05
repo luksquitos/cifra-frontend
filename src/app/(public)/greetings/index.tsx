@@ -32,7 +32,15 @@ export default function Greetings() {
           </Text>
         </VStack>
         <HStack justifyContent="flex-end" flex={1} width="100%">
-          <Button onPress={() => router.push('/(public)/sign-in')} variant="secondary" height={56} width={56}><ArrowRight /></Button>
+          <Button
+            style={{ justifyContent: 'center', alignItems: 'center' }}
+            onPress={() => router.push('/(public)/sign-in')}
+            variant="secondary"
+            height={56}
+            width={56}
+          >
+            <ArrowRight />
+          </Button>
         </HStack>
       </VStack>
     </VStack>
