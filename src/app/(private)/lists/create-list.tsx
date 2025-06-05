@@ -2,7 +2,7 @@ import { useForm } from '@tanstack/react-form'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'expo-router'
 import { useEffect } from 'react'
-import { ActivityIndicator, Alert } from 'react-native'
+import { ActivityIndicator, Alert, KeyboardAvoidingView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import type { CreateListSchemaType } from '@/validations/create-list-schema'
@@ -52,7 +52,7 @@ export default function CreateListPage() {
   })
 
   return (
-    <VStack flex={1} paddingBottom={bottom}>
+    <KeyboardAvoidingView style={{ flex: 1, bottom }} behavior="padding">
       <VStack
         width="100%"
         paddingTop={top + 10}
@@ -97,7 +97,7 @@ export default function CreateListPage() {
           </Button>
         </VStack>
       </VStack>
-    </VStack>
+    </KeyboardAvoidingView>
   )
 }
 
