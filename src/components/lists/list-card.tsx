@@ -149,7 +149,7 @@ export function ListCard({ list, onRefresh }: ListCardProps) {
               fontWeight={theme.font.weight.medium}
               paddingLeft={5}
             >
-              Locais de compra
+              Local de compra
             </Text>
           </Button>
         </HStack>
