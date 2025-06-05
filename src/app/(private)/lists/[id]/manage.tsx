@@ -1,4 +1,4 @@
-import { faChevronLeft, faCog, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { router, useGlobalSearchParams } from 'expo-router'

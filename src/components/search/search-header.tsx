@@ -7,7 +7,6 @@ import { usePathname, useRouter } from 'expo-router'
 import { useSearchParams } from 'expo-router/build/hooks'
 import { useEffect, useRef, useState } from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
-import Animated from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { HStack, VStack } from '@/components/ui/view'

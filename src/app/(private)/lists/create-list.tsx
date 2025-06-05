@@ -2,7 +2,7 @@ import { useForm } from '@tanstack/react-form'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'expo-router'
 import { useEffect } from 'react'
-import { ActivityIndicator, Alert, KeyboardAvoidingView } from 'react-native'
+import { ActivityIndicator, Alert } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import type { CreateListSchemaType } from '@/validations/create-list-schema'
