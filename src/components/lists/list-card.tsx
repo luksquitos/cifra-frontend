@@ -79,7 +79,7 @@ export function ListCard({ list, onRefresh }: ListCardProps) {
           <Text flex={1} color={theme.colors.gray[600]}>
             {list.name}
           </Text>
-          <ChevronRight size={20} color={theme.colors.gray[600]} />
+          <ChevronRight size={14} color={theme.colors.gray[600]} />
         </HStack>
         <VStack
           paddingBottom={theme.spacing['4xl']}
@@ -100,9 +100,15 @@ export function ListCard({ list, onRefresh }: ListCardProps) {
             fontSize={theme.font.size.sm}
             paddingTop={theme.spacing['3xl']}
           >
-            Última atualização em
-            {' '}
-            {displayDate}
+            {!list.best_store
+              ? 'Produtos não encontrados. Tente novamente mais tarde.'
+              : (
+                  <>
+                    Última atualização em
+                    {' '}
+                    {displayDate}
+                  </>
+                )}
           </Text>
         </VStack>
         <HStack>
@@ -135,15 +141,15 @@ export function ListCard({ list, onRefresh }: ListCardProps) {
               alignItems: 'center',
             }}
           >
-            <MagnifyingDollar color={theme.colors.darkBlue[700]} size={24} />
+            <MagnifyingDollar color={theme.colors.darkBlue[700]} size={16} />
             <Text
               numberOfLines={1}
               fontSize={theme.font.size.md}
               color={theme.colors.darkBlue[700]}
-              fontWeight={theme.font.weight.bold}
+              fontWeight={theme.font.weight.medium}
               paddingLeft={5}
             >
-              Onde comprar
+              Locais de compra
             </Text>
           </Button>
         </HStack>
