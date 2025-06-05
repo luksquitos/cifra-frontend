@@ -2,25 +2,36 @@ import fallback from '@/assets/images/tinta.png'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { useRouter } from 'expo-router'
+import { useMemo } from 'react'
 import { Image, TouchableOpacity } from 'react-native'
 
 import type { EachProduct } from '@/@types/api/products'
 
-import { defaultTheme } from '@/constants/theme'
+import { useTheme } from '@/providers/theme-provider'
 
 import { Text } from '../ui/text'
 import { HStack, VStack } from '../ui/view'
 
 export function ProductCard({ name, image, price, id }: EachProduct) {
   const router = useRouter()
+  const { theme } = useTheme()
+
+  const priceDescription = useMemo(() => {
+    if (Number(price) > 100) {
+      return `Ou em ate 12x de ${(Number(price) / 12).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
+    }
+    else {
+      return 'Preço a vista'
+    }
+  }, [price])
 
   return (
     <TouchableOpacity
       onPress={() => router.push(`/product/${id}`)}
       style={{
         width: 220,
-        backgroundColor: defaultTheme.colors.gray[0],
-        borderRadius: defaultTheme.radius.xl,
+        backgroundColor: theme.colors.gray[0],
+        borderRadius: theme.radius.xl,
       }}
     >
       <HStack
@@ -31,27 +42,27 @@ export function ProductCard({ name, image, price, id }: EachProduct) {
         <Image source={image ? { uri: image, width: 120, height: 120 } : fallback} />
       </HStack>
       <VStack
-        paddingHorizontal={defaultTheme.spacing['2xl']}
+        paddingHorizontal={theme.spacing['2xl']}
         height={120}
-        paddingVertical={defaultTheme.spacing['4xl']}
+        paddingVertical={theme.spacing['4xl']}
         borderTopWidth={0.5}
-        borderColor={defaultTheme.colors.gray[50]}
+        borderColor={theme.colors.gray[50]}
         width="100%"
       >
-        <Text fontWeight={500} fontSize={defaultTheme.font.size.sm}>{name}</Text>
-        <VStack marginTop={defaultTheme.spacing['5xl']}>
-          <Text fontSize={defaultTheme.font.size.md} fontWeight={700}>{Number.parseFloat(price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</Text>
-          <Text fontSize={defaultTheme.font.size.xs} color={defaultTheme.colors.gray[400]}>ou até 12x de R$ 66,50</Text>
+        <Text fontWeight={500} fontSize={theme.font.size.sm}>{name}</Text>
+        <VStack marginTop={theme.spacing['5xl']}>
+          <Text fontSize={theme.font.size.md} fontWeight={700}>{Number.parseFloat(price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</Text>
+          <Text fontSize={theme.font.size.xs} color={theme.colors.gray[400]}>{priceDescription}</Text>
         </VStack>
       </VStack>
       <HStack
         width="100%"
         justifyContent="space-between"
-        paddingHorizontal={defaultTheme.spacing['2xl']}
-        paddingVertical={defaultTheme.spacing['2xl']}
-        backgroundColor={defaultTheme.colors.yellow[300]}
-        borderBottomLeftRadius={defaultTheme.radius.xl}
-        borderBottomRightRadius={defaultTheme.radius.xl}
+        paddingHorizontal={theme.spacing['2xl']}
+        paddingVertical={theme.spacing['2xl']}
+        backgroundColor={theme.colors.yellow[300]}
+        borderBottomLeftRadius={theme.radius.xl}
+        borderBottomRightRadius={theme.radius.xl}
       >
         <Text>Comparar preço</Text>
         <FontAwesomeIcon icon={faMagnifyingGlass} />

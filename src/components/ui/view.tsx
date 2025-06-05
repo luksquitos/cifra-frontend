@@ -2,7 +2,7 @@ import type { ViewProps, ViewStyle } from 'react-native'
 
 import { View } from 'react-native'
 
-type CustomViewProps = ViewProps & {
+export type CustomViewProps = ViewProps & {
   flexDirection?: ViewStyle['flexDirection']
   alignItems?: ViewStyle['alignItems']
   justifyContent?: ViewStyle['justifyContent']
@@ -31,7 +31,7 @@ function CustomView({
   )
 }
 
-type StackProps = CustomViewProps
+export type StackProps = CustomViewProps
 
 export function HStack({ children, style, gap, ...props }: StackProps) {
   return (

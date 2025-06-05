@@ -10,7 +10,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native'
 import Animated from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { HStack } from '@/components/ui/view'
+import { HStack, VStack } from '@/components/ui/view'
 import { defaultTheme } from '@/constants/theme'
 
 import { Input } from '../ui/input'
@@ -18,7 +18,8 @@ import { CategoryActiveHeader } from './search-category-active-header'
 
 const styleSheet = StyleSheet.create({
   baseHeaderStyle: {
-    padding: defaultTheme.spacing['6xl'],
+    paddingHorizontal: defaultTheme.spacing['6xl'],
+    paddingBottom: defaultTheme.spacing['6xl'],
     gap: defaultTheme.spacing['4xl'],
   },
   homeHeaderStyle: {
@@ -60,14 +61,14 @@ export function Header({ search, setSearch }: { search: string, setSearch: Debou
     category
       ? <CategoryActiveHeader id={category} />
       : (
-          <Animated.View
+          <VStack
             style={[
               styleSheet.baseHeaderStyle,
               pathname === '/' ? styleSheet.homeHeaderStyle : styleSheet.searchHeaderStyle,
               { paddingTop: top + defaultTheme.spacing['4xl'] },
             ]}
           >
-            <HStack width="100%" gap={defaultTheme.spacing['4xl']}>
+            <HStack gap={defaultTheme.spacing['4xl']}>
               {pathname === '/search' && (
                 <TouchableOpacity
                   style={{ alignItems: 'center', justifyContent: 'center', height: 30, width: 30 }}
@@ -82,6 +83,7 @@ export function Header({ search, setSearch }: { search: string, setSearch: Debou
                 </TouchableOpacity>
               )}
               <Input
+                style={{ flex: 1 }}
                 value={displaySearch}
                 ref={inputRef}
                 onChangeText={(e) => {
@@ -107,7 +109,7 @@ export function Header({ search, setSearch }: { search: string, setSearch: Debou
                 placeholder="Procure por..."
               />
             </HStack>
-          </Animated.View>
+          </VStack>
         )
   )
 }
