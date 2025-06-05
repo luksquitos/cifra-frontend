@@ -2,6 +2,7 @@ import { Tabs } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { FormIcon, SearchIcon, UserIcon } from '@/components/icons'
+import { Text } from '@/components/ui/text'
 import { useTheme } from '@/providers/theme-provider'
 
 export default function TabLayout() {
@@ -22,6 +23,15 @@ export default function TabLayout() {
         tabBarLabelStyle: {
           fontSize: 10,
         },
+        tabBarLabel: ({ children, color, focused }) => (
+          <Text
+            color={color}
+            fontWeight={focused ? theme.font.weight.regular : 'light'}
+            fontSize={theme.font.size.xs}
+          >
+            {children}
+          </Text>
+        ),
       }}
     >
       <Tabs.Screen

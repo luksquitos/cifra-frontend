@@ -112,10 +112,28 @@ export default function Lists() {
         paddingBottom={theme.spacing['3xl']}
         gap={theme.spacing.lg}
       >
-        <Text fontWeight={theme.font.weight.bold} fontSize={theme.font.size.xl}>Listas salvas</Text>
-        <Text color={theme.colors.gray[400]} fontSize={theme.font.size.md}>Crie novas listas de materiais, compare valores entre diferentes lojas e gerencie as listas existentes.</Text>
+        <Text
+          fontWeight={theme.font.weight.bold}
+          fontSize={theme.font.size.xl}
+          color={theme.colors.gray[600]}
+        >
+          Listas salvas
+        </Text>
+        <Text
+          color={theme.colors.gray[400]}
+          fontSize={theme.font.size.md}
+        >
+          Crie novas listas de materiais, compare valores entre diferentes lojas e gerencie as listas existentes.
+        </Text>
       </VStack>
-      <VStack flex={1} width="100%" alignItems="stretch" justifyContent="center" paddingHorizontal={theme.spacing['6xl']}>
+      <VStack
+        flex={1}
+        width="100%"
+        alignItems="stretch"
+        justifyContent="center"
+        paddingHorizontal={theme.spacing['6xl']}
+        backgroundColor={theme.colors.gray[50]}
+      >
         {!lists.length
           ? (
               <ListEmpty />

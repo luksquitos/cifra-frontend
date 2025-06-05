@@ -1,6 +1,5 @@
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { TouchableOpacity } from 'react-native'
+import { Trash } from 'lucide-react-native'
+import { Image, TouchableOpacity } from 'react-native'
 
 import type { EachListProduct } from '@/@types/api/lists'
 
@@ -18,6 +17,7 @@ export function ListSavedProductCard({
   quantity,
   price,
   total_price,
+  image,
   onDelete,
   onEdit,
 }: ListSavedProductCardProps) {
@@ -33,7 +33,13 @@ export function ListSavedProductCard({
         width="100%"
       >
         <HStack alignItems="stretch">
-          <VStack flex={1}>
+          {image && (
+            <Image
+              source={{ uri: image, width: 90, height: 90 }}
+              resizeMode="cover"
+            />
+          )}
+          <VStack flex={1} marginHorizontal={theme.spacing['2xl']}>
             <Text
               color={theme.colors.gray[600]}
               fontWeight={theme.font.weight.bold}
@@ -77,9 +83,8 @@ export function ListSavedProductCard({
 
           <VStack justifyContent="flex-start">
             <TouchableOpacity onPress={onDelete}>
-              <FontAwesomeIcon
+              <Trash
                 color={theme.colors.gray[500]}
-                icon={faTrash}
                 size={18}
               />
             </TouchableOpacity>

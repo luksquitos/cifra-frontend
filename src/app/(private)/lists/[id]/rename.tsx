@@ -104,7 +104,14 @@ export default function ListRenamePage() {
         </Text>
       </HStack>
 
-      <VStack flex={1} width="100%" alignItems="stretch" justifyContent="center" paddingHorizontal={theme.spacing['6xl']}>
+      <VStack
+        flex={1}
+        width="100%"
+        alignItems="stretch"
+        justifyContent="center"
+        paddingHorizontal={theme.spacing['6xl']}
+        backgroundColor={theme.colors.gray[50]}
+      >
         <VStack flex={1} paddingTop={theme.spacing['6xl']}>
           <form.Field name="name">
             {field => (

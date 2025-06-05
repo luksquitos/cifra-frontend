@@ -6,7 +6,7 @@ import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/botto
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useGlobalSearchParams } from 'expo-router'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ActivityIndicator, Alert } from 'react-native'
+import { ActivityIndicator, Alert, Image } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import type { EachListProduct } from '@/@types/api/lists'
@@ -105,10 +105,12 @@ export function EditProductOnListSheet({
       >
         <VStack flex={1} alignItems="stretch" paddingBottom={bottom}>
           <HStack padding={theme.spacing['4xl']}>
-            {/* <Image
-              source={product.image ? { uri: product.image, width: 120, height: 120 } : fallback}
-              resizeMode="contain"
-            /> */}
+            {product.image && (
+              <Image
+                source={product.image ? { uri: product.image, width: 120, height: 120 } : fallback}
+                resizeMode="contain"
+              />
+            )}
             <VStack flex={1} alignItems="stretch" justifyContent="center">
               <Text
                 paddingLeft={10}

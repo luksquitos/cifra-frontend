@@ -1,7 +1,8 @@
-import { faChevronLeft, faCog, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { router, useGlobalSearchParams } from 'expo-router'
+import { AlertTriangle, Settings } from 'lucide-react-native'
 import { useEffect, useState } from 'react'
 import { FlatList, TouchableOpacity } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -73,7 +74,7 @@ export default function ManageListPage() {
       >
         <TouchableOpacity
           style={{ alignItems: 'center', justifyContent: 'center', height: 30, width: 30 }}
-          onPress={() => router.back()}
+          onPress={() => router.replace('/(private)/(tabs)/lists-display/page')}
         >
           <FontAwesomeIcon color={theme.colors.darkBlue[700]} icon={faChevronLeft} size={18} />
         </TouchableOpacity>
@@ -95,13 +96,48 @@ export default function ManageListPage() {
             })
           }}
         >
-          <FontAwesomeIcon color={theme.colors.darkBlue[700]} icon={faCog} size={18} />
+          <Settings color={theme.colors.darkBlue[700]} size={18} />
         </TouchableOpacity>
       </HStack>
 
-      <VStack flex={1} alignItems="stretch">
+      <VStack
+        flex={1}
+        alignItems="stretch"
+        backgroundColor={theme.colors.gray[50]}
+      >
         <FlatList
           data={products}
+          ListHeaderComponent={(
+            <>
+              {listQuery.data && !listQuery.data?.best_store && (
+                <VStack
+                  backgroundColor={theme.colors.yellow[100]}
+                  borderLeftWidth={4}
+                  borderLeftColor={theme.colors.yellow[500]}
+                  borderRadius={4}
+                  marginBottom={theme.spacing['6xl']}
+                >
+                  <HStack flex={1} alignItems="center">
+                    <VStack alignItems="center" justifyContent="center" marginLeft={theme.spacing['2xl']}>
+                      <AlertTriangle
+                        size={16}
+                        color={theme.colors.yellow[500]}
+                      />
+                    </VStack>
+                    <Text
+                      flex={1}
+                      padding={theme.spacing['2xl']}
+                      color={theme.colors.gray[500]}
+                      fontWeight={theme.font.weight.medium}
+                      fontSize={theme.font.size.sm}
+                    >
+                      Não encontramos nenhuma loja que tenha todos os produtos desta lista.
+                    </Text>
+                  </HStack>
+                </VStack>
+              )}
+            </>
+          )}
           keyExtractor={(item, index) => `${item.id}-${index}`}
           onEndReached={() => {
             if (productsQuery.hasNextPage && !productsQuery.isFetchingNextPage) {

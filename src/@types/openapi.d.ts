@@ -519,6 +519,11 @@ export type components = {
        * @description Valor total dos produtos do melhor local de compra baseado na quantidade
        */
       total_price?: string | null
+      /**
+       * Imagem
+       * Format: uri
+       */
+      readonly image?: string | null
     } & {
       [key: string]: unknown
     }
@@ -584,6 +589,11 @@ export type components = {
        * @description Valor total dos produtos do melhor local de compra baseado na quantidade
        */
       total_price?: string | null
+      /**
+       * Imagem
+       * Format: uri
+       */
+      readonly image: string | null
     } & {
       [key: string]: unknown
     }
