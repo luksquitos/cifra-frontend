@@ -1,9 +1,10 @@
+import listBg from '@/assets/images/list-empty-bg.png'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useRouter } from 'expo-router'
 import { useEffect } from 'react'
-import { FlatList } from 'react-native'
+import { FlatList, ImageBackground } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import type { ListsPaginated } from '@/@types/api/lists'
@@ -26,11 +27,16 @@ function ListEmpty() {
 
   return (
     <VStack paddingHorizontal={20} alignItems="center" justifyContent="center">
-      <FormIcon
-        color={theme.colors.darkBlue[700]}
-        style={{ marginBottom: theme.spacing['2xl'] }}
-        size={48}
-      />
+      <ImageBackground
+        style={{ width: 200, height: 170, justifyContent: 'center', alignItems: 'center' }}
+        source={listBg}
+      >
+        <FormIcon
+          color={theme.colors.darkBlue[700]}
+          style={{ marginBottom: theme.spacing['2xl'] }}
+          size={62}
+        />
+      </ImageBackground>
       <Text
         fontWeight={theme.font.weight.bold}
         fontSize={theme.font.size.lg}
