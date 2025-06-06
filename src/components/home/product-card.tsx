@@ -21,7 +21,7 @@ export function ProductCard({ name, image, price, id }: EachProduct) {
       return `Ou em ate 12x de ${(Number(price) / 12).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
     }
     else {
-      return 'Preço a vista'
+      return 'À vista'
     }
   }, [price])
 

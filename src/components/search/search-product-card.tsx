@@ -1,5 +1,6 @@
 import fallback from '@/assets/images/tinta.png'
 import { useRouter } from 'expo-router'
+import { useMemo } from 'react'
 import { Image, TouchableOpacity } from 'react-native'
 
 import type { EachProduct } from '@/@types/api/products'
@@ -13,6 +14,14 @@ import { HStack, VStack } from '../ui/view'
 export function ProductCard({ name, image, price, id }: EachProduct) {
   const router = useRouter()
   const { theme } = useTheme()
+  const priceDescription = useMemo(() => {
+    if (Number(price) > 100) {
+      return `Ou em ate 12x de ${(Number(price) / 12).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
+    }
+    else {
+      return 'À vista'
+    }
+  }, [price])
 
   return (
     <TouchableOpacity
@@ -42,7 +51,7 @@ export function ProductCard({ name, image, price, id }: EachProduct) {
         <Text fontWeight={500} fontSize={theme.font.size.sm}>{name}</Text>
         <VStack marginTop={theme.spacing['5xl']}>
           <Text fontSize={theme.font.size.md} fontWeight={700}>{Number.parseFloat(price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</Text>
-          <Text fontSize={theme.font.size.xs} color={theme.colors.gray[400]}>ou até 12x de R$ 66,50</Text>
+          <Text fontSize={theme.font.size.xs} color={theme.colors.gray[400]}>{priceDescription}</Text>
         </VStack>
       </VStack>
       <HStack
